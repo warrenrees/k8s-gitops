@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: exubi-wp-stg
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: wordpress
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+  interval: 1h0m0s
+  releaseName: exubi-wp-stg
+  targetNamespace: default
+  values:
+    wordpressUsername: admin
+    existingSecret: wp-admin-exubitech
+    replicaCount: 2
+    persistence:
+      accessModes:
+        - ReadWriteMany
+      accessMode: ReadWriteMany
+      existingClaim: "exubi-stg-wordpress-pvc"
+      storageclass: "nfs"
+      size: 10Gi
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 10
+
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hostname: staging.exubitech.com
+
+    mariadb:
+      auth:
+        existingSecret: "wp-mariadb-secrets"
+        username: "exubitech"
+        database: "exubitech"
+      primary:
+        persistence:
+          storageClass: "nfs"
+          size: 8Gi

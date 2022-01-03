@@ -1,0 +1,79 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-exubitech-prod-wordpress
+  namespace: default
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+#  claimRef:
+#    namespace: default
+#    name: exubi-prod-wordpress-pvc
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/kubernetes/exubitech/production
+    server: 10.0.0.29
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-exubitech-prod-mariadb
+  namespace: default
+spec:
+  capacity:
+    storage: 8Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+#  claimRef:
+#    namespace: default
+#    name: data-exubi-wp-prod-mariadb-0
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/kubernetes/exubitech/production/mariadb
+    server: 10.0.0.29
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: exubi-prod-wordpress-pvc
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-exubitech-prod-wordpress
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-exubi-wp-prod-mariadb-0
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteOnce
+  volumeName: nfs-exubitech-prod-mariadb
+  resources:
+    requests:
+      storage: 8Gi
+

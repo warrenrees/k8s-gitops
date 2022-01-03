@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+  labels:
+    managed-by: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: exubitech
+  labels:
+    managed-by: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  labels:
+    managed-by: flux
