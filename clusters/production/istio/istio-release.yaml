@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: istio-base
+      chart: base
       sourceRef:
         kind: HelmRepository
         name: istio
