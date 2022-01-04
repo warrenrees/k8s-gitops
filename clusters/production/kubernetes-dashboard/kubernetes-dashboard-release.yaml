@@ -24,7 +24,8 @@ spec:
 
     ingress:
       enabled: true
-    hosts:
-      - kubernetes-dashboard.rees.ca
+      hosts:
+        - kubernetes-dashboard.rees.ca
+      ingressClassName: nginx
 
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
