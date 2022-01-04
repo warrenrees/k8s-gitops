@@ -26,3 +26,11 @@ metadata:
   labels:
     managed-by: flux
 
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: longhorn-system
+  labels:
+    managed-by: flux
+
