@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: istio-base
+  namespace: istio-system
+spec:
+  chart:
+    spec:
+      chart: istio-base
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+  interval: 10m0s
+  releaseName: istio-base
+  targetNamespace: istio-system
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: istiod
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: istiod
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+  interval: 10m0s
+  releaseName: istiod
+  targetNamespace: istio-system
+
