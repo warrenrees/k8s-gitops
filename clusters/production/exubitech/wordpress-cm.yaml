@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-cm
+  namespace: default
+data:
+  wordpress-htaccess.conf: |
+    php_value max_input_vars 3000
+    auto_prepend_file = '/opt/bitnami/wordpress/wordfence-waf.php'

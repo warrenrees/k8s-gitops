@@ -29,11 +29,18 @@ spec:
       enabled: true
       minReplicas: 2
       maxReplicas: 10
+    customHTAccessCM: wordpress-cm
 
     ingress:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.org/server-snippet: |
+          server {
+            absolute_redirect off;
+            port_in_redirect off;
+          }
+
       ingressClassName: nginx
       tls: true
       hostname: "staging.exubitech.com"
