@@ -18,6 +18,9 @@ spec:
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
     replicaCount: 2
+    containerPorts:
+      http: 80
+      https: 443
     persistence:
       accessModes:
         - ReadWriteMany
