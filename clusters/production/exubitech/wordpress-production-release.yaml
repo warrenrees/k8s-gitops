@@ -30,6 +30,8 @@ spec:
       minReplicas: 2
       maxReplicas: 10
 
+    customHTAccessCM: wordpress-cm
+
     ingress:
       enabled: true
       ingressClassName: nginx
