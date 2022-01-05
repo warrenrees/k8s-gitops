@@ -17,7 +17,7 @@ spec:
   values:
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
-    replicaCount: 2
+    replicaCount: 1
     persistence:
       accessModes:
         - ReadWriteMany
@@ -27,7 +27,7 @@ spec:
       size: 10Gi
     autoscaling:
       enabled: true
-      minReplicas: 2
+      minReplicas: 1
       maxReplicas: 10
     customHTAccessCM: wordpress-cm
 
@@ -35,7 +35,7 @@ spec:
       enabled: true
       certManager: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        cert-manager.io/cluster-issuer: "letsencrypt-staging"
         nginx.org/server-snippets: |
           absolute_redirect off;
           port_in_redirect off;
