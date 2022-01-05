@@ -4,5 +4,6 @@ resources:
 - ./pv-wordpress.yaml
 - ./pv-prod-wordpress.yaml
 - ./exubitech-secrets-sealed.yaml
+- ./wordpress-cm.yaml
 - ./wordpress-staging-release.yaml
 - ./wordpress-production-release.yaml

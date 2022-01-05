@@ -36,10 +36,8 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
         nginx.org/server-snippet: |
-          server {
-            absolute_redirect off;
-            port_in_redirect off;
-          }
+          absolute_redirect off;
+          port_in_redirect off;
 
       ingressClassName: nginx
       tls: true

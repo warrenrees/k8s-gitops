@@ -35,8 +35,20 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
       ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.org/server-snippet: |
+          absolute_redirect off;
+          port_in_redirect off;
+
       tls: true
       hostname: "www.exubitech.com"
+      extraHosts:
+        - name: exubitech.com
+          path: /
+      extraTls:
+      - hosts:
+        exubitech.com
 
     mariadb:
       auth:
