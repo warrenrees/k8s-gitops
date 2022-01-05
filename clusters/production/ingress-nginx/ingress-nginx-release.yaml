@@ -17,4 +17,9 @@ spec:
   releaseName: ingress-nginx
   upgrade:
     crds: CreateReplace
-
+  values:
+    controller:
+      config:
+        use-forwarded-headers: "true"
+        compute-full-forwarded-for: "true"
+        use-proxy-protocol: "true"
