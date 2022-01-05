@@ -47,8 +47,8 @@ spec:
         - name: exubitech.com
           path: /
       extraTls:
-      - hosts:
-        exubitech.com
+        - hosts:
+            - exubitech.com
 
     mariadb:
       auth:
