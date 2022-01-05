@@ -33,9 +33,10 @@ spec:
 
     ingress:
       enabled: true
+      certManager: true
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        nginx.org/server-snippet: |
+        nginx.org/server-snippets: |
           absolute_redirect off;
           port_in_redirect off;
 

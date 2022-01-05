@@ -17,7 +17,7 @@ spec:
   values:
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
-    replicaCount: 2
+    replicaCount: 1
     persistence:
       accessModes:
         - ReadWriteMany
@@ -35,20 +35,26 @@ spec:
     ingress:
       enabled: true
       ingressClassName: nginx
+      certManager: true
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        nginx.org/server-snippet: |
-          absolute_redirect off;
-          port_in_redirect off;
+        nginx.org/server-snippets: |
+          location / {
+            absolute_redirect off;
+            port_in_redirect off;
+          }
+        nginx.org/location-snippets: |
+            absolute_redirect off;
+            port_in_redirect off;
 
       tls: true
       hostname: "www.exubitech.com"
       extraHosts:
         - name: exubitech.com
           path: /
-      extraTls:
-        - hosts:
-            - exubitech.com
+#      extraTls:
+#        - hosts:
+#            - exubitech.com
 
     mariadb:
       auth:
