@@ -32,8 +32,11 @@ spec:
 
     ingress:
       enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
       ingressClassName: nginx
-      hostname: www.exubitech.com
+      tls: true
+      hostname: "www.exubitech.com"
 
     mariadb:
       auth:
