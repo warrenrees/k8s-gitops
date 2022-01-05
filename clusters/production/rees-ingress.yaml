@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: ingress-service
   namespace: default
-spec:
-  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - "staging.exubitech.com"
