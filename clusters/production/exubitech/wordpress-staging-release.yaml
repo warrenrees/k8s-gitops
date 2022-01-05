@@ -32,7 +32,10 @@ spec:
 
     ingress:
       enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-staging"
       ingressClassName: nginx
+      tls: true
       hostname: staging.exubitech.com
 
     mariadb:

@@ -5,6 +5,13 @@ metadata:
   namespace: default
 spec:
   ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+  tls:
+  - hosts:
+    - "staging.exubitech.com"
+    - "www.exubitech.com"
+    secretName: tls-secret
   rules:
   - host: "nginx.rees.ca"
     http:
