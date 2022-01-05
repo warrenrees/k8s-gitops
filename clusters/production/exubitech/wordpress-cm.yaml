@@ -6,4 +6,3 @@ metadata:
 data:
   wordpress-htaccess.conf: |
     php_value max_input_vars 3000
-    auto_prepend_file = '/opt/bitnami/wordpress/wordfence-waf.php'
