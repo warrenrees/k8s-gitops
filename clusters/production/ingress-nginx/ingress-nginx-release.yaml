@@ -20,6 +20,11 @@ spec:
     crds: CreateReplace
   values:
     controller:
+      replicaCount: 2
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+
       service:
         externalTrafficPolicy: Local
       config:
