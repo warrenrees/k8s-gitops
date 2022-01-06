@@ -3,8 +3,9 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: ingress-nginx
-  namespace: ingress-nginx
+  namespace: flux-system
 spec:
+  targetNamespace: ingress-nginx
   chart:
     spec:
       chart: ingress-nginx
@@ -19,7 +20,8 @@ spec:
     crds: CreateReplace
   values:
     controller:
+      service:
+        externalTrafficPolicy: Local
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
-        use-proxy-protocol: "true"
