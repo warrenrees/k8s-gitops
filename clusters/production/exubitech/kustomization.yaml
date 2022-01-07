@@ -1,9 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ./pv-wordpress.yaml
+- ./pv-dev-wordpress.yaml
 - ./pv-prod-wordpress.yaml
 - ./exubitech-secrets-sealed.yaml
 - ./wordpress-cm.yaml
-- ./wordpress-staging-release.yaml
+- ./wordpress-dev-release.yaml
 - ./wordpress-production-release.yaml
