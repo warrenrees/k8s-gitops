@@ -16,7 +16,3 @@ spec:
 
   values:
     replicas: 2
-    apiService:
-      insecureSkipTLSVerify: true
-    extraArgs: 
-      - --kubelet-insecure-tls
