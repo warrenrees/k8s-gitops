@@ -20,6 +20,7 @@ spec:
       difficult: normal
       serviceType: LoadBalancer
       loadBalancerIP: 10.0.0.34
+      externalTrafficPolicy: Local
     rcon:
     persistence:
       dataDir:
