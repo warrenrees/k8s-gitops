@@ -12,8 +12,16 @@ spec:
         kind: HelmRepository
         name: itzg
   interval: 1h0m0s
+  releaseName: minecraft-server
+  targetNamespace: default
   values:
     minecraftServer:
       eula: true
       difficult: normal
- 
+      serviceType: LoadBalancer
+      loadBalancerIP: 10.0.0.34
+    rcon:
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: pvc-minecraft
