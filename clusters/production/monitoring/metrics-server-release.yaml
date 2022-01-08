@@ -16,3 +16,7 @@ spec:
 
   values:
     replicas: 2
+    apiService:
+      create: true
+    extraArgs:
+      kubelet-insecure-tls: true
