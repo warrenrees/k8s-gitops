@@ -49,12 +49,12 @@ spec:
 
       tls: true
       hostname: "www.exubitech.com"
-#      extraHosts:
-#        - name: exubitech.com
-#          path: /
-#      extraTls:
-#        - hosts:
-#            - exubitech.com
+      extraHosts:
+        - name: exubitech.com
+          path: /
+      extraTls:
+        - hosts:
+            - exubitech.com
 
     mariadb:
       auth:
