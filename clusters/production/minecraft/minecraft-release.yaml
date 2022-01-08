@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minecraft-server
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: minecraft
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+  interval: 1h0m0s
+  values:
+    minecraftServer:
+      eula: true
+      difficult: normal
+ 
