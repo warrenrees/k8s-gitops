@@ -13,7 +13,7 @@ spec:
         name: bitnami
   interval: 1h0m0s
   releaseName: exubi-wp-dev
-  targetNamespace: default
+  targetNamespace: exubitech
   values:
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
@@ -23,7 +23,7 @@ spec:
         - ReadWriteMany
       accessMode: ReadWriteMany
       existingClaim: "exubi-dev-wordpress-pvc"
-      storageclass: "nfs"
+      storageclass: "longhorn-static"
       size: 10Gi
     autoscaling:
       enabled: true
@@ -48,5 +48,5 @@ spec:
         database: "exubitech"
       primary:
         persistence:
-          storageClass: "nfs"
+          storageClass: "longhorn-static"
           size: 8Gi
