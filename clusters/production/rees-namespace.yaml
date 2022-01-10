@@ -8,6 +8,13 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: internal-nginx
+  labels:
+    managed-by: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: exubitech
   labels:
     managed-by: flux
