@@ -22,8 +22,8 @@ spec:
       accessModes:
         - ReadWriteMany
       accessMode: ReadWriteMany
-      existingClaim: "pvc-wp-exubi-prod"
-      storageclass: "longhorn-static"
+      existingClaim: "exubi-prod-wordpress-pvc"
+      storageclass: "nfs"
       size: 10Gi
     autoscaling:
       enabled: true
@@ -63,5 +63,5 @@ spec:
         database: "exubitech"
       primary:
         persistence:
-          storageClass: "longhorn-static"
+          storageClass: "nfs"
           size: 8Gi

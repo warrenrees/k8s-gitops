@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: nfs-exubitech-prod-wordpress
-  namespace: default
+  namespace: exubitech
 spec:
   capacity:
     storage: 10Gi
@@ -28,7 +28,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: nfs-exubitech-prod-mariadb
-  namespace: default
+  namespace: exubitech
 spec:
   capacity:
     storage: 8Gi
@@ -52,7 +52,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: exubi-prod-wordpress-pvc
-  namespace: default
+  namespace: exubitech
 spec:
   storageClassName: nfs
   accessModes:
@@ -67,7 +67,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: data-exubi-wp-prod-mariadb-0
-  namespace: default
+  namespace: exubitech
 spec:
   storageClassName: nfs
   accessModes:
