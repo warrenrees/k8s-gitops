@@ -9,7 +9,7 @@ spec:
     storage: 35Ti
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
@@ -28,7 +28,7 @@ metadata:
 spec:
   storageClassName: nfs
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   volumeName: nfs-plex-video
   resources:
     requests:
@@ -45,7 +45,7 @@ spec:
     storage: 35Ti
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
@@ -64,7 +64,7 @@ metadata:
 spec:
   storageClassName: nfs
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   volumeName: nfs-plex-photo
   resources:
     requests:
@@ -81,7 +81,7 @@ spec:
     storage: 35Ti
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
@@ -100,7 +100,7 @@ metadata:
 spec:
   storageClassName: nfs
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   volumeName: nfs-plex-music
   resources:
     requests:
