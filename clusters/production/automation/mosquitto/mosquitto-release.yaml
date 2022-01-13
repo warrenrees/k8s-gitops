@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mosquitto
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: mosquitto
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+  interval: 10m0s
+  releaseName: mosquitto
+  targetNamespace: default
+  values:
+    image:
+      tag: latest
+      pullPolicy: Always
+    service:
+      main:
+        loadBalancerIP: 10.0.0.190
+        type: LoadBalancer
+    persistence:
+      data:
+        enabled: true
+        existingClaim: pvc-mosquitto-data
+        storageClassName: "longhorn-static"
+      configinc:
+        enabled: true
+        existingClaim: pvc-mosquitto-configinc
+        storageClassName: "longhorn-static"

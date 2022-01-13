@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: zigbee2mqtt
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+  interval: 10m0s
+  releaseName: zigbee2mqtt
+  targetNamespace: default
+  values:
+    image:
+      tag: latest
+      pullPolicy: Always
+
+    securityContext:
+      privileged: true
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal-nginx
+        hosts:
+        - host: zigbee2mqtt.rees.ca
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: zigbee2mqtt
+                port:
+                  number: 8080
+
+    persistence:
+      data:
+        enabled: true
+        existingClaim: pvc-zigbee2mqtt
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - zigbee-controller
+    additionalVolumeMounts:
+      - name: usb
+        mountPath: /dev/ttyUSB0
+
+    additionalVolumes:
+      - name: usb
+        hostPath:
+          path: /dev/ttyUSB0
+
+    config:
+      homeassistant: true
+      permit_join: true
+      mqtt:
+        server: "mqtt://mqtt.rees.ca"
+      serial:
+        port: /dev/ttyUSB0

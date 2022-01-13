@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: home-assistant
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+  interval: 10m0s
+  releaseName: home-assistant
+  targetNamespace: default
+  values:
+    env:
+      TZ: America/Toronto
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+
+    securityContext:
+      privileged: true
+        
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          nginx.org/websocket-services: home-assistant
+
+        hosts:
+        - host: hass.rees.ca
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-assistant
+                port:
+                  number: 8123
+        tls:
+        - hosts:
+          - hass.rees.ca
+          secretName: ha-tls-secret
+    persistence:
+      config:
+        enabled: true
+        existingClaim: pvc-home-assistant-config
