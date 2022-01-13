@@ -1,0 +1,78 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: plex
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+  interval: 1h0m0s
+  releaseName: plex
+  targetNamespace: default
+  values:
+    env:
+      TZ: "America/Toronto"
+      ADVERTISE_IP: http://10.0.0.30:32400,https://plex.rees.ca:32400/,http://plex.rees.ca:32400/
+      ALLOWED_NETWORKS: 10.0.0.0/24
+      
+    envFrom:
+    - secretRef:
+        name: plexclaim-secret
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - zigbee-controller
+    service:
+      main:
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "plex"
+        type: LoadBalancer
+        loadBalancerIP: 10.0.0.30
+#        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 32400
+            targetPort: 32400
+            protocol: TCP
+
+    podSecurityContext:
+      supplementalGroups:
+      - 44
+      - 109
+
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 4096Mi
+
+    persistence:
+      config:
+        enabled: true
+        mountPath: "/config"
+        existingClaim: "pvc-plex-config"
+      transcode:
+        enabled: true
+        type: emptyDir
+      media:
+        enabled: true
+        mountPath: "/video"
+        existingClaim: pvc-plex-video
+#      media2:
+#        enabled: true
+#        mountPath: "/music"
+
