@@ -24,15 +24,6 @@ spec:
     - secretRef:
         name: plexclaim-secret
 
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - zigbee-controller
     service:
       main:
         annotations:
