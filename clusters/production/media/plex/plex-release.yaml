@@ -63,6 +63,16 @@ spec:
         enabled: true
         mountPath: "/video"
         existingClaim: pvc-plex-video
+
+      photo:
+        enabled: true
+        mountPath: "/photo"
+        existingClaim: pvc-plex-photo
+
+      music:
+        enabled: true
+        mountPath: "/music"
+        existingClaim: pvc-plex-music
 #      media2:
 #        enabled: true
 #        mountPath: "/music"

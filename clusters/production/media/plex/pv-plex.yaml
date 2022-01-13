@@ -34,3 +34,75 @@ spec:
     requests:
       storage: 35Ti
 
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-plex-photo
+  namespace: default
+spec:
+  capacity:
+    storage: 35Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/photo
+    server: 10.0.0.29
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-plex-photo
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-plex-photo
+  resources:
+    requests:
+      storage: 35Ti
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-plex-music
+  namespace: default
+spec:
+  capacity:
+    storage: 35Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/music
+    server: 10.0.0.29
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-plex-music
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-plex-music
+  resources:
+    requests:
+      storage: 35Ti
+
