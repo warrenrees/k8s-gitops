@@ -2,6 +2,22 @@
 sudo apt update
 sudo apt -y upgrade
 
+# Supports the i915 chipset on NUC11's
+sudo apt install linux-oem-20.04b
+
+# Install the intel graphics software repos
+sudo apt-get install -y gpg-agent wget
+wget -qO - https://repositories.intel.com/graphics/intel-graphics.key |
+  sudo apt-key add -
+sudo apt-add-repository \
+  'deb [arch=amd64] https://repositories.intel.com/graphics/ubuntu focal main'
+
+sudo apt update
+
+# Install necessary dependencies to support the Intel GPU in k8s
+sudo apt install   intel-opencl-icd   intel-level-zero-gpu level-zero   intel-media-va-driver-non-free libigfxcmrt7 libmfx1 vainfo intel-gpu-tools
+
+
 sudo apt -y install curl apt-transport-https jq build-essential nfs-common
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
