@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ombi
-          image: linuxserver/ombi:4.7.8 # {"$imagepolicy": "flux-system:ombi"}
+          image: linuxserver/ombi:4.7.10 # {"$imagepolicy": "flux-system:ombi"}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3579
@@ -41,7 +41,7 @@ spec:
   selector:
     app: ombi
   ports:
-  - name: ombi
-    port: 3579
-    targetPort: 3579
+    - name: ombi
+      port: 3579
+      targetPort: 3579
   type: ClusterIP
