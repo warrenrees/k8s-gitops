@@ -17,7 +17,7 @@ spec:
   values:
     env:
       TZ: "America/Toronto"
-      ADVERTISE_IP: http://10.0.0.30:32400,https://plex.rees.ca:32400/,http://plex.rees.ca:32400/
+      ADVERTISE_IP: https://plex.rees.ca:32400/,http://plex.rees.ca:32400/
       ALLOWED_NETWORKS: 10.0.0.0/24
       
     envFrom:
