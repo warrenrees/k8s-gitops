@@ -16,18 +16,21 @@ spec:
   targetNamespace: default
 
   values:
+    ingressClassName: internal-nginx
     adminUser:
       organization: "Rees"
       existingSecret: influxdb-auth
 
     persistence:
       enabled: true
-      storageClass: "longhorn-static"
-      size: 50Gi
+      useExisting: true
+      name: pvc-influxdb2-data
 
     ingress:
       enabled: true
-      ingressClassName: internal-nginx
+      annotations: 
+        kubernetes.io/ingress.class: "internal-nginx"
+
       hostname: influxdb.rees.ca
 
 
