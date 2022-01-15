@@ -9,4 +9,4 @@ spec:
     name: ombi
   policy:
     semver:
-      range: '>= 4.7.0'
+      range: '>= 4.10.0'
