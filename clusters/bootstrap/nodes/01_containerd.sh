@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Add Docker repo
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 # Install containerd
 sudo apt update
-sudo apt install -y containerd.io
+sudo apt install -y containerd
 
 # Configure containerd and start service
 sudo su -
