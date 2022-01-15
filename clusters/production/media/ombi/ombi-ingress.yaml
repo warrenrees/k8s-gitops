@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - "requests.rees.ca"
-    secretName: tls-reessecret 
+    secretName: tls-ombisecret 
   rules:
   - host: "requests.rees.ca"
     http:

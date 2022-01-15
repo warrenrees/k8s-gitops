@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lidarr
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lidarr
+  template:
+    metadata:
+      labels:
+        app: lidarr
+    spec:
+      containers:
+        - name: lidarr
+          image: linuxserver/lidarr:0.8.1 # {"$imagepolicy": "flux-system:lidarr"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8686
+          env:
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: lidarr-config
+              mountPath: /config
+      volumes:
+        - name: lidarr-config
+          persistentVolumeClaim:
+            claimName: pvc-lidarr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lidarr
+  namespace: default
+  labels:
+    app: lidarr
+spec:
+  selector:
+    app: lidarr
+  ports:
+    - name: lidarr
+      port: 8686
+      targetPort: 8686
+  type: ClusterIP

@@ -10,3 +10,15 @@ spec:
   policy:
     semver:
       range: '>= 4.7.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: lidarr
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: lidarr
+  policy:
+    semver:
+      range: '>= 0.8.1'

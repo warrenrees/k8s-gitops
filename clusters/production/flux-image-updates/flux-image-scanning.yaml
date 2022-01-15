@@ -7,3 +7,12 @@ metadata:
 spec:
   image: linuxserver/ombi
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: lidarr
+  namespace: flux-system
+spec:
+  image: linuxserver/lidarr
+  interval: 30m0s
