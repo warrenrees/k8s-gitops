@@ -12,6 +12,7 @@ spec:
         kind: HelmRepository
         name: influxdata
   interval: 1h0m0s
+  releaseName: influxdb2
   targetNamespace: default
 
   values:
