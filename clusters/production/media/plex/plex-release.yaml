@@ -19,7 +19,7 @@ spec:
       tag: v1.25.3.5409-f11334058
     env:
       TZ: "America/Toronto"
-#      ADVERTISE_IP: http://10.0.0.30:32400/
+      ADVERTISE_IP: http://10.0.0.30:32400/
       ALLOWED_NETWORKS: 10.0.0.0/24
       
     envFrom:
