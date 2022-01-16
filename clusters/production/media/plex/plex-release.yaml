@@ -5,6 +5,8 @@ metadata:
   name: plex
   namespace: flux-system
 spec:
+  image:
+    tag: v1.25.3.5409-f11334058
   chart:
     spec:
       chart: plex
