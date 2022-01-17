@@ -16,6 +16,8 @@ spec:
   targetNamespace: default
 
   values:
+    metricsScraper;
+      enabled: true
     extraArgs:
       - --enable-skip-login
       - --enable-insecure-login
