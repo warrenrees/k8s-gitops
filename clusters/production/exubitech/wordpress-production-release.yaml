@@ -22,7 +22,7 @@ spec:
       accessModes:
         - ReadWriteMany
       accessMode: ReadWriteMany
-      existingClaim: "exubi-prod-wordpress-pvc"
+      existingClaim: "pvc-wp-exubi-prod"
       storageclass: "nfs"
       size: 10Gi
     autoscaling:
