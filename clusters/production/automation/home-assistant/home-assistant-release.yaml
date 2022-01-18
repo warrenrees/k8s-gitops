@@ -33,7 +33,7 @@ spec:
           nginx.org/websocket-services: home-assistant
 
         hosts:
-        - host: hass.rees.ca
+        - host: ha.rees.ca
           paths:
           - path: /
             pathType: Prefix
@@ -44,7 +44,7 @@ spec:
                   number: 8123
         tls:
         - hosts:
-          - hass.rees.ca
+          - ha.rees.ca
           secretName: ha-tls-secret
     persistence:
       config:
