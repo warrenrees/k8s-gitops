@@ -43,3 +43,12 @@ metadata:
 spec:
   image: linuxserver/radarr
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: pihole
+  namespace: flux-system
+spec:
+  image: pihole/pihole
+  interval: 30m0s
