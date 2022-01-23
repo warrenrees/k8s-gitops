@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h0m0s
-  url: https://mojo2600.github.com/pihole-kubernetes/
+  url: https://mojo2600.github.io/pihole-kubernetes/
 
