@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-sonarr-downloads
+  namespace: default
+spec:
+  capacity:
+    storage: 35Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/downloads
+    server: 10.0.0.29
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-sonarr-downloads
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-sonarr-downloads
+  resources:
+    requests:
+      storage: 35Ti
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-sonarr-tv
+  namespace: default
+spec:
+  capacity:
+    storage: 35Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/video/TV
+    server: 10.0.0.29
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-sonarr-tv
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-sonarr-tv
+  resources:
+    requests:
+      storage: 35Ti
+

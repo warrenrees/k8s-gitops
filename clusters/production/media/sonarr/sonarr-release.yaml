@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+        - name: sonarr
+          image: linuxserver/sonarr:3.0.6 # {"$imagepolicy": "flux-system:sonarr"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8989
+          env:
+            - name: PGID
+              value: "65536"
+            - name: PUID
+              value: "1028"
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: sonarr-config
+              mountPath: /config
+            - name: sonarr-downloads
+              mountPath: /downloads
+            - name: sonarr-tv
+              mountPath: /tv
+      volumes:
+        - name: sonarr-config
+          persistentVolumeClaim:
+            claimName: pvc-sonarr-config
+        - name: sonarr-downloads
+          persistentVolumeClaim:
+            claimName: pvc-sonarr-downloads
+        - name: sonarr-tv
+          persistentVolumeClaim:
+            claimName: pvc-sonarr-tv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
+  namespace: default
+  labels:
+    app: sonarr
+spec:
+  selector:
+    app: sonarr
+  ports:
+  - name: sonarr
+    port: 8989
+    targetPort: 8989
+  type: ClusterIP

@@ -16,3 +16,30 @@ metadata:
 spec:
   image: linuxserver/lidarr
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: sabnzbd
+  namespace: flux-system
+spec:
+  image: linuxserver/sabnzbd
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: sonarr
+  namespace: flux-system
+spec:
+  image: linuxserver/sonarr
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: radarr
+  namespace: flux-system
+spec:
+  image: linuxserver/radarr
+  interval: 30m0s
