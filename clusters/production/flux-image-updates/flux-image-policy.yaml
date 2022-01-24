@@ -69,4 +69,4 @@ spec:
     name: pihole
   policy:
     semver:
-      range: '>= 2021.1.1'
+      range: '>= 2021.12'
