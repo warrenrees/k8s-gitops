@@ -16,6 +16,12 @@ spec:
   targetNamespace: longhorn-system
 
   values:
+    longhornManager:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+    longhornDriver:
+      nodeSelector:
+        kubernetes.io/arch: amd64
     longhornUI:
       nodeSelector:
         kubernetes.io/arch: amd64
