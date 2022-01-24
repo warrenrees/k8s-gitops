@@ -15,7 +15,7 @@ spec:
   releaseName: longhorn
   targetNamespace: longhorn-system
 
-values:
-  longhornUI:
-    nodeSelector:
-      kubernetes.io/arch: "amd64"
+  values:
+    longhornUI:
+      nodeSelector:
+        kubernetes.io/arch: amd64
