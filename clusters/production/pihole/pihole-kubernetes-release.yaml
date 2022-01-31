@@ -16,10 +16,13 @@ spec:
   targetNamespace: default
 
   values:
-#    replicas: 3
+    replicas: 3
 
     persistentVolumeClaim:
       enabled: true
+      existingClaim: "pvc-pihole-config"
+      accessModes:
+        - ReadWriteMany
 
     serviceWeb:
       loadBalancerIP: 10.0.0.35

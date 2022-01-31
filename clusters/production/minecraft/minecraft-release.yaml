@@ -21,8 +21,6 @@ spec:
       serviceType: LoadBalancer
       loadBalancerIP: 10.0.0.34
       externalTrafficPolicy: Local
-      serviceAnnotations:
-        metallb.universe.tf/allow-shared-ip: mc-pihole-svc
     rcon:
     persistence:
       dataDir:
