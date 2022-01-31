@@ -47,3 +47,10 @@ metadata:
   name: node-feature-discovery
   labels:
     managed-by: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    managed-by: flux
