@@ -33,4 +33,5 @@ spec:
 
       hostname: influxdb.rees.ca
 
-
+    pdb:
+      create: false
