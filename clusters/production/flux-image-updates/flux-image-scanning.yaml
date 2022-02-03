@@ -68,5 +68,5 @@ metadata:
   name: plex
   namespace: flux-system
 spec:
-  image: ghcr.io/k8s-at-home/plex
+  image: plexinc/pms-docker
   interval: 30m0s
