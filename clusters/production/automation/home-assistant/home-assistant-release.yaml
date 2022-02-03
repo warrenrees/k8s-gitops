@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-       tag: 2021.12.7 # {$imagepolicy": "flux-system:homeassistant"}
+       tag: 2022.2.0 # {$imagepolicy": "flux-system:homeassistant"}
     env:
       TZ: America/Toronto
     hostNetwork: true
@@ -52,3 +52,18 @@ spec:
       config:
         enabled: true
         existingClaim: pvc-homeassistant
+
+    metrics:
+      enabled: true
+
+      prometheusRule:"
+        rules:
+          - alert: HomeAssistantAbsent
+            annotations:
+              description: Home Assistant has disappeared from Prometheus service discovery.
+              summary: Home Assistant is down.
+            expr: |
+              absent(up{job=~".*home-assistant.*"} == 1)
+            for: 5m
+            labels:
+              severity: critical
