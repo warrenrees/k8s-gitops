@@ -82,3 +82,15 @@ spec:
   policy:
     semver:
       range: '>= 2021.12'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: plex
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: plex
+  policy:
+    semver:
+      range: '>= v1.24.1.4931-1a38e63c6'
