@@ -52,3 +52,12 @@ metadata:
 spec:
   image: pihole/pihole
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: homeassistant
+  namespace: flux-system
+spec:
+  image: homeassistant/home-assistant
+  interval: 30m0s
