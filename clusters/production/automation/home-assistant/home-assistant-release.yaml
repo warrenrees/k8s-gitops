@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -16,46 +15,40 @@ spec:
   targetNamespace: default
   values:
     image:
-       tag: 2022.2.0 # {"$imagepolicy": "flux-system:homeassistant"}
+      tag: homeassistant/home-assistant:2022.2.0 # {"$imagepolicy": "flux-system:homeassistant"}
     env:
       TZ: America/Toronto
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
-
     securityContext:
       privileged: true
-        
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
-
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
           nginx.org/websocket-services: home-assistant
-
         hosts:
-        - host: ha.rees.ca
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: home-assistant
-                port:
-                  number: 8123
+          - host: ha.rees.ca
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: home-assistant
+                    port:
+                      number: 8123
         tls:
-        - hosts:
-          - ha.rees.ca
-          secretName: ha-tls-secret
+          - hosts:
+              - ha.rees.ca
+            secretName: ha-tls-secret
     persistence:
       config:
         enabled: true
         existingClaim: pvc-homeassistant
-
     metrics:
       enabled: true
-
       prometheusRule:
         rules:
           - alert: HomeAssistantAbsent
