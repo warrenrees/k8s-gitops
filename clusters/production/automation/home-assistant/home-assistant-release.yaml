@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-       tag: 2022.2.0 # {$imagepolicy": "flux-system:homeassistant"}
+       tag: 2022.2.0
     env:
       TZ: America/Toronto
     hostNetwork: true
