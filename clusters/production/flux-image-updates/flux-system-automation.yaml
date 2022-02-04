@@ -17,6 +17,7 @@ spec:
     push:
       branch: main
   interval: 1m0s
+  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
