@@ -1,5 +1,3 @@
-
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -14,25 +12,20 @@ spec:
         name: mojo2600
   interval: 60m0s
   targetNamespace: default
-
   values:
     image:
-      tag: 2022.01 # {"$imagepolicy": "flux-system:pihole:tag"}
-
+      tag: !!float 2022.01.1 # {"$imagepolicy": "flux-system:pihole:tag"}
     replicas: 3
-
     persistentVolumeClaim:
       enabled: true
       existingClaim: "pvc-pihole-config"
       accessModes:
         - ReadWriteMany
-
     serviceWeb:
       loadBalancerIP: 10.0.0.35
       annotations:
         metallb.universe.tf/allow-shared-ip: mc-pihole-svc
       type: LoadBalancer
-
     serviceDns:
       loadBalancerIP: 10.0.0.35
       annotations:

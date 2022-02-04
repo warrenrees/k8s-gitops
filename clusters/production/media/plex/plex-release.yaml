@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -16,16 +15,14 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: v1.25.3.5409-f11334058 # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: v1.25.4.5487-648a8f9f9 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
       ADVERTISE_IP: http://10.0.0.30:32400/
       ALLOWED_NETWORKS: 10.0.0.0/24
-      
     envFrom:
-    - secretRef:
-        name: plexclaim-secret
-
+      - secretRef:
+          name: plexclaim-secret
     service:
       main:
         annotations:
@@ -38,12 +35,10 @@ spec:
             port: 32400
             targetPort: 32400
             protocol: TCP
-
     podSecurityContext:
       supplementalGroups:
-      - 44
-      - 109
-
+        - 44
+        - 109
     resources:
       requests:
         gpu.intel.com/i915: 1
@@ -52,7 +47,6 @@ spec:
       limits:
         gpu.intel.com/i915: 1
         memory: 4096Mi
-
     persistence:
       config:
         enabled: true
@@ -65,12 +59,10 @@ spec:
         enabled: true
         mountPath: "/video"
         existingClaim: pvc-plex-video
-
       photo:
         enabled: true
         mountPath: "/photo"
         existingClaim: pvc-plex-photo
-
       music:
         enabled: true
         mountPath: "/music"
@@ -78,4 +70,3 @@ spec:
 #      media2:
 #        enabled: true
 #        mountPath: "/music"
-
