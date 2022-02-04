@@ -1,72 +1,113 @@
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: ombi
   namespace: flux-system
 spec:
-  image: linuxserver/ombi
-  interval: 30m0s
+  imageRepositoryRef:
+    name: ombi
+  policy:
+    semver:
+      range: '>= 4.7.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: lidarr
   namespace: flux-system
 spec:
-  image: linuxserver/lidarr
-  interval: 30m0s
+  imageRepositoryRef:
+    name: lidarr
+  policy:
+    semver:
+      range: '>= 0.8.1'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: sabnzbd
   namespace: flux-system
 spec:
-  image: linuxserver/sabnzbd
-  interval: 30m0s
+  imageRepositoryRef:
+    name: sabnzbd
+  policy:
+    semver:
+      range: '>= 3.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: sonarr
   namespace: flux-system
 spec:
-  image: linuxserver/sonarr
-  interval: 30m0s
+  imageRepositoryRef:
+    name: sonarr
+  policy:
+    semver:
+      range: '>= 3.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: radarr
   namespace: flux-system
 spec:
-  image: linuxserver/radarr
-  interval: 30m0s
+  imageRepositoryRef:
+    name: radarr
+  policy:
+    semver:
+      range: '>= 3.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: pihole
   namespace: flux-system
 spec:
-  image: pihole/pihole
-  interval: 30m0s
+  imageRepositoryRef:
+    name: pihole
+  filterTags:
+    pattern: '^(?P<major>[2-9][0-9][2-9][0-9])\.(?P<minor>[0-9][0-9])\.(?P<patch>0|[0-9]\d*)$'
+  policy:
+    alphabetical:
+      order: asc
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: homeassistant
   namespace: flux-system
 spec:
-  image: homeassistant/home-assistant
-  interval: 30m0s
+  imageRepositoryRef:
+    name: homeassistant
+  policy:
+    semver:
+      range: '>= 2021.12.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
+kind: ImagePolicy
 metadata:
   name: plex
   namespace: flux-system
 spec:
-  image: ghcr.io/k8s-at-home/plex
-  interval: 30m0s
+  imageRepositoryRef:
+    name: plex
+  filterTags:
+    pattern: '^v(?P<major>0|[1-9]\d*)\.(?P<minor>[1-9][2-9])\.(?P<patch>0|[1-9]\d*)\.(?P<something>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: minecraft
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: minecraft
+  policy:
+    semver:
+      range: '>= 2021.12.0'
+

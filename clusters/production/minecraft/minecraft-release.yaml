@@ -15,6 +15,7 @@ spec:
   releaseName: minecraft-server
   targetNamespace: default
   values:
+    imageTag: latest # {"$imagepolicy": "flux-system:minecraft:tag"}
     minecraftServer:
       eula: true
       difficult: normal
