@@ -15,14 +15,14 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: v1.25.4.5487-648a8f9f9 # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: v1.25.5.5492-12f6b8c83 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
       ADVERTISE_IP: http://10.0.0.30:32400/
       ALLOWED_NETWORKS: 10.0.0.0/24
     envFrom:
-      - secretRef:
-          name: plexclaim-secret
+    - secretRef:
+        name: plexclaim-secret
     service:
       main:
         annotations:
@@ -37,8 +37,8 @@ spec:
             protocol: TCP
     podSecurityContext:
       supplementalGroups:
-        - 44
-        - 109
+      - 44
+      - 109
     resources:
       requests:
         gpu.intel.com/i915: 1
