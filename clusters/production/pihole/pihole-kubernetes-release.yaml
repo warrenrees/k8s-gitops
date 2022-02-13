@@ -14,13 +14,13 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 2022.01.1 # {"$imagepolicy": "flux-system:pihole:tag"}
+      tag: 2022.02.1 # {"$imagepolicy": "flux-system:pihole:tag"}
     replicas: 3
     persistentVolumeClaim:
       enabled: true
       existingClaim: "pvc-pihole-config"
       accessModes:
-        - ReadWriteMany
+      - ReadWriteMany
     serviceWeb:
       loadBalancerIP: 10.0.0.35
       annotations:
