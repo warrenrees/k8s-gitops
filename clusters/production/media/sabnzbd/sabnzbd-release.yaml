@@ -14,30 +14,30 @@ spec:
         app: sabnzbd
     spec:
       containers:
-        - name: sabnzbd
-          image: linuxserver/sabnzbd:3.5.0 # {"$imagepolicy": "flux-system:sabnzbd"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8080
-          env:
-            - name: PGID
-              value: "65536"
-            - name: PUID
-              value: "1028"
-            - name: TZ
-              value: America\Toronto
-          volumeMounts:
-            - name: sabnzbd-config
-              mountPath: /config
-            - name: sabnzbd-downloads
-              mountPath: /downloads
-      volumes:
+      - name: sabnzbd
+        image: linuxserver/sabnzbd:3.5.1 # {"$imagepolicy": "flux-system:sabnzbd"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PGID
+          value: "65536"
+        - name: PUID
+          value: "1028"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
         - name: sabnzbd-config
-          persistentVolumeClaim:
-            claimName: pvc-sabnzbd-config
+          mountPath: /config
         - name: sabnzbd-downloads
-          persistentVolumeClaim:
-            claimName: pvc-sabnzbd-downloads
+          mountPath: /downloads
+      volumes:
+      - name: sabnzbd-config
+        persistentVolumeClaim:
+          claimName: pvc-sabnzbd-config
+      - name: sabnzbd-downloads
+        persistentVolumeClaim:
+          claimName: pvc-sabnzbd-downloads
 ---
 apiVersion: v1
 kind: Service
@@ -50,7 +50,7 @@ spec:
   selector:
     app: sabnzbd
   ports:
-    - name: sabnzbd
-      port: 8080
-      targetPort: 8080
+  - name: sabnzbd
+    port: 8080
+    targetPort: 8080
   type: ClusterIP
