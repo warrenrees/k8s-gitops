@@ -14,35 +14,35 @@ spec:
         app: radarr
     spec:
       containers:
-        - name: radarr
-          image: linuxserver/radarr:4.0.4 # {"$imagepolicy": "flux-system:radarr"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 7878
-          env:
-            - name: PGID
-              value: "65536"
-            - name: PUID
-              value: "1028"
-            - name: TZ
-              value: America\Toronto
-          volumeMounts:
-            - name: radarr-config
-              mountPath: /config
-            - name: radarr-downloads
-              mountPath: /downloads
-            - name: radarr-movies
-              mountPath: /movies
-      volumes:
+      - name: radarr
+        image: linuxserver/radarr:4.0.5 # {"$imagepolicy": "flux-system:radarr"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 7878
+        env:
+        - name: PGID
+          value: "65536"
+        - name: PUID
+          value: "1028"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
         - name: radarr-config
-          persistentVolumeClaim:
-            claimName: pvc-radarr-config
+          mountPath: /config
         - name: radarr-downloads
-          persistentVolumeClaim:
-            claimName: pvc-radarr-downloads
+          mountPath: /downloads
         - name: radarr-movies
-          persistentVolumeClaim:
-            claimName: pvc-radarr-movies
+          mountPath: /movies
+      volumes:
+      - name: radarr-config
+        persistentVolumeClaim:
+          claimName: pvc-radarr-config
+      - name: radarr-downloads
+        persistentVolumeClaim:
+          claimName: pvc-radarr-downloads
+      - name: radarr-movies
+        persistentVolumeClaim:
+          claimName: pvc-radarr-movies
 ---
 apiVersion: v1
 kind: Service
@@ -55,7 +55,7 @@ spec:
   selector:
     app: radarr
   ports:
-    - name: radarr
-      port: 7878
-      targetPort: 7878
+  - name: radarr
+    port: 7878
+    targetPort: 7878
   type: ClusterIP
