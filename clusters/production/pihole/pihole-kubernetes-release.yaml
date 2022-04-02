@@ -14,7 +14,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 2022.02.1 # {"$imagepolicy": "flux-system:pihole:tag"}
+      tag: 2022.04.1 # {"$imagepolicy": "flux-system:pihole:tag"}
     replicas: 3
     persistentVolumeClaim:
       enabled: true
