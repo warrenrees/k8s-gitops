@@ -15,7 +15,7 @@ spec:
   values:
     image:
       tag: 2022.04.2 # {"$imagepolicy": "flux-system:pihole:tag"}
-    replicas: 3
+    replicaCount: 3
     persistentVolumeClaim:
       enabled: true
       existingClaim: "pvc-pihole-config"
