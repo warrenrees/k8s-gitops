@@ -17,8 +17,10 @@ spec:
       tag: 2022.04.2 # {"$imagepolicy": "flux-system:pihole:tag"}
     replicaCount: 1
     extraEnvVars: 
-      - DNSMASQ_USER:root
-      - FTLCONF_REPLY_ADDR4:10.0.0.35
+      - name: FTLCONF_REPLY_ADDR4
+        value: "10.0.0.35"
+      - name: DNSMASQ_USER
+        value: "root"
     persistentVolumeClaim:
       enabled: true
       existingClaim: "pvc-pihole-config"
