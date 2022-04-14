@@ -14,21 +14,21 @@ spec:
         app: ombi
     spec:
       containers:
-        - name: ombi
-          image: linuxserver/ombi:4.10.2 # {"$imagepolicy": "flux-system:ombi"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 3579
-          env:
-            - name: TZ
-              value: America\Toronto
-          volumeMounts:
-            - name: ombi-config
-              mountPath: /config
-      volumes:
+      - name: ombi
+        image: linuxserver/ombi:4.16.11 # {"$imagepolicy": "flux-system:ombi"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3579
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
         - name: ombi-config
-          persistentVolumeClaim:
-            claimName: pvc-ombi-config
+          mountPath: /config
+      volumes:
+      - name: ombi-config
+        persistentVolumeClaim:
+          claimName: pvc-ombi-config
 ---
 apiVersion: v1
 kind: Service
@@ -41,7 +41,7 @@ spec:
   selector:
     app: ombi
   ports:
-    - name: ombi
-      port: 3579
-      targetPort: 3579
+  - name: ombi
+    port: 3579
+    targetPort: 3579
   type: ClusterIP
