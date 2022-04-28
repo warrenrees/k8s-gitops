@@ -2,11 +2,7 @@
 sudo apt update
 sudo apt -y upgrade
 
-# Supports the i915 chipset on NUC11's
-sudo apt install linux-oem-20.04b
-
 # Install the intel graphics software repos
-sudo apt-get install -y gpg-agent wget
 wget -qO - https://repositories.intel.com/graphics/intel-graphics.key |
   sudo apt-key add -
 sudo apt-add-repository \
@@ -53,3 +49,13 @@ EOF
 # Install required packages
 sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
 
+# Update multipath
+sudo nano /etc/multipath.conf
+
+add:
+
+blacklist {
+    devnode "^sd[a-z0-9]+"
+}
+
+sudo systemctl restart multipathd.service
