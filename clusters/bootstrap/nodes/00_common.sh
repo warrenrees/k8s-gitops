@@ -3,8 +3,7 @@ sudo apt update
 sudo apt -y upgrade
 
 # Install the intel graphics software repos
-wget -qO - https://repositories.intel.com/graphics/intel-graphics.key |
-  sudo apt-key add -
+wget -qO - https://repositories.intel.com/graphics/intel-graphics.key | sudo tee /etc/apt/trusted.gpg.d/intel-graphics.asc
 sudo apt-add-repository \
   'deb [arch=amd64] https://repositories.intel.com/graphics/ubuntu focal main'
 
@@ -15,7 +14,7 @@ sudo apt install   intel-opencl-icd   intel-level-zero-gpu level-zero   intel-me
 
 
 sudo apt -y install curl apt-transport-https jq build-essential nfs-common
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /etc/apt/trusted.gpg.d/gcloud.gpg
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 sudo apt update
