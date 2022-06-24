@@ -15,7 +15,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: v1.27.0.5897-3940636f2 # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: v1.27.1.5916-6b0e31a64 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
       ADVERTISE_IP: http://10.0.0.30:32400/
