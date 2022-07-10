@@ -1,0 +1,18 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: myipaddresspool
+  namespace: flux-system
+spec:
+  addresses:
+  - 10.0.0.185-10.0.0.190
+  - 10.0.0.50/32
+  - 10.0.0.30/32
+  - 10.0.0.34/32
+  - 10.0.0.35/32
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: empty
+  namespace: flux-system
