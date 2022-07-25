@@ -33,4 +33,4 @@ spec:
       annotations:
         kubernetes.io/ingress.class: internal-nginx
 
-#      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
