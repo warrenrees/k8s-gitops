@@ -79,3 +79,21 @@ metadata:
 spec:
   image: itzg/minecraft-server
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: frigate
+  namespace: flux-system
+spec:
+  image: blakeblackshear/frigate
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: double-take
+  namespace: flux-system
+spec:
+  image: jakowenko/double-take
+  interval: 30m0s

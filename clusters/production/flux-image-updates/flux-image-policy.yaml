@@ -111,3 +111,29 @@ spec:
     semver:
       range: '>= 2021.12.0'
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: frigate
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: frigate
+  policy:
+    semver:
+      range: '>= 0.10.0-amd64'
+
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: double-take
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: double-take
+  policy:
+    semver:
+      range: '>= 1.12.0'
+
