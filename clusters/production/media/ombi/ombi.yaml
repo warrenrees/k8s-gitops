@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: ombi
-        image: linuxserver/ombi:4.16.12 # {"$imagepolicy": "flux-system:ombi"}
+        image: linuxserver/ombi:4.22.5 # {"$imagepolicy": "flux-system:ombi"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579
