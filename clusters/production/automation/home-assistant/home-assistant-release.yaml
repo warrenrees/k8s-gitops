@@ -53,14 +53,14 @@ spec:
       codeserver:
         enabled: true
 
-#    volumes:
-#    - name: ha-dbus
-#      hostPath:
-#        path: /run/dbus/
+    extraVolumes:
+    - name: ha-dbus
+      hostPath:
+        path: /run/dbus/
 #
-#    volumeMounts:
-#    - name: ha-dbus
-#      mountPath: /run/dbus/
+    extraVolumeMounts:
+    - name: ha-dbus
+      mountPath: /run/dbus/
 
     metrics:
       enabled: true
