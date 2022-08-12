@@ -49,18 +49,14 @@ spec:
         enabled: true
         existingClaim: pvc-homeassistant
 
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /run/dbus
+
     addons:
       codeserver:
         enabled: true
-
-    extraVolumes:
-    - name: ha-dbus
-      hostPath:
-        path: /run/dbus/
-#
-    extraVolumeMounts:
-    - name: ha-dbus
-      mountPath: /run/dbus/
 
     metrics:
       enabled: true
