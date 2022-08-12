@@ -48,6 +48,20 @@ spec:
       config:
         enabled: true
         existingClaim: pvc-homeassistant
+
+    addons:
+      codeserver:
+        enabled: true
+
+#    volumes:
+#    - name: ha-dbus
+#      hostPath:
+#        path: /run/dbus/
+#
+#    volumeMounts:
+#    - name: ha-dbus
+#      mountPath: /run/dbus/
+
     metrics:
       enabled: true
       prometheusRule:
