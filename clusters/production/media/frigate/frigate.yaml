@@ -1,0 +1,199 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: frigate
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: frigate
+      sourceRef:
+        kind: HelmRepository
+        name: blakeblackshear
+  interval: 1h0m0s
+  releaseName: frigate
+  targetNamespace: default
+  values:
+
+    ingress:
+      enabled: false
+
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 10.0.0.189
+
+    extraVolumes:
+      - name: frigate-data
+        persistentVolumeClaim:
+          claimName: pvc-frigate-data
+      - name: frigate-config
+        persistentVolumeClaim:
+          claimName: pvc-frigate-config
+      - name: frigate-recording
+        persistentVolumeClaim:
+          claimName: pvc-frigate-recording
+
+    extraVolumeMounts:
+      - mountPath: /config
+        name: frigate-config
+      - mountPath: /media/frigate
+        name: frigate-data
+      - mountPath: /media/frigate/recordings
+        name: frigate-recording
+
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+      limits:
+        gpu.intel.com/i915: 1
+
+    podSecurityContext:
+      supplementalGroups:
+      - 44
+      - 109
+
+    nodeSelector:
+      feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
+
+    env:
+      TZ: "Canada/Eastern"
+
+    envFromSecrets:
+    - frigate-secret
+
+    config: |
+      mqtt:
+        host: mqtt.rees.ca
+        port: 1883
+        topic_prefix: frigate
+        client_id: frigate
+        stats_interval: 60
+
+      detectors:
+        # coral:
+        #   type: edgetpu
+        #   device: usb
+        cpu1:
+          type: cpu
+
+      ffmpeg:
+        hwaccel_args:
+          - -hwaccel
+          - qsv
+          - -qsv_device
+          - /dev/dri/renderD128
+
+      record:
+        enabled: true
+
+      snapshots:
+        enabled: true
+        bounding_box: true
+
+      cameras:
+        driveway:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/102
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/101
+                roles:
+                  - record
+                  - rtmp
+          detect:
+            width: 640
+            height: 480
+            fps: 6
+
+          record:
+            enabled: true
+            retain:
+              days: 3
+          objects:
+            track:
+              - person
+              - car
+              - cat
+              - dog
+        backyard:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/102
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/101
+                roles:
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 640
+            height: 480
+            fps: 6
+
+        living_room:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/102
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/101
+                roles:
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+          detect:
+            width: 640
+            height: 480
+            fps: 6
+
+        sideyard:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+
+        shed:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=2
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1280
+            height: 720
+            fps: 5

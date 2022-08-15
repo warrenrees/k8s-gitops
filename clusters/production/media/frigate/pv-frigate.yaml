@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-frigate-recording
+  namespace: default
+spec:
+  capacity:
+    storage: 35Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    path: /volume1/frigate
+    server: 10.0.0.29
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-frigate-recording
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-frigate-recording
+  resources:
+    requests:
+      storage: 35Ti
