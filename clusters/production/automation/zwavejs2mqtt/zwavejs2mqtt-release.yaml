@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -18,10 +17,8 @@ spec:
     image:
       tag: 6.15.2 # {"$imagepolicy": "flux-system:zwavejs2mqtt:tag"}
       pullPolicy: Always
-
     securityContext:
       privileged: true
-
     ingress:
       main:
         enabled: true
@@ -36,7 +33,6 @@ spec:
                 name: zwavejs2mqtt
                 port:
                   number: 8091
-
     persistence:
       config:
         enabled: true
@@ -51,10 +47,9 @@ spec:
               values:
               - zwave-controller
     additionalVolumeMounts:
-      - name: usb
-        mountPath: /dev/ttyACM0
-
+    - name: usb
+      mountPath: /dev/ttyACM0
     additionalVolumes:
-      - name: usb
-        hostPath:
-          path: /dev/ttyACM0
+    - name: usb
+      hostPath:
+        path: /dev/ttyACM0
