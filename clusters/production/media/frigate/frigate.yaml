@@ -21,15 +21,12 @@ spec:
 
     service:
       type: LoadBalancer
-      loadBalancerIP: 10.0.0.189
+      loadBalancerIP: 10.0.0.244
 
     extraVolumes:
       - name: frigate-data
         persistentVolumeClaim:
           claimName: pvc-frigate-data
-      - name: frigate-config
-        persistentVolumeClaim:
-          claimName: pvc-frigate-config
       - name: frigate-recording
         persistentVolumeClaim:
           claimName: pvc-frigate-recording
