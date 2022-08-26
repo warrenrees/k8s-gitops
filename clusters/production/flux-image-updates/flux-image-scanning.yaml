@@ -106,3 +106,12 @@ metadata:
 spec:
   image: zwavejs/zwavejs2mqtt
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: zigbee2mqtt
+  namespace: flux-system
+spec:
+  image: koenkk/zigbee2mqtt
+  interval: 30m0s
