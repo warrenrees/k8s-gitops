@@ -1,15 +1,12 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  creationTimestamp: "2022-08-09T14:31:06Z"
   generation: 2
   labels:
     kustomize.toolkit.fluxcd.io/name: flux-system
     kustomize.toolkit.fluxcd.io/namespace: flux-system
   name: myipaddresspool
   namespace: metallb-system
-  resourceVersion: "208674344"
-  uid: eccddc11-c88d-4e40-abe5-9ce4e4d858f5
 spec:
   addresses:
   - 10.0.0.240-10.0.0.250
@@ -20,3 +17,10 @@ spec:
   - 10.0.0.35/32
   autoAssign: true
   avoidBuggyIPs: false
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: empty
+  namespace: metallb-system
