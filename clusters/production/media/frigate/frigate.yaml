@@ -32,8 +32,6 @@ spec:
           claimName: pvc-frigate-recording
 
     extraVolumeMounts:
-      - mountPath: /config
-        name: frigate-config
       - mountPath: /media/frigate
         name: frigate-data
       - mountPath: /media/frigate/recordings
