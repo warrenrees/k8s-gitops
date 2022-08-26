@@ -104,5 +104,5 @@ metadata:
   name: zwavejs2mqtt
   namespace: flux-system
 spec:
-  image: zwavejs2mqtt
+  image: zwavejs/zwavejs2mqtt
   interval: 30m0s
