@@ -20,7 +20,7 @@ spec:
       pullPolicy: Always
     service:
       main:
-        loadBalancerIP: 10.0.0.190
+        loadBalancerIP: 10.0.0.245
         type: LoadBalancer
     persistence:
       data:
