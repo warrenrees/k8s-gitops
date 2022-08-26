@@ -97,3 +97,12 @@ metadata:
 spec:
   image: jakowenko/double-take
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: zwavejs2mqtt
+  namespace: flux-system
+spec:
+  image: zwavejs2mqtt
+  interval: 30m0s

@@ -137,3 +137,18 @@ spec:
     semver:
       range: '>= 1.12.0'
 
+
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: zwavejs2mqtt
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: zwavejs2mqtt
+  policy:
+    semver:
+      range: '>= 6.14.0'
+
+
