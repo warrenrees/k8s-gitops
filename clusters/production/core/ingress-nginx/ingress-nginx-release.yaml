@@ -26,6 +26,7 @@ spec:
         minReplicas: 2
         maxReplicas: 3
       service:
+        loadBalancerIP: "10.0.0.240"
         externalTrafficPolicy: Local
       config:
         use-forwarded-headers: "true"
