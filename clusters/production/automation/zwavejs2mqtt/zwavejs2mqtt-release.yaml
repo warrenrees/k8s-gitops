@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 6.14.1 # {"$imagepolicy": "flux-system:zwavejs2mqtt:tag"}
+      tag: 6.15.2 # {"$imagepolicy": "flux-system:zwavejs2mqtt:tag"}
       pullPolicy: Always
 
     securityContext:
