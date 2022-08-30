@@ -28,7 +28,7 @@ spec:
         compreface:
           enabled: true
           url: http://compreface.rees.ca:8000/
-          key: 3d1578ea-bf18-4d70-9d99-641b7e7cc8e9
+          key: 396383db-644f-47fa-b087-ddd209930dba
     ingress:
       main:
         enabled: true
