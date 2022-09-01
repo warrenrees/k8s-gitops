@@ -21,9 +21,14 @@ spec:
     config:
       mqtt:
         host: mqtt.rees.ca:1883
+      detect:
+        match:
+          confidence: 80
       frigate:
         url: http://frigate.rees.ca:5000
-        attempts: { latest: 5, snapshot: 0, mqtt: true, delay: 0 }
+        attempts: { latest: 5, snapshot: 5, mqtt: true, delay: 0 }
+        image: 
+          height: 1440
       detectors:
         compreface:
           enabled: true
