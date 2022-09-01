@@ -90,17 +90,15 @@ spec:
         driveway:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/102
-                roles:
-                  - detect
               - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/101
                 roles:
+                  - detect
                   - record
                   - rtmp
           detect:
-            width: 640
-            height: 480
-            fps: 6
+            width: 2560
+            height: 1440
+            fps: 15
 
           record:
             enabled: true
@@ -115,11 +113,9 @@ spec:
         backyard:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/102
-                roles:
-                  - detect
               - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/101
                 roles:
+                  - detect
                   - record
                   - rtmp
           record:
@@ -128,9 +124,9 @@ spec:
               days: 3
 
           detect:
-            width: 640
-            height: 480
-            fps: 6
+            width: 2048
+            height: 1536
+            fps: 15
 
         living_room:
           ffmpeg:
@@ -152,11 +148,9 @@ spec:
         sideyard:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
-                roles:
-                  - detect
               - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
                 roles:
+                  - detect
                   - record
               - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
                 roles:
@@ -167,9 +161,9 @@ spec:
               days: 3
 
           detect:
-            width: 1280
-            height: 720
-            fps: 5
+            width: 2688
+            height: 1520
+            fps: 15
 
         shed:
           ffmpeg:
