@@ -192,3 +192,39 @@ spec:
             width: 1280
             height: 720
             fps: 5
+
+        kid1:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzecam1:{FRIGATE_WYZE_RTSP_PASSWORD}@192.168.107.44/live
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
+
+        kid2:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzecam1:{FRIGATE_WYZE_RTSP_PASSWORD}@192.168.107.11/live
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
