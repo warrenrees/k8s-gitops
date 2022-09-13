@@ -87,15 +87,18 @@ spec:
         driveway:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/101
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/102
                 roles:
                   - detect
-                  - record
                   - rtmp
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.21:554/Streaming/channels/101
+                roles:
+                  - record
           detect:
-            width: 2560
-            height: 1440
-            fps: 15
+            width: 640
+            height: 480
+            fps: 6
 
           record:
             enabled: true
@@ -110,20 +113,22 @@ spec:
         backyard:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/101
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/102
                 roles:
                   - detect
-                  - record
                   - rtmp
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/101
+                roles:
+                  - record
           record:
             enabled: true
             retain:
               days: 3
 
           detect:
-            width: 2048
-            height: 1536
-            fps: 15
+            width: 640
+            height: 480
+            fps: 6
 
           objects:
             track:
@@ -134,17 +139,20 @@ spec:
         living_room:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/101
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/102
                 roles:
                   - detect
-                  - record
                   - rtmp
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/101
+                roles:
+                  - record
           record:
             enabled: true
           detect:
-            width: 2560
-            height: 1440
-            fps: 15
+            width: 640
+            height: 480
+            fps: 6
 
           objects:
             track:
@@ -153,9 +161,11 @@ spec:
         sideyard:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
                 roles:
                   - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
+                roles:
                   - record
               - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
                 roles:
@@ -166,9 +176,9 @@ spec:
               days: 3
 
           detect:
-            width: 2688
-            height: 1520
-            fps: 15
+            width: 1280
+            height: 720
+            fps: 5
 
           objects:
             track:
@@ -194,8 +204,8 @@ spec:
               days: 3
 
           detect:
-            width: 1920
-            height: 1080
+            width: 1280
+            height: 720
             fps: 5
 
           objects:
