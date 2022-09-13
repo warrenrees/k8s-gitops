@@ -30,32 +30,31 @@ spec:
       - name: frigate-recording
         persistentVolumeClaim:
           claimName: pvc-frigate-recording
-
+        
     extraVolumeMounts:
       - mountPath: /media/frigate
         name: frigate-data
       - mountPath: /media/frigate/recordings
         name: frigate-recording
 
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-      limits:
-        gpu.intel.com/i915: 1
-
     podSecurityContext:
       supplementalGroups:
       - 44
       - 109
+      - 1001
 
     nodeSelector:
       feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
+      coral_tpu: "true"
 
     env:
       TZ: "Canada/Eastern"
 
     envFromSecrets:
     - frigate-secret
+
+    coral:
+      enabled: true
 
     config: |
       mqtt:
@@ -66,11 +65,9 @@ spec:
         stats_interval: 60
 
       detectors:
-        # coral:
-        #   type: edgetpu
-        #   device: usb
-        cpu1:
-          type: cpu
+         coral:
+           type: edgetpu
+           device: pci
 
       ffmpeg:
         hwaccel_args:
@@ -128,22 +125,30 @@ spec:
             height: 1536
             fps: 15
 
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
         living_room:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/102
-                roles:
-                  - detect
               - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.24:554/Streaming/channels/101
                 roles:
+                  - detect
                   - record
                   - rtmp
           record:
             enabled: true
           detect:
-            width: 640
-            height: 480
-            fps: 6
+            width: 2560
+            height: 1440
+            fps: 15
+
+          objects:
+            track:
+              - person
 
         sideyard:
           ffmpeg:
@@ -165,6 +170,12 @@ spec:
             height: 1520
             fps: 15
 
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
         shed:
           ffmpeg:
             inputs:
@@ -183,14 +194,20 @@ spec:
               days: 3
 
           detect:
-            width: 1280
-            height: 720
+            width: 1920
+            height: 1080
             fps: 5
+
+          objects:
+            track:
+              - person
+              - cat
+              - dog
 
         kid1:
           ffmpeg:
             inputs:
-              - path: rtsp://admin:{FRIGATE_WYZE_RTSP_PASSWORD}@192.168.107.11/live
+              - path: rtsp://admin:{FRIGATE_WYZE_RTSP_PASSWORD}@192.168.107.6/live
                 roles:
                   - detect
                   - record
@@ -204,6 +221,10 @@ spec:
             width: 1920
             height: 1080
             fps: 5
+
+          objects:
+            track:
+              - person
 
         kid2:
           ffmpeg:
@@ -223,3 +244,6 @@ spec:
             height: 1080
             fps: 5
 
+          objects:
+            track:
+              - person
