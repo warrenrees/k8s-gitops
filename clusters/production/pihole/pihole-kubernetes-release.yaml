@@ -14,7 +14,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 2022.09.2 # {"$imagepolicy": "flux-system:pihole:tag"}
+      tag: 2022.09.3 # {"$imagepolicy": "flux-system:pihole:tag"}
     replicaCount: 1
     extraEnvVars: {"FTLCONF_REPLY_ADDR4": "10.0.0.35"}
     persistentVolumeClaim:
