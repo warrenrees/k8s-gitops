@@ -20,6 +20,7 @@ spec:
     crds: CreateReplace
   values:
     controller:
+      electionID: ingress-controller-leader
       replicaCount: 2
       autoscaling:
         enabled: true
