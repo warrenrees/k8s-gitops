@@ -32,7 +32,7 @@ spec:
           - backyard
           - shed
           - sideyard
-          - living_room
+          - frontdoor
         image: 
           height: 1440
       detectors:
