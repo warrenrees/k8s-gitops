@@ -90,6 +90,30 @@ spec:
         bounding_box: true
 
       cameras:
+        frontdoor:
+          ffmpeg:
+            inputs:
+              - path: rtsps://10.255.255.1:7441/lq1LjWSSI6BVF72F?enableSrtp
+                roles:
+                  - detect
+                  - rtmp
+              - path: rtsps://10.255.255.1:7441/wEpNW7kCLkOmj5K5?enableSrtp
+                roles:
+                  - record
+          detect:
+            width: 960
+            height: 720
+            fps: 6
+
+          record:
+            enabled: true
+          objects:
+            track:
+              - person
+              - car
+              - cat
+              - dog
+
         driveway:
           ffmpeg:
             inputs:
