@@ -31,11 +31,18 @@ spec:
         persistentVolumeClaim:
           claimName: pvc-frigate-recording
         
+      - name: frigate-clips
+        persistentVolumeClaim:
+          claimName: pvc-frigate-clips
+        
+
     extraVolumeMounts:
       - mountPath: /media/frigate
         name: frigate-data
       - mountPath: /media/frigate/recordings
         name: frigate-recording
+      - mountPath: /media/frigate/clips
+        name: frigate-clips
 
     podSecurityContext:
       supplementalGroups:
@@ -44,7 +51,6 @@ spec:
       - 1001
 
     nodeSelector:
-      feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
       coral_tpu: "true"
 
     env:
