@@ -15,7 +15,7 @@ spec:
   values:
     image:
       tag: 2022.09.3 # {"$imagepolicy": "flux-system:pihole:tag"}
-    replicaCount: 1
+    replicaCount: 3
     extraEnvVars: {"FTLCONF_REPLY_ADDR4": "10.0.0.35"}
     persistentVolumeClaim:
       enabled: true
