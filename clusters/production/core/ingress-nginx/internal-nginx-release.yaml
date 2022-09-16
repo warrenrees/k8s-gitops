@@ -27,6 +27,7 @@ spec:
         minReplicas: 2
         maxReplicas: 3
  
+      ingressClass: internal-nginx
       ingressClassResource:
         name: internal-nginx  # default: nginx
         enabled: true
@@ -40,4 +41,3 @@ spec:
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
-    spec.controller: nginx.org/internal-nginx
