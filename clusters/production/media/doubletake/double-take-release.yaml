@@ -26,7 +26,7 @@ spec:
           confidence: 80
       frigate:
         url: http://frigate.rees.ca:5000
-        attempts: { latest: 5, snapshot: 5, mqtt: true, delay: 0 }
+        attempts: { latest: 2, snapshot: 0, mqtt: true, delay: 0 }
         cameras:
           - driveway
           - backyard

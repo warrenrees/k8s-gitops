@@ -64,7 +64,7 @@ spec:
 
     config: |
       mqtt:
-        host: mqtt.rees.ca
+        host: mosquitto
         port: 1883
         topic_prefix: frigate
         client_id: frigate
@@ -116,6 +116,9 @@ spec:
               - car
               - cat
               - dog
+
+          mqtt:
+            crop: False
 
         driveway:
           ffmpeg:
