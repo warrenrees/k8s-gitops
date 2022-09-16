@@ -119,6 +119,7 @@ spec:
 
           mqtt:
             crop: False
+            height: 720
 
         driveway:
           ffmpeg:
