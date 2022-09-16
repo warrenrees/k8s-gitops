@@ -147,6 +147,10 @@ spec:
               - car
               - cat
               - dog
+          mqtt:
+            height: 480
+
+
         backyard:
           ffmpeg:
             inputs:
