@@ -21,11 +21,11 @@ spec:
   values:
     controller:
       electionID: internal-ingress-controller-leader
-      replicaCount: 2
+      replicaCount: 4
       autoscaling:
         enabled: true
         minReplicas: 2
-        maxReplicas: 3
+        maxReplicas: 5
  
       ingressClass: internal-nginx
       ingressClassResource:
@@ -41,3 +41,4 @@ spec:
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
+    spec.controller: k8s.io/internal-nginx
