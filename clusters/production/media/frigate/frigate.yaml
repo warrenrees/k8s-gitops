@@ -179,32 +179,6 @@ spec:
               - cat
               - dog
 
-        living_room:
-          ffmpeg:
-            inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=2
-                roles:
-                  - detect
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=0
-                roles:
-                  - record
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=1
-                roles:
-                  - rtmp
-          record:
-            enabled: true
-            retain:
-              days: 3
-
-          detect:
-            width: 1280
-            height: 720
-            fps: 5
-
-          objects:
-            track:
-              - person
-
         sideyard:
           ffmpeg:
             inputs:
