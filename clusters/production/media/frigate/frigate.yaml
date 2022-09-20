@@ -154,39 +154,13 @@ spec:
         backyard:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/102
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
                 roles:
                   - detect
-                  - rtmp
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.22:554/Streaming/channels/101
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
                 roles:
                   - record
-          record:
-            enabled: true
-            retain:
-              days: 3
-
-          detect:
-            width: 640
-            height: 480
-            fps: 6
-
-          objects:
-            track:
-              - person
-              - cat
-              - dog
-
-        living_room:
-          ffmpeg:
-            inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=2
-                roles:
-                  - detect
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=0
-                roles:
-                  - record
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=1
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
                 roles:
                   - rtmp
           record:
@@ -202,17 +176,19 @@ spec:
           objects:
             track:
               - person
+              - cat
+              - dog
 
         sideyard:
           ffmpeg:
             inputs:
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=2
                 roles:
                   - detect
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=0
                 roles:
                   - record
-              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=1
                 roles:
                   - rtmp
           record:
