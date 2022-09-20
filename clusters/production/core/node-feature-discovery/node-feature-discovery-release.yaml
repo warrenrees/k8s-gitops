@@ -14,3 +14,13 @@ spec:
   interval: 10m0s
   releaseName: node-feature-discovery
   targetNamespace: node-feature-discovery
+  values:
+    worker:
+      config:
+        sources:
+          pci:
+            deviceClassWhitelist:
+              - "0200"
+              - "03"
+              - "12"
+              - "08"
