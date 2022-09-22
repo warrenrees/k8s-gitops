@@ -24,3 +24,10 @@ spec:
               - "03"
               - "12"
               - "08"
+          usb:
+            deviceClassWhitelist:
+              - "0e"
+              - "ef"
+              - "fe"
+              - "ff"
+              - "02"
