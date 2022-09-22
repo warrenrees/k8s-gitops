@@ -14,21 +14,23 @@ spec:
   interval: 1h0m0s
   releaseName: frigate
   targetNamespace: default
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          # PCI attached Coral AI Accelerator
-          - key: feature.node.kubernetes.io/pci-0880_1ac1.present
-            operator: In
-            values: [ "true" ]
-        - matchExpressions:
-          # USB attached Coral AI Accelerator
-          - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
-            operator: In
-            values: [ "true" ]
   values:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            # PCI attached Coral AI Accelerator
+            - key: feature.node.kubernetes.io/pci-0880_1ac1.present
+              operator: In
+              values: 
+              - "true"
+          - matchExpressions:
+            # USB attached Coral AI Accelerator
+            - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
+              operator: In
+              values:
+              - "true"
 
     ingress:
       enabled: false
@@ -63,9 +65,6 @@ spec:
       - 44
       - 109
       - 1001
-
-    nodeSelector:
-      feature.node.kubernetes.io/pci-0880_1ac1.present: "true"
 
     env:
       TZ: "Canada/Eastern"
