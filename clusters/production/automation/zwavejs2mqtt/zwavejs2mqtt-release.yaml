@@ -42,10 +42,10 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: app
+            # USB attached Z-Wave controller
+            - key: feature.node.kubernetes.io/usb-02_0658_0200.present
               operator: In
-              values:
-              - zwave-controller
+              values: [ "true" ]
     additionalVolumeMounts:
     - name: usb
       mountPath: /dev/ttyACM0
