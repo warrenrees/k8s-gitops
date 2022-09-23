@@ -1,0 +1,4 @@
+#!/bin/bash
+brew upgrade flux
+
+flux bootstrap github --owner=warrenrees --repository=k8s-gitops --path=clusters/production --components-extra=image-reflector-controller,image-automation-controller --personal
