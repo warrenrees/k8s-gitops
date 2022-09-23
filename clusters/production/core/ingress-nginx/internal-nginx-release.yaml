@@ -21,7 +21,7 @@ spec:
   values:
     controller:
       electionID: internal-ingress-controller-leader
-      replicaCount: 4
+      replicaCount: 2
       autoscaling:
         enabled: true
         minReplicas: 2
