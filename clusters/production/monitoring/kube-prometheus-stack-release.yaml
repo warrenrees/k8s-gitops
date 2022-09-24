@@ -16,6 +16,10 @@ spec:
   targetNamespace: monitoring
 
   values:
+    defaultRules:
+      disabled:
+        etcdHighNumberOfFailedGRPCRequests: true
+
     alertmanager:
       ingress:
         enabled: true
