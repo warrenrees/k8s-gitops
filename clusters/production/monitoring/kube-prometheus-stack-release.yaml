@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1m0s
+  targetNamespace: monitoring
+
+  values:
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: internal-nginx
+        hosts:
+        - alertmanager.rees.ca
+
+        loadBalancerIP: 10.0.0.50
+
+    grafana:
+      ingress:
+        enabled: true
+        ingressClassName: internal-nginx
+        hosts:
+        - grafana.rees.ca
+        LoadBalancerIP: 10.0.0.50
+
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: internal-nginx
+        hosts:
+        - prometheus.rees.ca
+        LoadBalancerIP: 10.0.0.50
+      prometheusSpec:
+        secrets: ["etcd-client-cert"]
+
+    thanosRuler:
+      ingress:
+        enabled: true
+        ingressClassName: internal-nginx
+        hosts:
+        - thanosruler.rees.ca
+        LoadBalancerIP: 10.0.0.50
+
+    kubeEtcd:
+      service:
+        port: 2379
+        targetPort: 2379
+      serviceMonitor:
+        scheme: https
+        insecureSkipVerify: true
+        caFile: /etc/prometheus/secrets/etcd-client-cert/ca.crt
+        certFile: /etc/prometheus/secrets/etcd-client-cert/apiserver-etcd-client.crt
+        keyFile: /etc/prometheus/secrets/etcd-client-cert/apiserver-etcd-client.key
