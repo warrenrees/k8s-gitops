@@ -28,9 +28,6 @@ spec:
         - alertmanager.rees.ca
 
         loadBalancerIP: 10.0.0.50
-      alertmanagerSpec:
-        useExistingSecret: true
-        secrets: ["alertmanager-rees"]
 
     grafana:
       ingress:
