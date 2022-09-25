@@ -21,10 +21,7 @@ spec:
   values:
     controller:
       electionID: internal-ingress-controller-leader
-      replicaCount: 2
-      autoscaling:
-        enabled: true
- 
+      replicaCount: 3
       ingressClass: internal-nginx
       ingressClassResource:
         name: internal-nginx  # default: nginx
@@ -44,9 +41,13 @@ spec:
         serviceMonitor:
           enabled: true
           namespace: monitoring
+          additionalLabels:
+            release: monitoring-kube-prometheus-stack
         prometheusRule:
           enabled: true
           namespace: monitoring
+          additionalLabels: 
+            release: monitoring-kube-prometheus-stack
           rules: 
             - alert: NGINXConfigFailed
               expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
