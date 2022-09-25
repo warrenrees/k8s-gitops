@@ -21,6 +21,9 @@ spec:
         etcdHighNumberOfFailedGRPCRequests: true
 
     alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
       ingress:
         enabled: true
         ingressClassName: internal-nginx
@@ -28,6 +31,10 @@ spec:
         - alertmanager.rees.ca
 
         loadBalancerIP: 10.0.0.50
+
+      alertmanagerSpec:
+        useExistingSecret: true
+      #  secrets: ["alertmanager-rees"]
 
     grafana:
       ingress:
