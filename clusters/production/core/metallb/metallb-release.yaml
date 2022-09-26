@@ -17,14 +17,15 @@ spec:
 
   values:
     prometheus:
-      serviceAccount: monitoring-kube-prometheus-prometheus
+      serviceAccount: prometheus-metallb
+      rbacPrometheus: true
       namespace: monitoring
       podMonitor:
         enabled: false
         additionalLabels:
           release: monitoring-kube-prometheus-stack
       serviceMonitor:
-        enabled: false
+        enabled: true
         speaker:
           additionalLabels:
             release: monitoring-kube-prometheus-stack
