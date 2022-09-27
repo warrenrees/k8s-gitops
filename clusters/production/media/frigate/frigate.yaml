@@ -126,7 +126,6 @@ spec:
           objects:
             track:
               - person
-              - car
               - cat
               - dog
 
@@ -159,7 +158,6 @@ spec:
           objects:
             track:
               - person
-              - car
               - cat
               - dog
 
