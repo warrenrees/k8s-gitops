@@ -1,0 +1,50 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flux-system
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/component: monitoring
+    release: monitoring-kube-prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - helm-controller
+          - source-controller
+          - kustomize-controller
+          - notification-controller
+          - image-automation-controller
+          - image-reflector-controller
+  podMetricsEndpoints:
+    - port: http-prom
+      relabelings:
+        # https://github.com/prometheus-operator/prometheus-operator/issues/4816
+        - sourceLabels: [__meta_kubernetes_pod_phase]
+          action: keep
+          regex: Running
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-fluxcd-rules
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: Flux
+      rules:
+        - alert: ReconciliationFailure
+          expr: max(gotk_reconcile_condition{status="False",type="Ready"}) by (exported_namespace, name, kind) + on(exported_namespace, name, kind) (max(gotk_reconcile_condition{status="Deleted"}) by (exported_namespace, name, kind)) * 2 == 1
+          for: 10m
+          labels:
+            severity: medium
+          annotations:
+            summary: '{{ $labels.kind }} {{ $labels.exported_namespace }}/{{ $labels.name }} reconciliation has been failing for more than ten minutes.'

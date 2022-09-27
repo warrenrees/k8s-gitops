@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: prometheus-msteams
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: https://prometheus-msteams.github.io/prometheus-msteams
+
