@@ -64,3 +64,10 @@ metadata:
   name: monitoring
   labels:
     managed-by: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: identity
+  labels:
+    managed-by: flux
