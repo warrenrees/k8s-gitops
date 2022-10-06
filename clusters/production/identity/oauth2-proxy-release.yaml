@@ -13,6 +13,7 @@ spec:
         kind: HelmRepository
         name: oauth2-proxy
   interval: 1m0s
+  releaseName: oauth2-proxy
   targetNamespace: identity
 
   values:

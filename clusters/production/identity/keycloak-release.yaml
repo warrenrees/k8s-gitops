@@ -13,6 +13,7 @@ spec:
         kind: HelmRepository
         name: bitnami
   interval: 1m0s
+  releaseName: keycloak
   targetNamespace: identity
 
   values:
