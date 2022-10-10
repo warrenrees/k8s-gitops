@@ -11,6 +11,7 @@ spec:
         kind: HelmRepository
         name: mojo2600
   interval: 60m0s
+  releaseName: pihole
   targetNamespace: default
   values:
     image:
