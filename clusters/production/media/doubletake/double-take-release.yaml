@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 1.13.0 # {"$imagepolicy": "flux-system:double-take:tag"}
+      tag: 1.13.1 # {"$imagepolicy": "flux-system:double-take:tag"}
       pullPolicy: Always
     env:
       TZ: America/Toronto
