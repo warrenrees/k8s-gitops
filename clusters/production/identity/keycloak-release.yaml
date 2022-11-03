@@ -33,7 +33,7 @@ spec:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
         nginx.ingress.kubernetes.io/configuration-snippet: |-
           set $BE "";
-          if ($remote_addr !~ '^10\..*') {
+          if ($remote_addr !~ '^(10\..*|172\.31\..*)') {
             set $BE W;
           }
           if ($uri !~ '^/(robots.txt|js|resources|realms)') {
