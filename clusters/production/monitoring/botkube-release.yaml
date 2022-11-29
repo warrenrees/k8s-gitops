@@ -22,6 +22,19 @@ spec:
         teams:
           enabled: true
           messagePath: /bots/teams/v1/messages
+    sources:
+      "k8s-events":
+        kubernetes:
+          resources:
+            - type: v1/configmaps
+              namespaces:
+                include:
+                  - (botk.*|default)
+              event:
+                types:
+                  - create
+                  - update
+                  - delete
     executors:
       'kubectl-read-only':
         kubectl:
