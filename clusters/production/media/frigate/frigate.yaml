@@ -107,7 +107,12 @@ spec:
            type: edgetpu
            device: pci
 
+      birdseye:
+        mode: motion
+
       ffmpeg:
+        output_args:
+          record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
         hwaccel_args:
           - -hwaccel
           - qsv
@@ -272,7 +277,7 @@ spec:
         kid1:
           ffmpeg:
             inputs:
-              - path: rtsp://admin:{FRIGATE_WYZE_RTSP_PASSWORD}@192.168.107.6/live
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8443/bodhi-cam
                 roles:
                   - detect
                   - record
@@ -294,7 +299,7 @@ spec:
         kid2:
           ffmpeg:
             inputs:
-              - path: rtsp://admin:{FRIGATE_WYZE_RTSP_PASSWORD}@192.168.107.44/live
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8554/rocky-cam
                 roles:
                   - detect
                   - record

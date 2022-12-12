@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wyzebridge
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: wyzebridge
+  template:
+    metadata:
+      labels:
+        app: wyzebridge
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: America\Toronto
+        envFrom:
+        - secretRef:
+            name: wyzebridge
+        image: mrlt8/wyze-bridge:1.9.2
+        imagePullPolicy: IfNotPresent
+        name: wyzebridge
+        ports:
+        - containerPort: 1935
+          protocol: TCP
+        - containerPort: 8554
+          protocol: TCP
+        - containerPort: 8888
+          protocol: TCP
+        - containerPort: 5000
+          protocol: TCP
+        resources: {}
+        #volumeMounts:
+        #- mountPath: /tokens
+        #  name: wyzebridge-config
+      hostname: wyzebridge
+      #volumes:
+      #- name: wyzebridge-config
+      #  persistentVolumeClaim:
+      #    claimName: pvc-wyzebridge-config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: wyzebridge
+  namespace: default
+spec:
+  ports:
+  - name: wyzebridge-5000
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  - name: wyzebridge-1935
+    port: 1935
+    protocol: TCP
+    targetPort: 1935
+  - name: wyzebridge-8554
+    port: 8554
+    protocol: TCP
+    targetPort: 8554
+  - name: wyzebridge-8888
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: wyzebridge
+  type: ClusterIP
