@@ -57,3 +57,9 @@ blacklist {
 EOF
 
 sudo systemctl restart multipathd.service
+
+# Update system limits
+sudo tee -a /etc/security/limits.d/kubernetes.conf <<EOF
+*		soft	nofile		65535
+root		soft	nofile		1048576
+EOF
