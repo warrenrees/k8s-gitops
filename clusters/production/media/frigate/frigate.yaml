@@ -277,7 +277,7 @@ spec:
         kid1:
           ffmpeg:
             inputs:
-              - path: rtsp://wyzebridge.default.svc.cluster.local:8443/bodhi-cam
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8554/bodhi-cam
                 roles:
                   - detect
                   - record
