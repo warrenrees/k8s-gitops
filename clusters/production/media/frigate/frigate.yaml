@@ -189,6 +189,36 @@ spec:
             crop: False
             height: 720
 
+        testcam:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.20:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+                  - rtmp
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.20:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - detect
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1920
+            height: 536
+            fps: 10
+
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
+          mqtt:
+            crop: False
+            height: 720
+
 
         backyard:
           ffmpeg:
