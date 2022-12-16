@@ -19,7 +19,6 @@ spec:
         envFrom:
         - secretRef:
             name: wyzebridge
-        image: mrlt8/wyze-bridge:1.9.2
         imagePullPolicy: IfNotPresent
         name: wyzebridge
         ports:
