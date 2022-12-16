@@ -805,6 +805,11 @@ spec:
                   node appears to use the IP of the ingress node; this requires a
                   permissive L2 network.  [Default: Tunnel]'
                 type: string
+              bpfHostConntrackBypass:
+                description: 'BPFHostConntrackBypass Controls whether to bypass Linux
+                  conntrack in BPF mode for workloads and services. [Default: true
+                  - bypass Linux conntrack]'
+                type: boolean
               bpfKubeProxyEndpointSlicesEnabled:
                 description: BPFKubeProxyEndpointSlicesEnabled in BPF mode, controls
                   whether Felix's embedded kube-proxy accepts EndpointSlices or not.
@@ -1337,8 +1342,8 @@ spec:
                 type: boolean
               vxlanEnabled:
                 description: 'VXLANEnabled overrides whether Felix should create the
-                  VXLAN tunnel device for VXLAN networking. Optional as Felix determines
-                  this based on the existing IP pools. [Default: nil (unset)]'
+                  VXLAN tunnel device for IPv4 VXLAN networking. Optional as Felix
+                  determines this based on the existing IP pools. [Default: nil (unset)]'
                 type: boolean
               vxlanMTU:
                 description: 'VXLANMTU is the MTU to set on the IPv4 VXLAN tunnel
@@ -2771,7 +2776,7 @@ spec:
                   for internal use only.'
                 type: boolean
               natOutgoing:
-                description: When nat-outgoing is true, packets sent from Calico networked
+                description: When natOutgoing is true, packets sent from Calico networked
                   containers in this pool to destinations outside of this pool will
                   be masqueraded.
                 type: boolean
@@ -9646,6 +9651,14 @@ spec:
                       type: string
                   type: object
                 type: array
+              fipsMode:
+                description: 'FIPSMode uses images and features only that are using
+                  FIPS 140-2 validated cryptographic modules and standards. Default:
+                  Disabled'
+                enum:
+                - Enabled
+                - Disabled
+                type: string
               flexVolumePath:
                 description: FlexVolumePath optionally specifies a custom path for
                   FlexVolume. If not specified, FlexVolume will be enabled by default.
@@ -9689,7 +9702,7 @@ spec:
               kubeletVolumePluginPath:
                 description: 'KubeletVolumePluginPath optionally specifies enablement
                   of Calico CSI plugin. If not specified, CSI will be enabled by default.
-                  If set to "None", CSI will be disabled. Default: /var/lib/kubelet'
+                  If set to ''None'', CSI will be disabled. Default: /var/lib/kubelet'
                 type: string
               kubernetesProvider:
                 description: KubernetesProvider specifies a particular provider of
@@ -15798,6 +15811,14 @@ spec:
                           type: string
                       type: object
                     type: array
+                  fipsMode:
+                    description: 'FIPSMode uses images and features only that are
+                      using FIPS 140-2 validated cryptographic modules and standards.
+                      Default: Disabled'
+                    enum:
+                    - Enabled
+                    - Disabled
+                    type: string
                   flexVolumePath:
                     description: FlexVolumePath optionally specifies a custom path
                       for FlexVolume. If not specified, FlexVolume will be enabled
@@ -15840,8 +15861,9 @@ spec:
                     type: array
                   kubeletVolumePluginPath:
                     description: 'KubeletVolumePluginPath optionally specifies enablement
-                      of Calico CSI plugin. If not specified, CSI will be enabled by default.
-                      If set to "None", CSI will be disabled. Default: /var/lib/kubelet'
+                      of Calico CSI plugin. If not specified, CSI will be enabled
+                      by default. If set to ''None'', CSI will be disabled. Default:
+                      /var/lib/kubelet'
                     type: string
                   kubernetesProvider:
                     description: KubernetesProvider specifies a particular provider
@@ -18078,7 +18100,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: tigera-operator
-          image: quay.io/tigera/operator:v1.28.1
+          image: quay.io/tigera/operator:v1.28.5
           imagePullPolicy: IfNotPresent
           command:
             - operator
@@ -18096,7 +18118,7 @@ spec:
             - name: OPERATOR_NAME
               value: "tigera-operator"
             - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
-              value: v1.28.1
+              value: v1.28.5
           envFrom:
             - configMapRef:
                 name: kubernetes-services-endpoint
