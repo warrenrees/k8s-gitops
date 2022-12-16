@@ -115,3 +115,12 @@ metadata:
 spec:
   image: koenkk/zigbee2mqtt
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: wyzebridge
+  namespace: flux-system
+spec:
+  image: mrlt8/wyze-bridge
+  interval: 30m0s
