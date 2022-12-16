@@ -21,7 +21,7 @@ spec:
             name: wyzebridge
         imagePullPolicy: IfNotPresent
         name: wyzebridge
-        image: mrlt8/wyze-bridge:1.9.2 # {"$imagepolicy": "flux-system:wyzebridge"}
+        image: mrlt8/wyze-bridge:1.10.1 # {"$imagepolicy": "flux-system:wyzebridge"}
         ports:
         - containerPort: 1935
           protocol: TCP
@@ -41,7 +41,6 @@ spec:
       #  persistentVolumeClaim:
       #    claimName: pvc-wyzebridge-config
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
