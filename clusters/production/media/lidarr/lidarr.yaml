@@ -22,13 +22,30 @@ spec:
           env:
             - name: TZ
               value: America\Toronto
+            - name: PGID
+              value: "65536"
+            - name: PUID
+              value: "1028"
+
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
+            - name: lidarr-downloads
+              mountPath: /downloads
+            - name: lidarr-music
+              mountPath: /music
+
+          claimName: pvc-sonarr-config
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
             claimName: pvc-lidarr-config
+        - name: lidarr-downloads
+          persistentVolumeClaim:
+            claimName: pvc-lidarr-downloads
+        - name: lidarr-music
+          persistentVolumeClaim:
+            claimName: pvc-lidarr-music
 ---
 apiVersion: v1
 kind: Service
