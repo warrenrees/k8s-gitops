@@ -22,12 +22,12 @@ spec:
       TZ: America/Toronto
     config:
       mqtt:
-        host: mqtt.rees.ca:1883
+        host: mosquitto.default.svc.cluster.local:1883
       detect:
         match:
           confidence: 80
       frigate:
-        url: http://frigate.rees.ca:5000
+        url: http://frigate.default.svc.cluster.local:5000
         attempts: {latest: 2, snapshot: 0, mqtt: true, delay: 0}
         cameras:
           - driveway
@@ -40,7 +40,7 @@ spec:
       detectors:
         compreface:
           enabled: true
-          url: http://compreface.rees.ca:8000/
+          url: http://compreface-ui.compreface.svc.cluster.local:8000/
           key: 396383db-644f-47fa-b087-ddd209930dba
     ingress:
       main:
