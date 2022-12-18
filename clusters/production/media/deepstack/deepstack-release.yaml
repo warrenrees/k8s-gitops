@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepstack
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: deepstack
+  template:
+    metadata:
+      labels:
+        app: deepstack
+    spec:
+      containers:
+      - env:
+        - name: VISION-FACE
+          value: "True"
+        - name: VISION-DETECTION
+          value: "True"
+        - name: VISION-ENHANCE
+          value: "True"
+        - name: VISION-SCENE
+          value: "True"
+        imagePullPolicy: IfNotPresent
+        name: deepstack
+        image: deepquestai/deepstack # {"$imagepolicy": "flux-system:deepstack"}
+        resources: {}
+        volumeMounts:
+        - mountPath: /datastore
+          name: deepstack-data
+      volumes:
+      - name: deepstack-data
+        persistentVolumeClaim:
+          claimName: pvc-deepstack-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepstack
+  namespace: default
+spec:
+  ports:
+  - name: deepstack-80
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: deepstack
+  type: ClusterIP

@@ -42,6 +42,9 @@ spec:
           enabled: true
           url: http://compreface-ui.compreface.svc.cluster.local:8000/
           key: 363f4409-ed7a-44be-99a8-0cad2674459b
+        deepstack:
+          enabled: true
+          url: http://deepstack.default.svc.cluster.local
     ingress:
       main:
         enabled: true
