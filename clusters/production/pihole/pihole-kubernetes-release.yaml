@@ -33,3 +33,8 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: mc-pihole-svc
       type: LoadBalancer
+    serviceDhcp:
+      enabled: false
+    admin:
+      existingSecret: pihole
+
