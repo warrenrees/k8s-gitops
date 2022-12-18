@@ -41,7 +41,7 @@ spec:
         compreface:
           enabled: true
           url: http://compreface-ui.compreface.svc.cluster.local:8000/
-          key: 396383db-644f-47fa-b087-ddd209930dba
+          key: 363f4409-ed7a-44be-99a8-0cad2674459b
     ingress:
       main:
         enabled: true
