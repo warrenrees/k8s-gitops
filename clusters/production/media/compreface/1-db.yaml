@@ -42,7 +42,7 @@ spec:
       volumes:
         - name: cf-db-data
           persistentVolumeClaim:
-            claimName: pvc-compreface-data
+            claimName: pvc-compreface-db
 ---
 apiVersion: v1
 kind: Service

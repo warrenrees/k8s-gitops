@@ -25,7 +25,7 @@ spec:
             - name: PGID
               value: "65536"
             - name: PUID
-              value: "1028"
+              value: "1026"
 
           volumeMounts:
             - name: lidarr-config

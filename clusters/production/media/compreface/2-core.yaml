@@ -21,7 +21,7 @@ spec:
               value: America\Toronto
             - name: ML_PORT
               value: "3000"
-          image: 'exadel/compreface-core:0.5.1'
+          image: 'exadel/compreface-core:1.0.1'
           ports:
           - containerPort: 3000
           name: cf-core

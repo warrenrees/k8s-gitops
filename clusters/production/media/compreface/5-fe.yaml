@@ -16,7 +16,7 @@ spec:
         app: fe
     spec:
       containers:
-        - image: 'exadel/compreface-fe:0.5.1'
+        - image: 'exadel/compreface-fe:1.0.1'
           name: cf-fe
           ports:
             - containerPort: 80
