@@ -124,7 +124,7 @@ spec:
 
       snapshots:
         enabled: true
-        bounding_box: true
+        bounding_box: false
 
       cameras:
         frontdoor:
@@ -217,7 +217,7 @@ spec:
 
           mqtt:
             crop: False
-            height: 720
+            height: 1440
 
 
         backyard:

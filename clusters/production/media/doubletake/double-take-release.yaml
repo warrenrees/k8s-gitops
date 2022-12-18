@@ -28,6 +28,7 @@ spec:
           confidence: 80
       frigate:
         url: http://frigate.default.svc.cluster.local:5000
+        update_sub_labels: true
         attempts: {latest: 2, snapshot: 0, mqtt: true, delay: 0}
         cameras:
           - driveway
