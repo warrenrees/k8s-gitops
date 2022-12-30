@@ -12,6 +12,7 @@ spec:
       labels:
         app: weatherflow2mqtt
     spec:
+      hostNetwork: true
       containers:
       - env:
         - name: TZ
@@ -19,7 +20,7 @@ spec:
         - name: UNIT_SYSTEM
           value: "metric"
         - name: MQTT_HOST
-          value: mosquitto
+          value: 10.0.0.245
         - name: LATITUDE
           value: "42.9902"
         - name: LONGITUDE
@@ -32,6 +33,7 @@ spec:
         image: briis/weatherflow2mqtt:3.1.4 # {"$imagepolicy": "flux-system:weatherflow2mqtt"}
         ports:
         - containerPort: 50222
+          hostPort: 50222
           protocol: UDP
         resources: {}
         volumeMounts:

@@ -166,3 +166,17 @@ spec:
       range: '>= 1.9.0'
 
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: weatherflow2mqtt
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: weatherflow2mqtt
+  policy:
+    semver:
+      range: '>= 3.1.2'
+
+

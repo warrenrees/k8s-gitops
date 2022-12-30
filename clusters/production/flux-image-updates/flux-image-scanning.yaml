@@ -124,3 +124,12 @@ metadata:
 spec:
   image: mrlt8/wyze-bridge
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: weatherflow2mqtt
+  namespace: flux-system
+spec:
+  image: briis/weatherflow2mqtt
+  interval: 30m0s
