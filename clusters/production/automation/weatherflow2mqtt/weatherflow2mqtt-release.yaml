@@ -35,6 +35,12 @@ spec:
           protocol: UDP
         resources: {}
         volumeMounts:
+        - mountPath: /data
+          name: weatherflow2mqtt-data
+      volumes:
+      - name: weatherflow2mqtt-data
+        persistentVolumeClaim:
+          claimName: pvc-weatherflow2mqtt-data
       hostname: weatherflow2mqtt
 ---
 apiVersion: v1
