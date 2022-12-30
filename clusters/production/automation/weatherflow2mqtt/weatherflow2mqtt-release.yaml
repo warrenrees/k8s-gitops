@@ -21,9 +21,9 @@ spec:
         - name: MQTT_HOST
           value: mosquitto
         - name: LATITUDE
-          value "42.9902"
+          value: "42.9902"
         - name: LONGITUDE
-          value: "-79.27878"
+          value: "-79.2787"
         envFrom:
         - secretRef:
             name: weatherflow2mqtt
