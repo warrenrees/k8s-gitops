@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherflow2mqtt
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: weatherflow2mqtt
+  template:
+    metadata:
+      labels:
+        app: weatherflow2mqtt
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: America\Toronto
+        - name: UNIT_SYSTEM
+          value: "metric"
+        - name: MQTT_HOST
+          value: mosquitto
+        - name: LATITUDE
+          value "42.9902"
+        - name: LONGITUDE
+          value: "-79.27878"
+        envFrom:
+        - secretRef:
+            name: weatherflow2mqtt
+        imagePullPolicy: IfNotPresent
+        name: weatherflow2mqtt
+        image: briis/weatherflow2mqtt:3.1.4 # {"$imagepolicy": "flux-system:weatherflow2mqtt"}
+        ports:
+        - containerPort: 50222
+          protocol: UDP
+        resources: {}
+        volumeMounts:
+      hostname: weatherflow2mqtt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherflow2mqtt
+  namespace: default
+spec:
+  ports:
+  - name: weatherflow2mqtt-50222
+    port: 50222
+    protocol: UDP
+    targetPort: 50222
+  selector:
+    app: weatherflow2mqtt
+  type: ClusterIP
