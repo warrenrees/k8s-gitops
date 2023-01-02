@@ -16,13 +16,13 @@ spec:
   values:
     image:
       tag: 2022.12.1 # {"$imagepolicy": "flux-system:pihole:tag"}
-    replicaCount: 3
+    replicaCount: 1
     extraEnvVars: {"FTLCONF_LOCAL_IPV4": "10.0.0.35"}
     persistentVolumeClaim:
       enabled: true
       existingClaim: "pvc-pihole-config"
       accessModes:
-      - ReadWriteMany
+      - ReadWriteOnce
     serviceWeb:
       loadBalancerIP: 10.0.0.35
       annotations:
