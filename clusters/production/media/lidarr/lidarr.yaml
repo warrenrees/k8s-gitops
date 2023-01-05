@@ -37,7 +37,6 @@ spec:
             - name: lidarr-music
               mountPath: /music
 
-          claimName: pvc-sonarr-config
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
