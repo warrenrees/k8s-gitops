@@ -7,6 +7,8 @@ spec:
   selector:
     matchLabels:
       app: weatherflow2mqtt
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -25,6 +27,8 @@ spec:
           value: "42.9902"
         - name: LONGITUDE
           value: "-79.2787"
+        - name: DEBUG
+          value: "true"
         envFrom:
         - secretRef:
             name: weatherflow2mqtt

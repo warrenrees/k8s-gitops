@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepstackui
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: deepstackui
+  template:
+    metadata:
+      labels:
+        app: deepstackui
+    spec:
+      containers:
+      - env:
+        - name: DEEPSTACK_IP
+          value: "deepstack.default.svc.cluster.local"
+        - name: DEEPSTACK_PORT
+          value: "80"
+        - name: DEEPSTACK_API_KEY_M
+          value: "zugzug"
+
+        imagePullPolicy: IfNotPresent
+        name: deepstackui
+        image: robmarkcole/deepstack-ui # {"$imagepolicy": "flux-system:deepstackui"}
+        ports:
+        - containerPort: 1935
+          protocol: TCP
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepstackui
+  namespace: default
+spec:
+  ports:
+  - name: deepstackui-8501
+    port: 8501
+    protocol: TCP
+    targetPort: 8501
+  selector:
+    app: deepstackui
+  type: ClusterIP

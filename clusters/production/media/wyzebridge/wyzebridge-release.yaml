@@ -7,6 +7,8 @@ spec:
   selector:
     matchLabels:
       app: wyzebridge
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
