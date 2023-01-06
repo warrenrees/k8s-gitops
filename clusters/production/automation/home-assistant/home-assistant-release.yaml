@@ -68,3 +68,14 @@ spec:
           for: 5m
           labels:
             severity: critical
+
+    #affinity:
+    #  nodeAffinity:
+    #    requiredDuringSchedulingIgnoredDuringExecution:
+    #      nodeSelectorTerms:
+    #      - matchExpressions:
+    #        # USB attached Bluetooth Adapter
+    #        - key: feature.node.kubernetes.io/usb-e0_0bda_a725.present
+    #          operator: In
+    #          values:
+    #          - "true"
