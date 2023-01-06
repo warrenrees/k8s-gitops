@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant # {"$imagepolicy": "flux-system:homeassistant:name"}
-      tag: 2023.1.0 # {"$imagepolicy": "flux-system:homeassistant:tag"}
+      tag: 2023.1.1 # {"$imagepolicy": "flux-system:homeassistant:tag"}
     env:
       TZ: America/Toronto
     hostNetwork: true
@@ -69,13 +69,13 @@ spec:
           labels:
             severity: critical
 
-    #affinity:
-    #  nodeAffinity:
-    #    requiredDuringSchedulingIgnoredDuringExecution:
-    #      nodeSelectorTerms:
-    #      - matchExpressions:
-    #        # USB attached Bluetooth Adapter
-    #        - key: feature.node.kubernetes.io/usb-e0_0bda_a725.present
-    #          operator: In
-    #          values:
-    #          - "true"
+#affinity:
+#  nodeAffinity:
+#    requiredDuringSchedulingIgnoredDuringExecution:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        # USB attached Bluetooth Adapter
+#        - key: feature.node.kubernetes.io/usb-e0_0bda_a725.present
+#          operator: In
+#          values:
+#          - "true"
