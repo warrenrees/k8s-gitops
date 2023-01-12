@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant # {"$imagepolicy": "flux-system:homeassistant:name"}
-      tag: 2023.1.2 # {"$imagepolicy": "flux-system:homeassistant:tag"}
+      tag: 2023.1.4 # {"$imagepolicy": "flux-system:homeassistant:tag"}
     env:
       TZ: America/Toronto
     hostNetwork: true
