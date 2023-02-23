@@ -41,7 +41,7 @@ spec:
       oidc-issuer-url: https://sso.rees.ca/realms/master
       cookie-domain: .rees.ca
       whitelist-domain: .rees.ca
-      skip-provider-button: true
+      skip-provider-button: "true"
       email-domain: "*"
       cookie-secure: "false"
       pass-authorization-header: "true"
