@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: piper
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: piper
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: piper
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: America\Toronto
+        imagePullPolicy: IfNotPresent
+        name: piper-k8s
+        image: rhasspy/wyoming-piper:latest
+        args:
+        - --voice=en-us-ryan-medium
+        ports:
+        - containerPort: 10200
+          protocol: TCP
+
+        volumeMounts:
+        - mountPath: /data
+          name: piper-data
+      hostname: piper
+      volumes:
+      - name: piper-data
+        persistentVolumeClaim:
+          claimName: pvc-piper-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: piper
+  namespace: default
+  labels:
+    app: piper
+spec:
+  ports:
+  - name: piper-10200
+    port: 10200
+    protocol: TCP
+    targetPort: 10200
+  selector:
+    app: piper
+  externalTrafficPolicy: Local
+  type: LoadBalancer

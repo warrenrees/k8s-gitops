@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whisper
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: whisper
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: whisper
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: America\Toronto
+        imagePullPolicy: IfNotPresent
+        name: whisper-k8s
+        image: rhasspy/wyoming-whisper:latest
+        args:
+        - --model=medium-int8
+        - --language=en
+        ports:
+        - containerPort: 10300
+          protocol: TCP
+
+        volumeMounts:
+        - mountPath: /data
+          name: whisper-data
+      hostname: whisper
+      volumes:
+      - name: whisper-data
+        persistentVolumeClaim:
+          claimName: pvc-whisper-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whisper
+  namespace: default
+  labels:
+    app: whisper
+spec:
+  ports:
+  - name: whisper-10300
+    port: 10300
+    protocol: TCP
+    targetPort: 10300
+  selector:
+    app: whisper
+  externalTrafficPolicy: Local
+  type: LoadBalancer
