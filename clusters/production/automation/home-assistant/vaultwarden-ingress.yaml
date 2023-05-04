@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-vaultwarden
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: homeassistant.local 
+  ports:
+  - port: 8123
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vaultwarden-ingress  
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.org/websocket-services: vaultwarden
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: vaultwarden.rees.ca
+    http:
+      paths:
+        - backend:
+            service:
+              name: external-vaultwarden
+              port:
+                number: 7277
+          path: /
+          pathType: Prefix
+  tls:
+  - hosts:
+    - vaultwarden.rees.ca
+    secretName: vaultwarden-tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.0.0.240
