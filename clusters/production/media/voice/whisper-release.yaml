@@ -22,7 +22,7 @@ spec:
         name: whisper-k8s
         image: rhasspy/wyoming-whisper:latest
         args:
-        - --model=medium-int8
+        - --model=base
         - --language=en
         ports:
         - containerPort: 10300
