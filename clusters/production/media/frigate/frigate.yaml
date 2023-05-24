@@ -15,6 +15,9 @@ spec:
   releaseName: frigate
   targetNamespace: default
   values:
+    image:
+      repository: ghcr.io/blakeblackshear/frigate
+      tag: "0.12.0"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -133,7 +136,7 @@ spec:
         frontdoor:
           ffmpeg:
             output_args:
-              record: -f segment -segment_time 1800 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -ar 44100 -c:a aac
+              record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -ar 44100 -c:a aac
               rtmp: -c:v copy -f flv -ar 44100 -c:a aac
             inputs:
               - path: rtsps://10.255.255.1:7441/lq1LjWSSI6BVF72F?enableSrtp
