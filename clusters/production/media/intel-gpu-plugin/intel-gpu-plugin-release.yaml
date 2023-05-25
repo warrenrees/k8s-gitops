@@ -16,6 +16,6 @@ spec:
   targetNamespace: intel-gpu-plugin
   values:
     image:
-      tag: 0.23.0
+      tag: 0.26.1
     nodeSelector:
       feature.node.kubernetes.io/pci-0300_8086.present: "true"
