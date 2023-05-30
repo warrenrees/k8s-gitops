@@ -58,7 +58,6 @@ spec:
         - containerPort: 8555
           name: webrtc-udp
           protocol: UDP
-        resources: {}
         securityContext:
           privileged: true
         volumeMounts:
