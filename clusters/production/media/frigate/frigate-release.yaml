@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frigate
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: frigate
+      app.kubernetes.io/name: frigate
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: frigate
+        app.kubernetes.io/name: frigate
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: feature.node.kubernetes.io/pci-0880_1ac1.present
+                operator: In
+                values:
+                - "true"
+            - matchExpressions:
+              - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
+                operator: In
+                values:
+                - "true"
+      containers:
+      - env:
+        - name: TZ
+          value: Canada/Eastern
+        envFrom:
+        - secretRef:
+            name: frigate-secret
+        image: ghcr.io/blakeblackshear/frigate:0.12.0
+        imagePullPolicy: IfNotPresent
+        name: frigate
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+          requests:
+            gpu.intel.com/i915: "1"
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        - containerPort: 8554
+          name: rtsp
+          protocol: TCP
+        - containerPort: 8555
+          name: webrtc-tcp
+          protocol: TCP
+        - containerPort: 8555
+          name: webrtc-udp
+          protocol: UDP
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+#        - mountPath: /dev/dri
+#          name: intel-gpu
+        - mountPath: /dev/bus/usb
+          name: coral-dev
+        - mountPath: /dev/apex_0
+          name: coral-pci
+        - mountPath: /config
+          name: frigate-config
+        - mountPath: /data
+          name: data
+        - mountPath: /dev/shm
+          name: dshm
+        - mountPath: /media/frigate
+          name: frigate-data
+        - mountPath: /media/frigate/recordings
+          name: frigate-recording
+        - mountPath: /media/frigate/clips
+          name: frigate-clips
+      restartPolicy: Always
+      securityContext:
+        supplementalGroups:
+        - 44
+        - 109
+        - 1001
+      terminationGracePeriodSeconds: 30
+      volumes:
+#      - hostPath:
+#          path: /dev/dri
+#          type: ""
+#        name: intel-gpu
+      - hostPath:
+          path: /dev/bus/usb
+          type: ""
+        name: coral-dev
+      - hostPath:
+          path: /dev/apex_0
+          type: ""
+        name: coral-pci
+      - emptyDir: {}
+        name: data
+      - emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+        name: dshm
+      - name: frigate-config
+        persistentVolumeClaim:
+          claimName: pvc-frigate-config
+      - name: frigate-data
+        persistentVolumeClaim:
+          claimName: pvc-frigate-data
+      - name: frigate-recording
+        persistentVolumeClaim:
+          claimName: pvc-frigate-recording
+      - name: frigate-clips
+        persistentVolumeClaim:
+          claimName: pvc-frigate-clips
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frigate
+  namespace: default
+spec:
+  loadBalancerIP: 10.0.0.244
+  ports:
+  - name: frigate-5000
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  - name: frigate-8554
+    port: 8554
+    protocol: TCP
+    targetPort: 8554
+  - name: frigate-8555
+    port: 8555
+    protocol: TCP
+    targetPort: 8555
+  - name: frigate-8555-udp
+    port: 8555
+    protocol: UDP
+    targetPort: 8555
+  selector:
+    app.kubernetes.io/name: frigate
+  type: LoadBalancer

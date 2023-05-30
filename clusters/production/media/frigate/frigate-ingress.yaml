@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-Preferred-Username
+    nginx.ingress.kubernetes.io/auth-signin: https://auth.rees.ca/oauth2/start?rd=$scheme://$best_http_host$request_uri
+    nginx.ingress.kubernetes.io/auth-url: https://auth.rees.ca/oauth2/auth
+    nginx.org/proxy-read-timeout: "3600"
+    nginx.org/proxy-send-timeout: "3600"
+    nginx.org/websocket-services: frigate
+  labels:
+    app.kubernetes.io/name: frigate
+  name: frigate
+  namespace: default
+  resourceVersion: "113920484"
+  uid: b12f9fed-0bf0-45ef-a840-94519c30bc29
+spec:
+  rules:
+  - host: frigate.rees.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: frigate
+            port:
+              number: 5000
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - frigate.rees.ca
+    secretName: frigate-tls
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.0.0.240
