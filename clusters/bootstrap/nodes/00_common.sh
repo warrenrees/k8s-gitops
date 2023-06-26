@@ -36,6 +36,10 @@ net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 EOF
 
+# Stop the system from managing foreign routes
+sudo sed -i 's/#ManageForeignRoutingPolicyRules\=yes/ManageForeignRoutingPolicyRules\=no/g' /etc/systemd/networkd.conf
+sudo sed -i 's/#ManageForeignRoutes\=yes/ManageForeignRoutes\=no/g' /etc/systemd/networkd.conf
+
 # Reload sysctl
 sudo sysctl --system
 
