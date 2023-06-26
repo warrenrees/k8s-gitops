@@ -37,7 +37,7 @@ spec:
         envFrom:
         - secretRef:
             name: frigate-secret
-        image: ghcr.io/blakeblackshear/frigate:0.12.0
+        image: ghcr.io/blakeblackshear/frigate:0.12.1
         imagePullPolicy: IfNotPresent
         name: frigate
         resources:
@@ -61,8 +61,6 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-#        - mountPath: /dev/dri
-#          name: intel-gpu
         - mountPath: /dev/bus/usb
           name: coral-dev
         - mountPath: /dev/apex_0
@@ -87,10 +85,6 @@ spec:
         - 1001
       terminationGracePeriodSeconds: 30
       volumes:
-#      - hostPath:
-#          path: /dev/dri
-#          type: ""
-#        name: intel-gpu
       - hostPath:
           path: /dev/bus/usb
           type: ""
