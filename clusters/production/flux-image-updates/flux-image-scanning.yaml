@@ -95,7 +95,7 @@ metadata:
   name: zwavejs2mqtt
   namespace: flux-system
 spec:
-  image: zwavejs/zwavejs2mqtt
+  image: zwavejs/zwave-js-ui
   interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
