@@ -15,7 +15,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 1.32.2 # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
+      tag: 1.33.0 # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
       pullPolicy: Always
     securityContext:
       privileged: true
