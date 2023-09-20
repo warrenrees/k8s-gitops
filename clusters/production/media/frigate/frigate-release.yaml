@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -17,7 +16,7 @@ spec:
   values:
     image:
       repository: ghcr.io/blakeblackshear/frigate
-      tag: "0.12.0" # {"$imagepolicy": "flux-system:frigate:tag"}
+      tag: "0.12.1" # {"$imagepolicy": "flux-system:frigate:tag"}
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -26,7 +25,7 @@ spec:
             # PCI attached Coral AI Accelerator
             - key: feature.node.kubernetes.io/pci-0880_1ac1.present
               operator: In
-              values: 
+              values:
               - "true"
           - matchExpressions:
             # USB attached Coral AI Accelerator
@@ -34,7 +33,6 @@ spec:
               operator: In
               values:
               - "true"
-
     ingress:
       enabled: true
       annotations:
@@ -46,56 +44,45 @@ spec:
         nginx.org/proxy-read-timeout: "3600"
         nginx.org/proxy-send-timeout: "3600"
         nginx.org/websocket-services: "frigate"
-
       tls:
-        - secretName: frigate-tls
-          hosts:
-            - frigate.rees.ca
-
+      - secretName: frigate-tls
+        hosts:
+        - frigate.rees.ca
       hosts:
-       - host: frigate.rees.ca
-         paths:
-           - '/'
-
+      - host: frigate.rees.ca
+        paths:
+        - '/'
     service:
       type: LoadBalancer
       loadBalancerIP: 10.0.0.244
-
     extraVolumes:
-      - name: frigate-data
-        persistentVolumeClaim:
-          claimName: pvc-frigate-data
-      - name: frigate-recording
-        persistentVolumeClaim:
-          claimName: pvc-frigate-recording
-        
-      - name: frigate-clips
-        persistentVolumeClaim:
-          claimName: pvc-frigate-clips
-
+    - name: frigate-data
+      persistentVolumeClaim:
+        claimName: pvc-frigate-data
+    - name: frigate-recording
+      persistentVolumeClaim:
+        claimName: pvc-frigate-recording
+    - name: frigate-clips
+      persistentVolumeClaim:
+        claimName: pvc-frigate-clips
     extraVolumeMounts:
-      - mountPath: /media/frigate
-        name: frigate-data
-      - mountPath: /media/frigate/recordings
-        name: frigate-recording
-      - mountPath: /media/frigate/clips
-        name: frigate-clips
-
+    - mountPath: /media/frigate
+      name: frigate-data
+    - mountPath: /media/frigate/recordings
+      name: frigate-recording
+    - mountPath: /media/frigate/clips
+      name: frigate-clips
     podSecurityContext:
       supplementalGroups:
       - 44
       - 109
       - 1001
-
     env:
       TZ: "Canada/Eastern"
-
     envFromSecrets:
     - frigate-secret
-
     coral:
       enabled: true
-
     config: |
       mqtt:
         host: mosquitto
