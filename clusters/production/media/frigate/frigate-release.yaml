@@ -1,141 +1,333 @@
-apiVersion: apps/v1
-kind: Deployment
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
   name: frigate
-  namespace: default
+  namespace: flux-system
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: frigate
-      app.kubernetes.io/name: frigate
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/instance: frigate
-        app.kubernetes.io/name: frigate
+  chart:
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: feature.node.kubernetes.io/pci-0880_1ac1.present
-                operator: In
-                values:
-                - "true"
-            - matchExpressions:
-              - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
-                operator: In
-                values:
-                - "true"
-      containers:
-      - env:
-        - name: TZ
-          value: Canada/Eastern
-        envFrom:
-        - secretRef:
-            name: frigate-secret
-        image: ghcr.io/blakeblackshear/frigate:0.12.1
-        imagePullPolicy: IfNotPresent
-        name: frigate
-        resources:
-          limits:
-            gpu.intel.com/i915: "1"
-          requests:
-            gpu.intel.com/i915: "1"
-        ports:
-        - containerPort: 5000
-          name: http
-          protocol: TCP
-        - containerPort: 8554
-          name: rtsp
-          protocol: TCP
-        - containerPort: 8555
-          name: webrtc-tcp
-          protocol: TCP
-        - containerPort: 8555
-          name: webrtc-udp
-          protocol: UDP
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /dev/bus/usb
-          name: coral-dev
-        - mountPath: /dev/apex_0
-          name: coral-pci
-        - mountPath: /config
-          name: frigate-config
-        - mountPath: /data
-          name: data
-        - mountPath: /dev/shm
-          name: dshm
-        - mountPath: /media/frigate
-          name: frigate-data
-        - mountPath: /media/frigate/recordings
-          name: frigate-recording
-        - mountPath: /media/frigate/clips
-          name: frigate-clips
-      restartPolicy: Always
-      securityContext:
-        supplementalGroups:
-        - 44
-        - 109
-        - 1001
-      terminationGracePeriodSeconds: 30
-      volumes:
-      - hostPath:
-          path: /dev/bus/usb
-          type: ""
-        name: coral-dev
-      - hostPath:
-          path: /dev/apex_0
-          type: ""
-        name: coral-pci
-      - emptyDir: {}
-        name: data
-      - emptyDir:
-          medium: Memory
-          sizeLimit: 1Gi
-        name: dshm
-      - name: frigate-config
-        persistentVolumeClaim:
-          claimName: pvc-frigate-config
+      chart: frigate
+      sourceRef:
+        kind: HelmRepository
+        name: blakeblackshear
+  interval: 1h0m0s
+  releaseName: frigate
+  targetNamespace: default
+  values:
+    image:
+      repository: ghcr.io/blakeblackshear/frigate
+      tag: "0.12.0" # {"$imagepolicy": "flux-system:frigate:tag"}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            # PCI attached Coral AI Accelerator
+            - key: feature.node.kubernetes.io/pci-0880_1ac1.present
+              operator: In
+              values: 
+              - "true"
+          - matchExpressions:
+            # USB attached Coral AI Accelerator
+            - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
+              operator: In
+              values:
+              - "true"
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.ingress.kubernetes.io/auth-url: https://auth.rees.ca/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-signin: "https://auth.rees.ca/oauth2/start?rd=$scheme://$best_http_host$request_uri"
+        nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Request-Preferred-Username"
+        nginx.org/proxy-read-timeout: "3600"
+        nginx.org/proxy-send-timeout: "3600"
+        nginx.org/websocket-services: "frigate"
+
+      tls:
+        - secretName: frigate-tls
+          hosts:
+            - frigate.rees.ca
+
+      hosts:
+       - host: frigate.rees.ca
+         paths:
+           - '/'
+
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 10.0.0.244
+
+    extraVolumes:
       - name: frigate-data
         persistentVolumeClaim:
           claimName: pvc-frigate-data
       - name: frigate-recording
         persistentVolumeClaim:
           claimName: pvc-frigate-recording
+        
       - name: frigate-clips
         persistentVolumeClaim:
           claimName: pvc-frigate-clips
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frigate
-  namespace: default
-spec:
-  loadBalancerIP: 10.0.0.244
-  ports:
-  - name: frigate-5000
-    port: 5000
-    protocol: TCP
-    targetPort: 5000
-  - name: frigate-8554
-    port: 8554
-    protocol: TCP
-    targetPort: 8554
-  - name: frigate-8555
-    port: 8555
-    protocol: TCP
-    targetPort: 8555
-  - name: frigate-8555-udp
-    port: 8555
-    protocol: UDP
-    targetPort: 8555
-  selector:
-    app.kubernetes.io/name: frigate
-  type: LoadBalancer
+
+    extraVolumeMounts:
+      - mountPath: /media/frigate
+        name: frigate-data
+      - mountPath: /media/frigate/recordings
+        name: frigate-recording
+      - mountPath: /media/frigate/clips
+        name: frigate-clips
+
+    podSecurityContext:
+      supplementalGroups:
+      - 44
+      - 109
+      - 1001
+
+    env:
+      TZ: "Canada/Eastern"
+
+    envFromSecrets:
+    - frigate-secret
+
+    coral:
+      enabled: true
+
+    config: |
+      mqtt:
+        host: mosquitto
+        port: 1883
+        topic_prefix: frigate
+        client_id: frigate
+        stats_interval: 60
+
+      detectors:
+         coral:
+           type: edgetpu
+           device: pci
+
+      birdseye:
+        mode: motion
+
+      ffmpeg:
+        output_args:
+          record: preset-record-generic-audio-aac
+        hwaccel_args: preset-intel-qsv-h264
+        #hwaccel_args: preset-vaapi
+
+      record:
+        enabled: true
+        retain:
+          days: 14
+          mode: all
+
+      snapshots:
+        enabled: true
+        bounding_box: false
+
+      go2rtc:
+        streams:
+          frontdoor:
+            - rtspx://10.255.255.1:7441/wEpNW7kCLkOmj5K5
+          driveway:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.20:554/cam/realmonitor?channel=1&subtype=0
+          driveway_sub:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.20:554/cam/realmonitor?channel=1&subtype=1
+          sideyard:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=0
+          sideyard_sub:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=2
+          shed:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=0
+          shed_sub:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=2
+
+
+      cameras:
+        frontdoor:
+          ffmpeg:
+            output_args:
+               record: preset-record-ubiquiti
+
+            inputs:
+              - path: rtsp://127.0.0.1:8554/frontdoor
+                input_args: preset-rtsp-restream
+                roles:
+                  - record
+                  - detect
+          detect:
+            width: 960
+            height: 720
+            fps: 6
+
+          record:
+            enabled: true
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
+          mqtt:
+            crop: False
+            height: 720
+
+        driveway:
+          ffmpeg:
+            inputs:
+              - path: rtsp://127.0.0.1:8554/driveway
+                input_args: preset-rtsp-restream
+                roles:
+                  - record
+              - path: rtsp://127.0.0.1:8554/driveway_sub
+                input_args: preset-rtsp-restream
+                roles:
+                  - detect
+
+            hwaccel_args:
+              - -hwaccel
+              - qsv
+              - -qsv_device
+              - /dev/dri/renderD128
+          record:
+            enabled: true
+
+          detect:
+            width: 1920
+            height: 536
+            fps: 10
+
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
+          mqtt:
+            crop: False
+            height: 1440
+
+        backyard:
+          enabled: false
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - rtmp
+          record:
+            enabled: true
+
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
+        sideyard:
+          ffmpeg:
+            inputs:
+              - path: rtsp://127.0.0.1:8554/sideyard_sub
+                input_args: preset-rtsp-restream
+                roles:
+                  - detect
+              - path: rtsp://127.0.0.1:8554/sideyard
+                input_args: preset-rtsp-restream
+                roles:
+                  - record
+          birdseye:
+            enabled: False
+
+          record:
+            enabled: true
+
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
+        shed:
+          ffmpeg:
+            inputs:
+              - path: rtsp://127.0.0.1:8554/shed_sub
+                roles:
+                  - detect
+              - path: rtsp://127.0.0.1:8554/shed
+                roles:
+                  - record
+          record:
+            enabled: true
+
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+
+        kid1:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8554/bodhi-cam
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
+
+          objects:
+            track:
+              - person
+
+        kid2:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8554/rocky-cam
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
+
+          objects:
+            track:
+              - person

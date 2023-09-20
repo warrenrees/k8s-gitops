@@ -180,3 +180,17 @@ spec:
       range: '>= 3.1.2'
 
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: frigate
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: frigate
+  policy:
+    semver:
+      range: '>= 0.11.0'
+
+
