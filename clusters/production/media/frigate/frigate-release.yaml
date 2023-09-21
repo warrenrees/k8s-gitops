@@ -64,3 +64,206 @@ spec:
     - frigate-secret
     coral:
       enabled: true
+    config: |
+      mqtt:
+        host: mosquitto
+        port: 1883
+        topic_prefix: frigate
+        client_id: frigate
+        stats_interval: 60
+      detectors:
+         coral:
+           type: edgetpu
+           device: pci
+      birdseye:
+        mode: motion
+      ffmpeg:
+        output_args:
+          record: preset-record-generic-audio-aac
+        hwaccel_args: preset-intel-qsv-h264
+        #hwaccel_args: preset-vaapi
+      record:
+        enabled: true
+        retain:
+          days: 14
+          mode: all
+      snapshots:
+        enabled: true
+        bounding_box: false
+      go2rtc:
+        streams:
+          frontdoor:
+            - rtspx://10.255.255.1:7441/wEpNW7kCLkOmj5K5
+          driveway:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.20:554/cam/realmonitor?channel=1&subtype=0
+          driveway_sub:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.20:554/cam/realmonitor?channel=1&subtype=1
+          sideyard:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=0
+          sideyard_sub:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.28:554/cam/realmonitor?channel=1&subtype=2
+          shed:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=0
+          shed_sub:
+            - rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.27:554/cam/realmonitor?channel=1&subtype=2
+      cameras:
+        frontdoor:
+          ffmpeg:
+            output_args:
+               record: preset-record-ubiquiti
+            inputs:
+              - path: rtsp://127.0.0.1:8554/frontdoor
+                input_args: preset-rtsp-restream
+                roles:
+                  - record
+                  - detect
+          detect:
+            width: 960
+            height: 720
+            fps: 6
+          record:
+            enabled: true
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+          mqtt:
+            crop: False
+            height: 720
+        driveway:
+          ffmpeg:
+            inputs:
+              - path: rtsp://127.0.0.1:8554/driveway
+                input_args: preset-rtsp-restream
+                roles:
+                  - record
+              - path: rtsp://127.0.0.1:8554/driveway_sub
+                input_args: preset-rtsp-restream
+                roles:
+                  - detect
+            hwaccel_args:
+              - -hwaccel
+              - qsv
+              - -qsv_device
+              - /dev/dri/renderD128
+          record:
+            enabled: true
+          detect:
+            width: 1920
+            height: 536
+            fps: 10
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+          mqtt:
+            crop: False
+            height: 1440
+        backyard:
+          enabled: false
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=2
+                roles:
+                  - detect
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+              - path: rtsp://frigate:{FRIGATE_RTSP_PASSWORD}@172.31.2.26:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - rtmp
+          record:
+            enabled: true
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+        sideyard:
+          ffmpeg:
+            inputs:
+              - path: rtsp://127.0.0.1:8554/sideyard_sub
+                input_args: preset-rtsp-restream
+                roles:
+                  - detect
+              - path: rtsp://127.0.0.1:8554/sideyard
+                input_args: preset-rtsp-restream
+                roles:
+                  - record
+          birdseye:
+            enabled: False
+          record:
+            enabled: true
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+        shed:
+          ffmpeg:
+            inputs:
+              - path: rtsp://127.0.0.1:8554/shed_sub
+                roles:
+                  - detect
+              - path: rtsp://127.0.0.1:8554/shed
+                roles:
+                  - record
+          record:
+            enabled: true
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+        kid1:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8554/bodhi-cam
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
+          objects:
+            track:
+              - person
+        kid2:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzebridge.default.svc.cluster.local:8554/rocky-cam
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
+          objects:
+            track:
+              - person
