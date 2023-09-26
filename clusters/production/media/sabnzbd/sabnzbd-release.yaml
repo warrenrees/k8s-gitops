@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sabnzbd
-        image: linuxserver/sabnzbd:4.0.3 # {"$imagepolicy": "flux-system:sabnzbd"}
+        image: linuxserver/sabnzbd:4.1.0 # {"$imagepolicy": "flux-system:sabnzbd"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
