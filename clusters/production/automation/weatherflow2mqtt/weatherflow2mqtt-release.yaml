@@ -34,7 +34,7 @@ spec:
             name: weatherflow2mqtt
         imagePullPolicy: IfNotPresent
         name: weatherflow2mqtt
-        image: briis/weatherflow2mqtt:3.2.1 # {"$imagepolicy": "flux-system:weatherflow2mqtt"}
+        image: briis/weatherflow2mqtt:3.2.2 # {"$imagepolicy": "flux-system:weatherflow2mqtt"}
         ports:
         - containerPort: 50222
           hostPort: 50222
