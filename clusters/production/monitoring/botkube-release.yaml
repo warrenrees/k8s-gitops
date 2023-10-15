@@ -16,29 +16,21 @@ spec:
   targetNamespace: monitoring
 
   values:
-    existingCommunicationsSecretName: "botkube-commconfig-secret"
+    #existingCommunicationsSecretName: "botkube-commconfig-secret"
     communications:
-      default-group:
+      'default-group':
         teams:
           enabled: true
-          messagePath: /bots/teams/v1/messages
-    sources:
-      "k8s-events":
-        kubernetes:
-          resources:
-            - type: v1/configmaps
-              namespaces:
-                include:
-                  - (botk.*|default)
-              event:
-                types:
-                  - create
-                  - update
-                  - delete
-    executors:
-      'kubectl-read-only':
-        kubectl:
-          enabled: true
+          #messagePath: /bots/teams/v1/messages
+          appID: e7459075-87f3-42cd-8014-6a13ad3ee08f
+          appPassword: L.k8Q~WwGC.uYkWS4176QTUTdyfaDPJs5dEzgcHU
+
+    #executors:
+    #  k8s-default-tools:
+    #    botkube/helm:
+    #      enabled: true
+    #    botkube/kubectl:
+    #      enabled: true
     ingress:
       create: true
       annotations:
