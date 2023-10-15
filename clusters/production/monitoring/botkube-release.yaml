@@ -32,27 +32,3 @@ spec:
       enabled: true
       labels:
         release: monitoring-kube-prometheus-stack
-
-    extraEnv:
-      - name: meep
-        valueFrom:
-          secretKeyRef:
-            name: botkube-secret
-            key: appPassword
-      - name: BOTKUBE_COMMUNICATIONS_DEFAULT-GROUP_TEAMS_APP__PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: botkube-secret
-            key: appPassword
-
-      - name: COMMUNICATIONS__TEAMS_APP__PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: botkube-secret
-            key: appPassword
-
-      - name: BOTKUBE_COMMUNICATIONS_SOCKET__SLACK_BOT__TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: botkube-secret
-            key: appPassword
