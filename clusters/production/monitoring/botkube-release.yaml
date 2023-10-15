@@ -16,21 +16,7 @@ spec:
   targetNamespace: monitoring
 
   values:
-    #existingCommunicationsSecretName: "botkube-commconfig-secret"
-    communications:
-      'default-group':
-        teams:
-          enabled: true
-          #messagePath: /bots/teams/v1/messages
-          appID: e7459075-87f3-42cd-8014-6a13ad3ee08f
-          appPassword: L.k8Q~WwGC.uYkWS4176QTUTdyfaDPJs5dEzgcHU
-
-    #executors:
-    #  k8s-default-tools:
-    #    botkube/helm:
-    #      enabled: true
-    #    botkube/kubectl:
-    #      enabled: true
+    existingCommunicationsSecretName: "botkube-commconfig-secret"
     ingress:
       create: true
       annotations:
@@ -46,3 +32,27 @@ spec:
       enabled: true
       labels:
         release: monitoring-kube-prometheus-stack
+
+    extraEnv:
+      - name: meep
+        valueFrom:
+          secretKeyRef:
+            name: botkube-secret
+            key: appPassword
+      - name: BOTKUBE_COMMUNICATIONS_DEFAULT-GROUP_TEAMS_APP__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: botkube-secret
+            key: appPassword
+
+      - name: COMMUNICATIONS__TEAMS_APP__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: botkube-secret
+            key: appPassword
+
+      - name: BOTKUBE_COMMUNICATIONS_SOCKET__SLACK_BOT__TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: botkube-secret
+            key: appPassword
