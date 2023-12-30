@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sonarr
-        image: linuxserver/sonarr:3.0.10 # {"$imagepolicy": "flux-system:sonarr"}
+        image: linuxserver/sonarr:4.0.0 # {"$imagepolicy": "flux-system:sonarr"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8989
