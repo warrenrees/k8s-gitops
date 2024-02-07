@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frigate
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: frigate
+      app.kubernetes.io/name: frigate
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: frigate
+        app.kubernetes.io/name: frigate
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: feature.node.kubernetes.io/pci-0880_1ac1.present
+                operator: In
+                values:
+                - "true"
+            - matchExpressions:
+              - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
+                operator: In
+                values:
+                - "true"
+      containers:
+      - env:
+        - name: TZ
+          value: Canada/Eastern
+        envFrom:
+        - secretRef:
+            name: frigate-secret
+        image: ghcr.io/blakeblackshear/frigate:0.13.1 # {"$imagepolicy": "flux-system:frigate"}
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: frigate
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        - containerPort: 1935
+          name: rtmp
+          protocol: TCP
+        - containerPort: 8554
+          name: rtsp
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /dev/bus/usb
+          name: coral-dev
+        - mountPath: /config
+          name: frigate-config
+        - mountPath: /data
+          name: data
+        - mountPath: /dev/shm
+          name: dshm
+        - mountPath: /media/frigate
+          name: frigate-data
+        - mountPath: /media/frigate/recordings
+          name: frigate-recording
+        - mountPath: /media/frigate/clips
+          name: frigate-clips
+      volumes:
+      - hostPath:
+          path: /dev/bus/usb
+          type: ""
+        name: coral-dev
+      - emptyDir: {}
+        name: data
+      - emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+        name: dshm
+      - name: frigate-config
+        persistentVolumeClaim:
+          claimName: pvc-frigate-config
+      - name: frigate-data
+        persistentVolumeClaim:
+          claimName: pvc-frigate-data
+      - name: frigate-recording
+        persistentVolumeClaim:
+          claimName: pvc-frigate-recording
+      - name: frigate-clips
+        persistentVolumeClaim:
+          claimName: pvc-frigate-clips
