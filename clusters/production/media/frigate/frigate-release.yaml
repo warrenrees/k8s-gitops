@@ -37,7 +37,7 @@ spec:
         envFrom:
         - secretRef:
             name: frigate-secret
-        image: ghcr.io/blakeblackshear/frigate:0.13.1 # {"$imagepolicy": "flux-system:frigate"}
+        image: ghcr.io/blakeblackshear/frigate:0.13.2 # {"$imagepolicy": "flux-system:frigate"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
