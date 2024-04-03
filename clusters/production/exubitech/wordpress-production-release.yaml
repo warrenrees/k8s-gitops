@@ -31,7 +31,7 @@ spec:
       maxReplicas: 10
       targetMemory: 75
 
-    customHTAccessCM: wordpress-cm
+    #customHTAccessCM: wordpress-cm
 
     ingress:
       enabled: true

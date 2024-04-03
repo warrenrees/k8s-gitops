@@ -29,7 +29,7 @@ spec:
       enabled: true
       minReplicas: 1
       maxReplicas: 10
-    customHTAccessCM: wordpress-cm
+    #customHTAccessCM: wordpress-cm
 
     ingress:
       enabled: true
