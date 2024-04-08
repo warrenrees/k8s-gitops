@@ -34,6 +34,16 @@ spec:
           value: "1"
         - name: BASE_URL
           value: "https://mealie.rees.ca"
+        - name: OIDC_AUTH_ENABLED
+          value: "true"
+        - name: OIDC_CONFIGURATION_URL
+          value: "https://sso.rees.ca/realms/master/.well-known/openid-configuration"
+        - name: OIDC_CLIENT_ID
+          value: mealie
+        #- name: OIDC_AUTO_REDIRECT
+        #  value: true
+        - name: OIDC_PROVIDER_NAME
+          value: "Rees SSO"
         volumeMounts:
         - name: mealie-config
           mountPath: /app/data/
