@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mealie
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mealie
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mealie
+    spec:
+      containers:
+      - name: mealie
+        image: ghcr.io/mealie-recipes/mealie:v1.3.2 # {"$imagepolicy": "flux-system:mealie"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9000
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America\Toronto
+        - name: MAX_WORKERS
+          value: "1"
+        - name: WEB_CONCURRENCY
+          value: "1"
+        - name: BASE_URL
+          value: "https://mealie.rees.ca"
+        volumeMounts:
+        - name: mealie-config
+          mountPath: /app/data/
+      volumes:
+      - name: mealie-config
+        persistentVolumeClaim:
+          claimName: pvc-mealie-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mealie
+  namespace: default
+  labels:
+    app: mealie
+spec:
+  selector:
+    app: mealie
+  ports:
+  - name: mealie
+    port: 9000
+    targetPort: 9000
+  type: ClusterIP
