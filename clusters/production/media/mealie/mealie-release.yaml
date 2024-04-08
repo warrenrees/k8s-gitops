@@ -46,6 +46,8 @@ spec:
           value: "Rees SSO"
         - name: OIDC_ADMIN_GROUP
           value: "mealie-admins"
+        - name: LOG_LEVEL
+          value: "debug"
         volumeMounts:
         - name: mealie-config
           mountPath: /app/data/
