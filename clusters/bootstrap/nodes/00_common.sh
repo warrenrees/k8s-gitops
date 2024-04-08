@@ -28,12 +28,15 @@ sudo swapoff -a
 # Enable kernel modules
 sudo modprobe overlay
 sudo modprobe br_netfilter
+sudo modprobe uio
+sudo modprobe uio_pci_generic
 
 # Add some settings to sysctl
 sudo tee /etc/sysctl.d/kubernetes.conf<<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
+vm.nr_hugepages = 1024
 EOF
 
 # Stop the system from managing foreign routes
@@ -47,6 +50,12 @@ sudo sysctl --system
 sudo tee /etc/modules-load.d/containerd.conf <<EOF
 overlay
 br_netfilter
+EOF
+
+# Configure longhorn kernel modules
+sudo tee /etc/modules-load.d/longhorn.conf <<EOF
+uio
+uio_pci_generic
 EOF
 
 # Install required packages
