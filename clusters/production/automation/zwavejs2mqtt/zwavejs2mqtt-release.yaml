@@ -55,8 +55,8 @@ spec:
               - "true"
     additionalVolumeMounts:
     - name: usb
-      mountPath: /dev/ttyACM0
+      mountPath: /dev/ttyUSB0
     additionalVolumes:
     - name: usb
       hostPath:
-        path: /dev/ttyACM0
+        path: /dev/ttyUSB0
