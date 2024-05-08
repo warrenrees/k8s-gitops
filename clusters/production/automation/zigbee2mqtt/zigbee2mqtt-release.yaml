@@ -43,7 +43,11 @@ spec:
           nodeSelectorTerms:
           - matchExpressions:
             # USB attached zigbee controller
-            - key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
+            #- key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
+            #  operator: In
+            #  values:
+            #  - "true"
+            - key: zigbee
               operator: In
               values:
               - "true"

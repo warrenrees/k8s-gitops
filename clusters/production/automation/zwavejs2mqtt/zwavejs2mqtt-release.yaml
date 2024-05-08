@@ -43,13 +43,11 @@ spec:
           nodeSelectorTerms:
           - matchExpressions:
             # USB attached Z-Wave controller
-            - key: feature.node.kubernetes.io/usb-02_0658_0200.present
-              operator: In
-              values:
-              - "true"
-          - matchExpressions:
-            # USB attached Z-Wave controller (Zooz 800 Series)
-            - key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
+            #- key: feature.node.kubernetes.io/usb-02_0658_0200.present
+            #  operator: In
+            #  values:
+            #  - "true"
+            - key: zwave
               operator: In
               values:
               - "true"
