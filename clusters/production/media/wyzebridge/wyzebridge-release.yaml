@@ -18,6 +18,8 @@ spec:
       - env:
         - name: TZ
           value: America\Toronto
+        - name: WB_AUTH
+          value: "False"
         envFrom:
         - secretRef:
             name: wyzebridge
