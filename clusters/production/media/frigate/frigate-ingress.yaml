@@ -21,7 +21,7 @@ spec:
       paths:
       - backend:
           service:
-            name: frigate
+            name: frigate-tcp
             port:
               number: 5000
         path: /
@@ -34,3 +34,4 @@ status:
   loadBalancer:
     ingress:
     - ip: 10.0.0.240
+

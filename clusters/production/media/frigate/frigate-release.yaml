@@ -118,3 +118,53 @@ spec:
       - name: frigate-exports
         persistentVolumeClaim:
           claimName: pvc-frigate-exports
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: frigate-svc
+  name: frigate-tcp
+  namespace: default
+spec:
+  loadBalancerIP: 10.0.0.244
+  ports:
+  - name: frigate-5000
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  - name: frigate-1935
+    port: 1935
+    protocol: TCP
+    targetPort: 1935
+  - name: frigate-8554
+    port: 8554
+    protocol: TCP
+    targetPort: 8554
+  - name: frigate-8555
+    port: 8555
+    protocol: TCP
+    targetPort: 8555
+  selector:
+    app.kubernetes.io/instance: frigate
+    app.kubernetes.io/name: frigate
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: frigate-svc
+  name: frigate-udp
+  namespace: default
+spec:
+  loadBalancerIP: 10.0.0.244
+  ports:
+  - name: frigate-8555
+    port: 8555
+    protocol: UDP
+    targetPort: 8555
+  selector:
+    app.kubernetes.io/instance: frigate
+    app.kubernetes.io/name: frigate
+  type: LoadBalancer
