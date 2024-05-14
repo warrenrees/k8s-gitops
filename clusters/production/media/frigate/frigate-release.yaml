@@ -90,6 +90,8 @@ spec:
           name: frigate-recording
         - mountPath: /media/frigate/clips
           name: frigate-clips
+        - mountPath: /media/frigate/exports
+          name: frigate-exports
       volumes:
       - hostPath:
           path: /dev/bus/usb
@@ -113,3 +115,6 @@ spec:
       - name: frigate-clips
         persistentVolumeClaim:
           claimName: pvc-frigate-clips
+      - name: frigate-exports
+        persistentVolumeClaim:
+          claimName: pvc-frigate-exports
