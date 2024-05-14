@@ -60,6 +60,9 @@ spec:
         - containerPort: 8554
           name: rtsp
           protocol: TCP
+        - containerPort: 8555
+          name: webrtc
+          protocol: TCP
         readinessProbe:
           failureThreshold: 5
           httpGet:
