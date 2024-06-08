@@ -16,21 +16,9 @@ spec:
   targetNamespace: default
 
   values:
-    metricsScraper:
-      enabled: true
+    app:
+      ingress:
+        enabled: true
+        hosts:
+          - kubernetes-dashboard.rees.ca
 
-    extraArgs:
-      - --enable-skip-login
-      - --enable-insecure-login
-
-    protocolHttp: true
-
-    ingress:
-      enabled: true
-      ingressClassName: internal-nginx
-      hosts:
-        - kubernetes-dashboard.rees.ca
-      annotations:
-        kubernetes.io/ingress.class: internal-nginx
-
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
