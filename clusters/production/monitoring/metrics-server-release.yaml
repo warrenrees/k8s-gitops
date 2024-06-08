@@ -18,3 +18,5 @@ spec:
   values:
     replicas: 2
 
+    args:
+      - --kubelet-insecure-tls
