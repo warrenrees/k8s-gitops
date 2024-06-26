@@ -14,7 +14,7 @@ spec:
   releaseName: minecraft-server
   targetNamespace: default
   values:
-    image: 2024.6.1 # {"$imagepolicy": "flux-system:minecraft"}
+    image: itzg/minecraft-server:2024.6.1 # {"$imagepolicy": "flux-system:minecraft"}
     minecraftServer:
       eula: true
       difficult: normal
