@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: exubi-wp-prod
@@ -15,9 +15,10 @@ spec:
   releaseName: exubi-wp-prod
   targetNamespace: exubitech
   values:
+    resourcesPreset: "small"
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
-    replicaCount: 1
+    replicaCount: 3
     persistence:
       accessModes:
         - ReadWriteMany
@@ -26,10 +27,10 @@ spec:
       storageclass: "longhorn-static"
       size: 10Gi
     autoscaling:
-      enabled: true
+      enabled: false
       minReplicas: 2
-      maxReplicas: 10
-      targetMemory: 75
+      maxReplicas: 5
+      targetMemory: 50
 
     #customHTAccessCM: wordpress-cm
 
