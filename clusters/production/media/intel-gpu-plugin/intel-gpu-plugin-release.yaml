@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: intel-gpu-plugin
@@ -7,15 +7,13 @@ metadata:
 spec:
   chart:
     spec:
-      chart: intel-gpu-plugin
+      chart: gpu-device-plugin
+      reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
-  interval: 10m0s
-  releaseName: intel-gpu-plugin
+        name: intel
+  interval: 1m0s
   targetNamespace: intel-gpu-plugin
   values:
-    image:
-      tag: 0.26.1
     nodeSelector:
       feature.node.kubernetes.io/pci-0300_8086.present: "true"
