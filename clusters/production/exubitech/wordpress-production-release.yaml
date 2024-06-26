@@ -15,7 +15,7 @@ spec:
   releaseName: exubi-wp-prod
   targetNamespace: exubitech
   values:
-    resourcesPreset: "xlarge"
+    resourcesPreset: "large"
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
     replicaCount: 3
