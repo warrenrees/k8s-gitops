@@ -15,7 +15,7 @@ spec:
   releaseName: exubi-wp-prod
   targetNamespace: exubitech
   values:
-    resourcesPreset: "small"
+    resourcesPreset: "xlarge"
     wordpressUsername: admin
     existingSecret: wp-admin-exubitech
     replicaCount: 3
@@ -27,10 +27,10 @@ spec:
       storageclass: "longhorn-static"
       size: 10Gi
     autoscaling:
-      enabled: false
+      enabled: true
       minReplicas: 2
       maxReplicas: 5
-      targetMemory: 50
+      targetMemory: 80
 
     #customHTAccessCM: wordpress-cm
 
