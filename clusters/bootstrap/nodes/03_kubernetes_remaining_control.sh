@@ -15,3 +15,4 @@ sudo sed -e "s/- --bind-address=127.0.0.1/- --bind-address=0.0.0.0/" -i /etc/kub
 sudo sed -e "s/- --bind-address=127.0.0.1/- --bind-address=0.0.0.0/" -i /etc/kubernetes/manifests/kube-scheduler.yaml
 
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancers-
