@@ -13,7 +13,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 kubectl create -f tigera-operator.yaml
 kubectl create -f custom-resources.yaml
-kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 ## Let's allow prometheus to retrieve metrics for kube controller and scheduler
 sudo sed -e "s/- --bind-address=127.0.0.1/- --bind-address=0.0.0.0/" -i /etc/kubernetes/manifests/kube-controller-manager.yaml

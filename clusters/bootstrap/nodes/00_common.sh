@@ -10,7 +10,7 @@ sudo apt-add-repository \
 sudo apt update
 
 # Install necessary dependencies to support the Intel GPU in k8s
-sudo apt -y install   intel-opencl-icd   intel-level-zero-gpu level-zero   intel-media-va-driver-non-free libigfxcmrt7 libmfx1 vainfo intel-gpu-tools
+sudo apt -y install   intel-opencl-icd   intel-level-zero-gpu level-zero   intel-media-va-driver-non-free libigfxcmrt7 libmfx1 vainfo intel-gpu-tools ubuntu-advantage-tools
 
 
 sudo apt -y install curl apt-transport-https jq build-essential nfs-common
