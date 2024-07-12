@@ -39,6 +39,11 @@ spec:
             name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.13.2 # {"$imagepolicy": "flux-system:frigate"}
         imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+          requests:
+            gpu.intel.com/i915: "1"
         livenessProbe:
           failureThreshold: 5
           httpGet:
