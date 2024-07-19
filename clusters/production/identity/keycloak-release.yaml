@@ -17,6 +17,7 @@ spec:
   targetNamespace: identity
 
   values:
+    production: true
     proxyHeaders: xforwarded
     proxy: edge
     auth:
