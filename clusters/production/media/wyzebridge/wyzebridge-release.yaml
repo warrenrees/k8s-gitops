@@ -25,7 +25,7 @@ spec:
             name: wyzebridge
         imagePullPolicy: IfNotPresent
         name: wyzebridge
-        image: mrlt8/wyze-bridge:2.9.12 # {"$imagepolicy": "flux-system:wyzebridge"}
+        image: mrlt8/wyze-bridge:2.10.0 # {"$imagepolicy": "flux-system:wyzebridge"}
         ports:
         - containerPort: 1935
           protocol: TCP
