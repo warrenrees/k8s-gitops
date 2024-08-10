@@ -156,10 +156,10 @@ spec:
     port: 8555
     protocol: TCP
     targetPort: 8555
-  - name: frigate-8739
-    port: 8739
+  - name: frigate-8971
+    port: 8971
     protocol: TCP
-    targetPort: 8739
+    targetPort: 8971
   selector:
     app.kubernetes.io/instance: frigate
     app.kubernetes.io/name: frigate
