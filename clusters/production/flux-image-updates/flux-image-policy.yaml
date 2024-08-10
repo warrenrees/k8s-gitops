@@ -205,4 +205,17 @@ spec:
     semver:
       range: '>= 1.3.2'
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: vaultwarden
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: vaultwarden
+  policy:
+    semver:
+      range: '>= 1.30.0'
+
 

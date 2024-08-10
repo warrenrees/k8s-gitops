@@ -142,3 +142,12 @@ metadata:
 spec:
   image: ghcr.io/mealie-recipes/mealie
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: vaultwarden
+  namespace: flux-system
+spec:
+  image: vaultwarden/server
+  interval: 30m0s
