@@ -34,6 +34,7 @@ sudo modprobe overlay
 sudo modprobe br_netfilter
 sudo modprobe uio
 sudo modprobe uio_pci_generic
+sudo modprob nvme-tcp
 
 # Add some settings to sysctl
 sudo tee /etc/sysctl.d/kubernetes.conf<<EOF
@@ -60,6 +61,7 @@ EOF
 sudo tee /etc/modules-load.d/longhorn.conf <<EOF
 uio
 uio_pci_generic
+nvme-tcp
 EOF
 
 # Install required packages
