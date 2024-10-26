@@ -60,5 +60,6 @@ spec:
         name: cilium
       operator:
         name: cilium-operator
-    tunnel: vxlan
+    routingMode: tunnel
+    tunnelProtocol: vxlan
     tunnelPort: 8472
