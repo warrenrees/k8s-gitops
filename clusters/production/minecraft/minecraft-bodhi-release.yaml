@@ -21,7 +21,7 @@ spec:
       eula: true
       gameMode: creative
       motd: "Welcome to Bodhi's Minecraft Server"
-      type: NEOFORGE
+      type: VANILLA
       difficult: normal
       serviceType: LoadBalancer
       #loadBalancerIP: 10.0.0.35
