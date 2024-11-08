@@ -40,14 +40,14 @@ spec:
       supplementalGroups:
       - 44
       - 109
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-        cpu: 200m
-        memory: 256Mi
-      limits:
-        gpu.intel.com/i915: 1
-        memory: 4096Mi
+    #resources:
+    #  requests:
+    #    gpu.intel.com/i915: 1
+    #    cpu: 200m
+    #    memory: 256Mi
+    #  limits:
+    #    gpu.intel.com/i915: 1
+    #    memory: 4096Mi
     persistence:
       config:
         enabled: true
