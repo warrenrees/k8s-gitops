@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: zigbee2mqtt
+    app.kubernetes.io/name: zigbee2mqtt
+  name: zigbee2mqtt
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: zigbee2mqtt.rees.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: zigbee2mqtt
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix

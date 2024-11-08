@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  configuration.yaml: |
+    advanced:
+      homeassistant_discovery_topic: homeassistant
+      homeassistant_status_topic: homeassistant/status
+      last_seen: ISO_8601
+      log_level: info
+      log_output:
+      - console
+      network_key: GENERATE
+    experimental:
+      new_api: true
+    frontend:
+      port: 8080
+    homeassistant: true
+    mqtt:
+      base_topic: zigbee2mqtt
+      include_device_information: true
+      server: mqtt://mqtt.rees.ca
+    permit_join: true
+    serial:
+      port: /dev/ttyUSB0
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: zigbee2mqtt
+    app.kubernetes.io/name: zigbee2mqtt
+  name: zigbee2mqtt-settings
+  namespace: default
