@@ -16,20 +16,20 @@ spec:
         app.kubernetes.io/instance: frigate
         app.kubernetes.io/name: frigate
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: feature.node.kubernetes.io/pci-0880_1ac1.present
-                operator: In
-                values:
-                - "true"
-            - matchExpressions:
-              - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
-                operator: In
-                values:
-                - "true"
+      #affinity:
+      #  nodeAffinity:
+      #    requiredDuringSchedulingIgnoredDuringExecution:
+      #      nodeSelectorTerms:
+      #      - matchExpressions:
+      #        - key: feature.node.kubernetes.io/pci-0880_1ac1.present
+      #          operator: In
+      #          values:
+      #          - "true"
+      #      - matchExpressions:
+      #        - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
+      #          operator: In
+      #          values:
+      #          - "true"
       containers:
       - env:
         - name: TZ
@@ -39,11 +39,11 @@ spec:
             name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.14.1 # {"$imagepolicy": "flux-system:frigate"}
         imagePullPolicy: IfNotPresent
-        resources:
-          limits:
-            gpu.intel.com/i915: "1"
-          requests:
-            gpu.intel.com/i915: "1"
+        #resources:
+        #  limits:
+        #    gpu.intel.com/i915: "1"
+        #  requests:
+        #    gpu.intel.com/i915: "1"
         livenessProbe:
           failureThreshold: 5
           httpGet:
