@@ -1,73 +1,107 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: plex
-  namespace: flux-system
+  namespace: default
 spec:
-  chart:
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: plex
+      app.kubernetes.io/name: plex
+  strategy:
+    type: Recreate
+  template:
     spec:
-      chart: plex
-      sourceRef:
-        kind: HelmRepository
-        name: k8s-at-home
-  interval: 1h0m0s
-  releaseName: plex
-  targetNamespace: default
-  values:
-    image:
-      repository: plexinc/pms-docker
-      tag: 1.41.1.9057-af5eaea7a # {"$imagepolicy": "flux-system:plex:tag"}
-    env:
-      TZ: "America/Toronto"
-      ADVERTISE_IP: http://10.0.0.30:32400/
-      ALLOWED_NETWORKS: 10.0.0.0/24
-    envFrom:
-    - secretRef:
-        name: plexclaim-secret
-    service:
-      main:
-        annotations:
-          metallb.universe.tf/allow-shared-ip: "plex"
-        type: LoadBalancer
-        loadBalancerIP: 10.0.0.30
-        externalTrafficPolicy: Local
-        ports:
-          http:
+      containers:
+      - env:
+        - name: ADVERTISE_IP
+          value: http://10.0.0.30:32400/
+        - name: ALLOWED_NETWORKS
+          value: 10.0.0.0/24
+        - name: TZ
+          value: America/Toronto
+        envFrom:
+        - secretRef:
+            name: plexclaim-secret
+        image: plexinc/pms-docker:1.41.1.9057-af5eaea7a # {"$imagepolicy": "flux-system:plex"}
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
             port: 32400
-            targetPort: 32400
-            protocol: TCP
-    podSecurityContext:
-      supplementalGroups:
-      - 44
-      - 109
-    #resources:
-    #  requests:
-    #    gpu.intel.com/i915: 1
-    #    cpu: 200m
-    #    memory: 256Mi
-    #  limits:
-    #    gpu.intel.com/i915: 1
-    #    memory: 4096Mi
-    persistence:
-      config:
-        enabled: true
-        mountPath: "/config"
-        existingClaim: "pvc-plex-config"
-      transcode:
-        enabled: true
-        type: emptyDir
-      media:
-        enabled: true
-        mountPath: "/video"
-        existingClaim: pvc-plex-video
-      photo:
-        enabled: true
-        mountPath: "/photo"
-        existingClaim: pvc-plex-photo
-      music:
-        enabled: true
-        mountPath: "/music"
-        existingClaim: pvc-plex-music
-#      media2:
-#        enabled: true
-#        mountPath: "/music"
+          timeoutSeconds: 1
+        name: plex
+        ports:
+        - containerPort: 32400
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 32400
+          timeoutSeconds: 1
+        resources: {}
+        startupProbe:
+          failureThreshold: 30
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 32400
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /video
+          name: media
+        - mountPath: /music
+          name: music
+        - mountPath: /photo
+          name: photo
+        - mountPath: /transcode
+          name: transcode
+      securityContext:
+        supplementalGroups:
+        - 44
+        - 109
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: pvc-plex-config
+      - name: media
+        persistentVolumeClaim:
+          claimName: pvc-plex-video
+      - name: music
+        persistentVolumeClaim:
+          claimName: pvc-plex-music
+      - name: photo
+        persistentVolumeClaim:
+          claimName: pvc-plex-photo
+      - emptyDir: {}
+        name: transcode
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: plex
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+  name: plex
+  namespace: default
+spec:
+  externalTrafficPolicy: Local
+  loadBalancerIP: 10.0.0.30
+  ports:
+  - name: http
+    nodePort: 32534
+    port: 32400
+    protocol: TCP
+    targetPort: 32400
+  selector:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex
+  type: LoadBalancer
