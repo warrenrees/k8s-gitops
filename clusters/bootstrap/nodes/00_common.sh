@@ -42,6 +42,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 vm.nr_hugepages = 1024
+fs.inotify.max_user_instances = 1100000
 EOF
 
 # Stop the system from managing foreign routes
