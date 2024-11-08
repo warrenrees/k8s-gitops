@@ -219,3 +219,17 @@ spec:
       range: '>= 1.30.0'
 
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: mosquitto
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: mosquitto
+  policy:
+    semver:
+      range: '>= 2.0.0'
+
+

@@ -1,33 +1,49 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: apps/v1
+kind: Deployment
 metadata:
+  labels:
+    app.kubernetes.io/instance: mosquitto
+    app.kubernetes.io/name: mosquitto
   name: mosquitto
-  namespace: flux-system
+  namespace: default
 spec:
-  chart:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mosquitto
+      app.kubernetes.io/name: mosquitto
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: mosquitto
+        app.kubernetes.io/name: mosquitto
     spec:
-      chart: mosquitto
-      sourceRef:
-        kind: HelmRepository
-        name: k8s-at-home
-  interval: 10m0s
-  releaseName: mosquitto
-  targetNamespace: default
-  values:
-    image:
-      tag: latest
-      pullPolicy: Always
-    service:
-      main:
-        loadBalancerIP: 10.0.0.245
-        type: LoadBalancer
-    persistence:
-      data:
-        enabled: true
-        existingClaim: pvc-mosquitto-data
-        storageClassName: "longhorn-static"
-      configinc:
-        enabled: true
-        existingClaim: pvc-mosquitto-configinc
-        storageClassName: "longhorn-static"
+      containers:
+      - image: eclipse-mosquitto:2.0.19 # {"$imagepolicy": "flux-system:mosquitto"}
+        imagePullPolicy: Always
+        name: mosquitto
+        ports:
+        - containerPort: 1883
+          name: mqtt
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /mosquitto/configinc
+          name: configinc
+        - mountPath: /mosquitto/data
+          name: data
+        - mountPath: /mosquitto/config/mosquitto.conf
+          name: mosquitto-config
+          subPath: mosquitto.conf
+      restartPolicy: Always
+      volumes:
+      - name: configinc
+        persistentVolumeClaim:
+          claimName: pvc-mosquitto-configinc
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc-mosquitto-data
+      - configMap:
+          defaultMode: 420
+          name: mosquitto-config
+        name: mosquitto-config
