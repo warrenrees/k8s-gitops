@@ -1,0 +1,88 @@
+apiVersion: v1
+data:
+  config.yml: |
+    auth:
+      false
+    cameras:
+      front-door: null
+    detect:
+      match:
+        base64: false
+        confidence: 80
+        min_area: 10000
+        purge: 168
+        save: true
+      unknown:
+        base64: false
+        confidence: 40
+        min_area: 0
+        purge: 8
+        save: true
+    detectors:
+      compreface:
+        det_prob_threshold: 0.8
+        key: 363f4409-ed7a-44be-99a8-0cad2674459b
+        timeout: 15
+        url: http://compreface-ui.compreface.svc.cluster.local:8000/
+      deepstack:
+        key: null
+        timeout: 15
+        url: http://deepstack.default.svc.cluster.local
+    frigate:
+      attempts:
+        delay: 0
+        latest: 2
+        mqtt: true
+        snapshot: 0
+      cameras:
+      - driveway
+      - backyard
+      - shed
+      - sideyard
+      - frontdoor
+      events: null
+      image:
+        height: 1440
+      labels:
+      - person
+      update_sub_labels: true
+      url: http://frigate.default.svc.cluster.local:5000
+      zones: null
+    logs:
+      level: info
+    mqtt:
+      host: mosquitto.default.svc.cluster.local:1883
+      password: null
+      topics:
+        cameras: double-take/cameras
+        frigate: frigate/events
+        homeassistant: homeassistant
+        matches: double-take/matches
+      username: null
+    notify:
+      gotify:
+        priority: 5
+        token: null
+        url: null
+    schedule:
+      disable: null
+    time:
+      format: null
+      timezone: UTC
+    token:
+      image: 24h
+    ui:
+      logs:
+        lines: 500
+      pagination:
+        limit: 50
+      thumbnails:
+        quality: 95
+        width: 500
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: double-take
+    app.kubernetes.io/name: double-take
+  name: double-take-settings
+  namespace: default

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: double-take
+    app.kubernetes.io/name: double-take
+  name: double-take
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: double-take
+      app.kubernetes.io/name: double-take
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: double-take
+        app.kubernetes.io/name: double-take
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: TZ
+          value: America/Toronto
+        image: jakowenko/double-take:1.13.1 # {"$imagepolicy": "flux-system:double-take"}
+        imagePullPolicy: Always
+        name: double-take
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /.storage
+          name: data
+        - mountPath: /.storage/config/config.yml
+          name: double-take-settings
+          subPath: config.yml
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc-doubletake
+      - configMap:
+          defaultMode: 420
+          name: double-take-settings
+        name: double-take-settings

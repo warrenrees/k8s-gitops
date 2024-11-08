@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: double-take
+    app.kubernetes.io/name: double-take
+  name: double-take
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: doubletake.rees.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: double-take
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
