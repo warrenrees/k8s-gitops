@@ -24,6 +24,8 @@ spec:
               - "03"
               - "12"
               - "08"
+              - "0300"
+              - "0403"
           usb:
             deviceClassWhitelist:
               - "0e"
