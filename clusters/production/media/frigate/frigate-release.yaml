@@ -25,10 +25,6 @@ spec:
                 operator: In
                 values:
                 - "true"
-              - key: nvidia.com/gpu.present
-                operator: In
-                values:
-                - "true"
             - matchExpressions:
               - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
                 operator: In
@@ -43,9 +39,9 @@ spec:
             name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.14.1 # {"$imagepolicy": "flux-system:frigate"}
         imagePullPolicy: IfNotPresent
-        #resources:
-        #  limits:
-        #    nvidia.com/gpu: "1"
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         #  requests:
         #    nvidia.com/gpu: "1"
         livenessProbe:

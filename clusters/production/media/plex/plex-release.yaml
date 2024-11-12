@@ -18,6 +18,7 @@ spec:
         app.kubernetes.io/instance: plex
         app.kubernetes.io/name: plex
     spec:
+      runtimeClassName: nvidia
       containers:
       - env:
         - name: ADVERTISE_IP
@@ -26,6 +27,12 @@ spec:
           value: 10.0.0.0/24
         - name: TZ
           value: America/Toronto
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: all
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: compute,video,utility
+        - name: CUDA_DRIVER_CAPABILITIES
+          value: compute,video,utility
         envFrom:
         - secretRef:
             name: plexclaim-secret
@@ -50,7 +57,10 @@ spec:
           tcpSocket:
             port: 32400
           timeoutSeconds: 1
-        resources: {}
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+
         startupProbe:
           failureThreshold: 30
           periodSeconds: 5
