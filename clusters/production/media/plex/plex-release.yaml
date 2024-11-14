@@ -36,7 +36,7 @@ spec:
         envFrom:
         - secretRef:
             name: plexclaim-secret
-        image: plexinc/pms-docker:1.41.1.9057-af5eaea7a # {"$imagepolicy": "flux-system:plex"}
+        image: plexinc/pms-docker:1.41.2.9200-c6bbc1b53 # {"$imagepolicy": "flux-system:plex"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -60,7 +60,6 @@ spec:
         resources:
           limits:
             nvidia.com/gpu: 1
-
         startupProbe:
           failureThreshold: 30
           periodSeconds: 5
