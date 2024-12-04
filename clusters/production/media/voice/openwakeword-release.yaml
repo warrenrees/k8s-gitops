@@ -21,8 +21,8 @@ spec:
         imagePullPolicy: IfNotPresent
         name: openwakeword-k8s
         image: rhasspy/wyoming-openwakeword:latest
-        args:
-        - --preload-model 'ok_nabu'
+        #args:
+        #- --preload-model 'ok_nabu'
         ports:
         - containerPort: 10400
           protocol: TCP
