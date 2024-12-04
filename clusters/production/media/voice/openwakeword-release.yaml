@@ -1,60 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: whisper
+  name: openwakeword
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: whisper
+      app: openwakeword
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: whisper
+        app: openwakeword
     spec:
       containers:
       - env:
         - name: TZ
           value: America\Toronto
         imagePullPolicy: IfNotPresent
-        name: whisper-k8s
-        image: rhasspy/wyoming-whisper:latest
+        name: openwakeword-k8s
+        image: rhasspy/wyoming-openwakeword:latest
         args:
-        - --model=base
-        - --language=en
+        - --preload-model 'ok_nabu'
         ports:
-        - containerPort: 10300
+        - containerPort: 10400
           protocol: TCP
 
-        volumeMounts:
-        - mountPath: /data
-          name: whisper-data
-      hostname: whisper
-      volumes:
-      - name: whisper-data
-        persistentVolumeClaim:
-          claimName: pvc-whisper-data
+      hostname: openwakeword
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: whisper
+  name: openwakeword
   namespace: default
   labels:
-    app: whisper
+    app: openwakeword
   annotations:
     metallb.universe.tf/allow-shared-ip: wyoming-svc
     metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
   ports:
-  - name: whisper-10300
-    port: 10300
+  - name: openwakeword-10400
+    port: 10400
     protocol: TCP
-    targetPort: 10300
+    targetPort: 10400
   selector:
-    app: whisper
+    app: openwakeword
   externalTrafficPolicy: Cluster
   type: LoadBalancer
   loadBalancerIP: 10.0.0.247

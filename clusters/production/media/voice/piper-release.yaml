@@ -43,6 +43,9 @@ metadata:
   namespace: default
   labels:
     app: piper
+  annotations:
+    metallb.universe.tf/allow-shared-ip: wyoming-svc
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
   ports:
   - name: piper-10200
@@ -51,5 +54,6 @@ spec:
     targetPort: 10200
   selector:
     app: piper
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   type: LoadBalancer
+  loadBalancerIP: 10.0.0.247
