@@ -44,6 +44,9 @@ metadata:
   namespace: default
   labels:
     app: whisper
+  annotations:
+    metallb.universe.tf/allow-shared-ip: wyoming-svc
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
   ports:
   - name: whisper-10300
@@ -54,3 +57,4 @@ spec:
     app: whisper
   externalTrafficPolicy: Local
   type: LoadBalancer
+  loadBalancerIP: 10.0.0.247
