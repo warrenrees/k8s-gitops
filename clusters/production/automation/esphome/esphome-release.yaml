@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: esphome
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: esphome
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: esphome
+    spec:
+      hostNetwork: true
+      containers:
+      - env:
+        - name: TZ
+          value: America\Toronto
+        imagePullPolicy: IfNotPresent
+        name: esphome
+        image: ghcr.io/esphome/esphome:latest # {"$imagepolicy": "flux-system:esphome"}
+        ports:
+        - containerPort: 6052
+          hostPort: 6052
+          protocol: TCP
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /config
+          name: esphome-data
+      volumes:
+      - name: esphome-data
+        persistentVolumeClaim:
+          claimName: pvc-esphome-data
+      hostname: esphome
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: esphome
+  namespace: default
+spec:
+  ports:
+  - name: esphome-6052
+    port: 6052
+    protocol: TCP
+    targetPort: 6052
+  selector:
+    app: esphome
+  type: ClusterIP
