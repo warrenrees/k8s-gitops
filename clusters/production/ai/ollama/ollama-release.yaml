@@ -27,9 +27,9 @@ spec:
         pull:
           - mistral
           - llama2
+
         run:
           - mistral
-          - llama2
 
     persistentVolume:
       enabled: true
