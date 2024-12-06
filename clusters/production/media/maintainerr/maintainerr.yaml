@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintainerr
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintainerr
+  template:
+    metadata:
+      labels:
+        app: maintainerr
+    spec:
+      containers:
+      - name: maintainerr
+        image: ghcr.io/jorenn92/maintainerr:2.0.4 # {"$imagepolicy": "flux-system:maintainerr"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 6246
+        env:
+        - name: PGID
+          value: "65536"
+        - name: PUID
+          value: "1028"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: maintainerr
+          mountPath: /data
+      volumes:
+      - name: maintainerr
+        persistentVolumeClaim:
+          claimName: pvc-maintainerr
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: maintainerr-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: maintainerr.rees.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: maintainerr
+            port:
+              number: 6246
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintainerr
+  namespace: default
+  labels:
+    app: maintainerr
+spec:
+  selector:
+    app: maintainerr
+  ports:
+  - name: maintainerr
+    port: 6246
+    targetPort: 6246
+  type: ClusterIP
