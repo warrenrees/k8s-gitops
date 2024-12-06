@@ -20,7 +20,7 @@ spec:
   values:
     ollama:
       gpu:
-        enabled: true
+        enabled: false
         type: 'nvidia'
 
       models:
