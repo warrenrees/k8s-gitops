@@ -24,8 +24,16 @@ spec:
         type: 'nvidia'
 
       models:
-        - mistral
-        - llama2
+        pull:
+          - mistral
+          - llama2
+        run:
+          - mistral
+          - llama2
+
+    persistentVolume:
+      enabled: true
+      existingClaim: "pvc-ollama-data"
 
     ingress:
       enabled: true
