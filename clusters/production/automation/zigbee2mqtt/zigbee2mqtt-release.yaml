@@ -39,6 +39,7 @@ spec:
           protocol: TCP
         securityContext:
           privileged: true
+        volumeMounts:
         - mountPath: /data
           name: data
       volumes:
