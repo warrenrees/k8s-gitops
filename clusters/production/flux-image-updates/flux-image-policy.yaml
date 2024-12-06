@@ -231,5 +231,16 @@ spec:
   policy:
     semver:
       range: '>= 2.0.0'
-
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: esphome
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: esphome
+  policy:
+    semver:
+      range: '>= 2024.9.0'
 
