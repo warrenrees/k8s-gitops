@@ -8,8 +8,8 @@ spec:
   selector:
     matchLabels:
       app: mealie
-  #strategy:
-  #  type: Recreate
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:

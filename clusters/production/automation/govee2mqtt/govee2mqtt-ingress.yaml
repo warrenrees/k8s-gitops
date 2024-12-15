@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: govee2mqtt
+    app.kubernetes.io/name: govee2mqtt
+  name: govee2mqtt
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: govee2mqtt.rees.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: govee2mqtt
+            port:
+              number: 8056
+        path: /
+        pathType: Prefix

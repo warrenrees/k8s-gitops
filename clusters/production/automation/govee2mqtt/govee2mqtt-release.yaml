@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: govee2mqtt
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: govee2mqtt
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: govee2mqtt
+    spec:
+      hostNetwork: true
+      containers:
+      - env:
+        - name: TZ
+          value: America\Toronto
+        - name: GOVEE_TEMPERATURE_SCALE
+          value: "C"
+        - name: GOVEE_MQTT_HOST
+          value: mosquitto.default.svc.cluster.local
+        envFrom:
+        - secretRef:
+            name: govee2mqtt
+        imagePullPolicy: IfNotPresent
+        name: govee2mqtt
+        image: ghcr.io/wez/govee2mqtt:latest # {"$imagepolicy": "flux-system:govee2mqtt"}
+      hostname: govee2mqtt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: govee2mqtt
+  namespace: default
+spec:
+  ports:
+  - name: govee2mqtt-8056
+    port: 8056
+    protocol: TCP
+    targetPort: 8056
+  selector:
+    app: govee2mqtt
+  type: ClusterIP
