@@ -5,12 +5,9 @@ metadata:
   name: exubi-wp-dev
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: wordpress
-      sourceRef:
-        kind: HelmRepository
-        name: bitnami
+  chartRef:
+    kind: OCIRepository
+    name: wordpress
   interval: 1h0m0s
   releaseName: exubi-wp-dev
   targetNamespace: exubitech
