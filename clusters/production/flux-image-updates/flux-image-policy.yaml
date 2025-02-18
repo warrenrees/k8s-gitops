@@ -21,7 +21,7 @@ spec:
     name: lidarr
   policy:
     semver:
-      range: '>= 0.8.1'
+      range: '>= 0.8.1 <= 6.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
