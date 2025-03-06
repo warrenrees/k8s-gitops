@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/name: mosquitto
     spec:
       containers:
-      - image: eclipse-mosquitto:2.0.20 # {"$imagepolicy": "flux-system:mosquitto"}
+      - image: eclipse-mosquitto:2.0.21 # {"$imagepolicy": "flux-system:mosquitto"}
         imagePullPolicy: Always
         name: mosquitto
         ports:
