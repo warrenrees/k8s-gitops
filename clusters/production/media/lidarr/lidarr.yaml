@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: lidarr
-          image: linuxserver/lidarr:2.9.6 # {"$imagepolicy": "flux-system:lidarr"}
+          image: linuxserver/lidarr:2.10.3 # {"$imagepolicy": "flux-system:lidarr"}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8686
@@ -28,7 +28,6 @@ spec:
               value: "65536"
             - name: PUID
               value: "1028"
-
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
@@ -36,7 +35,6 @@ spec:
               mountPath: /downloads
             - name: lidarr-music
               mountPath: /music
-
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
