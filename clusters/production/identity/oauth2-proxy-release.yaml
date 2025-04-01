@@ -41,12 +41,14 @@ spec:
 
     sessionStorage:
       type: redis
+      redis:
+        existingSecret: oauth2-proxy-redis
 
     extraArgs:
       provider: oidc
       oidc-issuer-url: https://sso.rees.ca/realms/master
-      cookie-domain: [ ".rees.ca", ".exubitech.com" ]
-      whitelist-domain: [ ".rees.ca", ".exubitech.com" ]
+      cookie-domain: .rees.ca
+      whitelist-domain: .rees.ca
       skip-provider-button: "true"
       email-domain: "*"
       cookie-secure: "false"
