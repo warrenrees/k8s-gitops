@@ -23,7 +23,7 @@ spec:
       - env:
         - name: ZIGBEE2MQTT_DATA
           value: /data
-        image: koenkk/zigbee2mqtt:2.1.3 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
+        image: koenkk/zigbee2mqtt:2.2.0 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
