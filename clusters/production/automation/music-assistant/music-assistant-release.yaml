@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-assistant
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: music-assistant
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: music-assistant
+    spec:
+      hostNetwork: true
+      containers:
+      - name: music-assistant
+        imagePullPolicy: IfNotPresent
+        image: ghcr.io/music-assistant/server:2.4.4 # {"$imagepolicy": "flux-system:music-assistant"}
+        ports:
+        - containerPort: 8095
+          hostPort: 8095
+          protocol: TCP
+        - containerPort: 8097
+          hostPort: 8097
+          protocol: TCP
+        - containerPort: 8098
+          hostPort: 8098
+          protocol: TCP
+        - containerPort: 8099
+          hostPort: 8099
+          protocol: TCP
+        securityContext:
+          capabilities:
+            add:
+            - SYS_ADMIN
+            - DAC_READ_SEARCH
+        volumeMounts:
+        - mountPath: /data
+          name: music-assistant-data
+      volumes:
+      - name: music-assistant-data
+        persistentVolumeClaim:
+          claimName: pvc-music-assistant-data
+      hostname: music-assistant
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-assistant
+  namespace: default
+spec:
+  ports:
+  - name: music-assistant-8095
+    port: 8095
+    protocol: TCP
+    targetPort: 8095
+  - name: music-assistant-8097
+    port: 8097
+    protocol: TCP
+    targetPort: 8097
+  - name: music-assistant-8098
+    port: 8098
+    protocol: TCP
+    targetPort: 8098
+  - name: music-assistant-8099
+    port: 8099
+    protocol: TCP
+    targetPort: 8099
+  selector:
+    app: music-assistant
+  type: ClusterIP

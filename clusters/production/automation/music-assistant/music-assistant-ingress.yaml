@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: music-assistant
+    app.kubernetes.io/name: music-assistant
+  name: music-assistant
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: music.rees.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: music-assistant
+            port:
+              number: 8095
+        path: /
+        pathType: Prefix
