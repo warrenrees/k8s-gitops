@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-database
+  namespace: default
+  labels:
+    app: immich-database
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: immich-database
+  template:
+    metadata:
+      labels:
+        app: immich-database
+    spec:
+      containers:
+        - name: immich-database
+          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: immich-db-secret
+                  key: db_password
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: immich-db-secret
+                  key: db_username
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: immich-db-secret
+                  key: db_database_name
+            - name: POSTGRES_INITDB_ARGS
+              value: '--data-checksums'
+            - name: PGDATA
+              value: '/var/lib/postgresql/data/pgdata'
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: immich-db
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "--dbname=${POSTGRES_DB}", "--username=${POSTGRES_USER}"]
+            initialDelaySeconds: 30
+            periodSeconds: 30
+      volumes:
+      - name: immich-db
+        persistentVolumeClaim:
+          claimName: pvc-immich-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-database
+  namespace: default
+spec:
+  selector:
+    app: immich-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

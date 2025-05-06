@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: photo
+  namespace: default
+spec:
+  capacity:
+    storage: 46Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  #mountOptions:
+  #  - hard
+  #  - nfsvers=4
+  nfs:
+    path: /var/nfs/shared/photos
+    server: 10.255.255.79
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-photo
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: photo
+  resources:
+    requests:
+      storage: 46Ti
+
