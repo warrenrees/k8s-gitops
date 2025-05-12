@@ -244,3 +244,15 @@ spec:
     semver:
       range: '>= 2024.9.0'
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: immich-server
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: immich-server
+  policy:
+    semver:
+      range: '>= 1.0.0'
