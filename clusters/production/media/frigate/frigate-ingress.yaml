@@ -10,6 +10,7 @@ metadata:
     nginx.org/proxy-read-timeout: "3600"
     nginx.org/proxy-send-timeout: "3600"
     nginx.org/websocket-services: frigate
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
   labels:
     app.kubernetes.io/name: frigate
   name: frigate
@@ -23,7 +24,7 @@ spec:
           service:
             name: frigate-tcp
             port:
-              number: 5000
+              number: 8971
         path: /
         pathType: ImplementationSpecific
   tls:
