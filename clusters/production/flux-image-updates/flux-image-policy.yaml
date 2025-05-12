@@ -256,3 +256,33 @@ spec:
   policy:
     semver:
       range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: immich-machine-learning
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: immich-machine-learning
+  filterTags:
+    pattern: '^v(\d+\.\d+\.\d+)-cuda$'
+    extract: '$1'
+  policy:
+    semver:
+      range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: redis
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: redis
+  filterTags:
+    pattern: '^(\d+\.\d+\.\d+)-alpine$'
+    extract: '$1'
+  policy:
+    semver:
+      range: '>= 6.2.0'
