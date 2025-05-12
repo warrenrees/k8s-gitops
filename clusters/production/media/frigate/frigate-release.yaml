@@ -81,6 +81,8 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
+        - mountPath: /usr/local/nginx/conf
+          name: proxy-trusted-headers
         - mountPath: /dev/bus/usb
           name: coral-dev
         - mountPath: /dev/apex_0
@@ -129,6 +131,9 @@ spec:
       - name: frigate-exports
         persistentVolumeClaim:
           claimName: pvc-frigate-exports
+      - name: proxy-trusted-headers
+        configMap:
+          name: proxy-trusted-headers
 ---
 apiVersion: v1
 kind: Service
