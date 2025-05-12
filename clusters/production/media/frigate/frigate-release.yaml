@@ -81,8 +81,9 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - mountPath: /usr/local/nginx/conf
+        - mountPath: /usr/local/nginx/conf/proxy_trusted_headers.conf
           name: proxy-trusted-headers
+          subPath: proxy_trusted_headers.conf
         - mountPath: /dev/bus/usb
           name: coral-dev
         - mountPath: /dev/apex_0
