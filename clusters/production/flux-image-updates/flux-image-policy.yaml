@@ -297,8 +297,8 @@ spec:
   imageRepositoryRef:
     name: pgvecto
   filterTags:
-    pattern: '^pg17-v(\d+\.\d+\.\d+)$'
+    pattern: '^pg16-v(\d+\.\d+\.\d+)$'
     extract: '$1'
   policy:
     semver:
-      range: '>= 0.1.0'
+      range: '= 0.2.0'
