@@ -297,7 +297,7 @@ spec:
   imageRepositoryRef:
     name: pgvecto
   filterTags:
-    pattern: '^pg14-v(\d+\.\d+\.\d+)$'
+    pattern: '^pg17-v(\d+\.\d+\.\d+)$'
     extract: '$1'
   policy:
     semver:
