@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: immich-database
-          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.4.0 # {"$imagepolicy": "flux-system:pgvecto"}
           ports:
             - containerPort: 5432
           env:

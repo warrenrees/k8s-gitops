@@ -197,3 +197,13 @@ spec:
   image: docker.io/redis
   interval: 30m0s
 
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: pgvecto
+  namespace: flux-system
+spec:
+  image: docker.io/tensorchord/pgvecto-rs
+  interval: 30m0s
+

@@ -286,3 +286,19 @@ spec:
   policy:
     semver:
       range: '>= 6.2.0'
+
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: pgvecto
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: pgvecto
+  filterTags:
+    pattern: '^pg14-v(\d+\.\d+\.\d+)$'
+    extract: '$1'
+  policy:
+    semver:
+      range: '>= 0.1.0'
