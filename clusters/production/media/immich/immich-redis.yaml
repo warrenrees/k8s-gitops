@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: immich-redis
-          image: docker.io/redis:8.0.0-alpine # {"$imagepolicy": "flux-system:redis"}
+          image: docker.io/redis:8.0.1-alpine # {"$imagepolicy": "flux-system:redis"}
           ports:
             - containerPort: 6379
           readinessProbe:
