@@ -149,7 +149,7 @@ spec:
     name: zwavejs2mqtt
   policy:
     semver:
-      range: '>= 6.00.0'
+      range: '>= 6.0.0'
 
 
 ---
