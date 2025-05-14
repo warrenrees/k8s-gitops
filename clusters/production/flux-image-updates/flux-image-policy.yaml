@@ -188,6 +188,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: frigate
+  filterTags:
+    pattern: '^(\d+\.\d+\.\d+)-tensorrt$'
+    extract: '$1'
   policy:
     semver:
       range: '>= 0.11.0'

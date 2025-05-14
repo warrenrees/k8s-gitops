@@ -95,13 +95,7 @@ spec:
         - mountPath: /dev/shm
           name: dshm
         - mountPath: /media/frigate
-          name: frigate-data
-        - mountPath: /media/frigate/recordings
-          name: frigate-recording
-        - mountPath: /media/frigate/clips
-          name: frigate-clips
-        - mountPath: /media/frigate/exports
-          name: frigate-exports
+          name: frigate-media
       volumes:
       - hostPath:
           path: /dev/bus/usb
@@ -120,18 +114,9 @@ spec:
       - name: frigate-config
         persistentVolumeClaim:
           claimName: pvc-frigate-config
-      - name: frigate-data
+      - name: frigate-media
         persistentVolumeClaim:
-          claimName: pvc-frigate-data
-      - name: frigate-recording
-        persistentVolumeClaim:
-          claimName: pvc-frigate-recording
-      - name: frigate-clips
-        persistentVolumeClaim:
-          claimName: pvc-frigate-clips
-      - name: frigate-exports
-        persistentVolumeClaim:
-          claimName: pvc-frigate-exports
+          claimName: pvc-frigate-media
       - name: proxy-trusted-headers
         configMap:
           name: proxy-trusted-headers

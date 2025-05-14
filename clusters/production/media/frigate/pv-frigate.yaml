@@ -2,105 +2,31 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-frigate-recording
+  name: nfs-frigate-media
   namespace: default
 spec:
   capacity:
-    storage: 35Ti
+    storage: 47Ti
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
-  mountOptions:
-    - hard
-    - nfsvers=4
   nfs:
-    path: /volume1/frigate/recordings
-    server: 10.0.0.29
+    path: /var/nfs/shared/frigate
+    server: 10.255.255.79
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-frigate-recording
+  name: pvc-frigate-media
   namespace: default
 spec:
   storageClassName: nfs
   accessModes:
     - ReadWriteMany
-  volumeName: nfs-frigate-recording
+  volumeName: nfs-frigate-media
   resources:
     requests:
-      storage: 35Ti
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nfs-frigate-clips
-  namespace: default
-spec:
-  capacity:
-    storage: 35Ti
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-    - hard
-    - nfsvers=4
-  nfs:
-    path: /volume1/frigate/clips
-    server: 10.0.0.29
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-frigate-clips
-  namespace: default
-spec:
-  storageClassName: nfs
-  accessModes:
-    - ReadWriteMany
-  volumeName: nfs-frigate-clips
-  resources:
-    requests:
-      storage: 35Ti
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nfs-frigate-exports
-  namespace: default
-spec:
-  capacity:
-    storage: 35Ti
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-    - hard
-    - nfsvers=4
-  nfs:
-    path: /volume1/frigate/exports
-    server: 10.0.0.29
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-frigate-exports
-  namespace: default
-spec:
-  storageClassName: nfs
-  accessModes:
-    - ReadWriteMany
-  volumeName: nfs-frigate-exports
-  resources:
-    requests:
-      storage: 35Ti
+      storage: 47Ti
