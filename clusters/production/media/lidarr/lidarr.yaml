@@ -41,7 +41,7 @@ spec:
             claimName: pvc-lidarr-config
         - name: lidarr-downloads
           persistentVolumeClaim:
-            claimName: pvc-lidarr-downloads
+            claimName: pvc-media-downloads
         - name: lidarr-music
           persistentVolumeClaim:
             claimName: pvc-lidarr-music

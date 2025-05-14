@@ -39,7 +39,7 @@ spec:
           claimName: pvc-sabnzbd-config
       - name: sabnzbd-downloads
         persistentVolumeClaim:
-          claimName: pvc-sabnzbd-downloads
+          claimName: pvc-media-downloads
 ---
 apiVersion: v1
 kind: Service
