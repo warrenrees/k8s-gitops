@@ -23,9 +23,9 @@ spec:
         - containerPort: 7878
         env:
         - name: PGID
-          value: "65536"
+          value: "988"
         - name: PUID
-          value: "1028"
+          value: "977"
         - name: TZ
           value: America\Toronto
         volumeMounts:
@@ -33,8 +33,8 @@ spec:
           mountPath: /config
         - name: radarr-downloads
           mountPath: /downloads
-        - name: radarr-movies
-          mountPath: /movies
+        - name: radarr-videos
+          mountPath: /videos
       volumes:
       - name: radarr-config
         persistentVolumeClaim:
@@ -42,9 +42,9 @@ spec:
       - name: radarr-downloads
         persistentVolumeClaim:
           claimName: pvc-media-downloads
-      - name: radarr-movies
+      - name: radarr-videos
         persistentVolumeClaim:
-          claimName: pvc-radarr-movies
+          claimName: pvc-media-videos
 ---
 apiVersion: v1
 kind: Service
