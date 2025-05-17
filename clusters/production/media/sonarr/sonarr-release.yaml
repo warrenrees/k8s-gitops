@@ -23,9 +23,9 @@ spec:
         - containerPort: 8989
         env:
         - name: PGID
-          value: "65536"
+          value: "988"
         - name: PUID
-          value: "1028"
+          value: "977"
         - name: TZ
           value: America\Toronto
         volumeMounts:
@@ -35,6 +35,8 @@ spec:
           mountPath: /downloads
         - name: sonarr-tv
           mountPath: /tv
+        - name: sonarr-videos
+          mountPath: /videos
       volumes:
       - name: sonarr-config
         persistentVolumeClaim:
@@ -45,6 +47,9 @@ spec:
       - name: sonarr-tv
         persistentVolumeClaim:
           claimName: pvc-sonarr-tv
+      - name: sonarr-videos
+        persistentVolumeClaim:
+          claimName: pvc-media-videos
 ---
 apiVersion: v1
 kind: Service
