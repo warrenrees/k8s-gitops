@@ -88,13 +88,13 @@ spec:
           claimName: pvc-plex-config
       - name: media
         persistentVolumeClaim:
-          claimName: pvc-plex-video
+          claimName: pvc-media-videos
       - name: music
         persistentVolumeClaim:
-          claimName: pvc-plex-music
+          claimName: pvc-media-music
       - name: photo
         persistentVolumeClaim:
-          claimName: pvc-plex-photo
+          claimName: pvc-media-photos
       - emptyDir: {}
         name: transcode
 ---
