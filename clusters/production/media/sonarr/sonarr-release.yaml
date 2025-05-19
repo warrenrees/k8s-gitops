@@ -44,9 +44,6 @@ spec:
       - name: sonarr-downloads
         persistentVolumeClaim:
           claimName: pvc-media-downloads
-      - name: sonarr-tv
-        persistentVolumeClaim:
-          claimName: pvc-sonarr-tv
       - name: sonarr-videos
         persistentVolumeClaim:
           claimName: pvc-media-videos
