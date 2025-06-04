@@ -44,7 +44,7 @@ spec:
             claimName: pvc-media-downloads
         - name: lidarr-music
           persistentVolumeClaim:
-            claimName: pvc-lidarr-music
+            claimName: pvc-media-music
 ---
 apiVersion: v1
 kind: Service
