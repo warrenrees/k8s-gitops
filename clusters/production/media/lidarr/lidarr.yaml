@@ -25,9 +25,9 @@ spec:
             - name: TZ
               value: America\Toronto
             - name: PGID
-              value: "65536"
+              value: "988"
             - name: PUID
-              value: "1028"
+              value: "977"
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
