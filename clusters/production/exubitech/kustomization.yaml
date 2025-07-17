@@ -1,7 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-- ./exubitech-secrets-sealed.yaml
-- ./wordpress-cm.yaml
-- ./wordpress-dev-release.yaml
-- ./wordpress-production-release.yaml
