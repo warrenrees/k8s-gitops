@@ -36,7 +36,7 @@ spec:
         envFrom:
         - secretRef:
             name: plexclaim-secret
-        image: plexinc/pms-docker:1.42.1.10054-f333bdaa8 # {"$imagepolicy": "flux-system:plex"}
+        image: plexinc/pms-docker:1.42.1.10060-4e8b05daf # {"$imagepolicy": "flux-system:plex"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
