@@ -24,7 +24,7 @@ spec:
       - env:
         - name: TZ
           value: America/Toronto
-        image: jakowenko/double-take:1.13.1 # {"$imagepolicy": "flux-system:double-take"}
+        image: jakowenko/double-take:1.13.2 # {"$imagepolicy": "flux-system:double-take"}
         imagePullPolicy: Always
         name: double-take
         ports:
