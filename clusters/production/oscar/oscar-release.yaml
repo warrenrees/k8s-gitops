@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oscar
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oscar
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: oscar
+    spec:
+      containers:
+      - name: oscar
+        image: ghcr.io/rogerrum/docker-oscar:1.6.0 # {"$imagepolicy": "flux-system:oscar"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: oscar-data
+          mountPath: /config/Documents/OSCAR_Data
+        - name: oscar-sdcard
+          mountPath: /config/SDCARD
+      volumes:
+      - name: oscar-data
+        persistentVolumeClaim:
+          claimName: pvc-oscar-data
+      - name: oscar-sdcard
+        persistentVolumeClaim:
+          claimName: pvc-oscar-sdcard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oscar
+  namespace: default
+  labels:
+    app: oscar
+spec:
+  selector:
+    app: oscar
+  ports:
+  - name: oscar
+    port: 3000
+    targetPort: 3000
+  type: ClusterIP

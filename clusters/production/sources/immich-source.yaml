@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: immich
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  provider: generic
+  url: oci://ghcr.io/immich-app/immich-charts/immich

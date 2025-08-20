@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: oscar-sdcard
+  namespace: default
+spec:
+  capacity:
+    storage: 45Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  nfs:
+    path: /var/nfs/shared/airsense11warren
+    server: 10.255.255.79
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-oscar-sdcard
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: oscar-sdcard
+  resources:
+    requests:
+      storage: 45Ti
+

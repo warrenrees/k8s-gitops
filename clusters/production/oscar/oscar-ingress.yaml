@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oscar-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx  
+  rules:
+  - host: "oscar.rees.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: oscar
+            port:
+              number: 3000
