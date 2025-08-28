@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: lidarr
-          image: linuxserver/lidarr:2.12.4 # {"$imagepolicy": "flux-system:lidarr"}
+          image: linuxserver/lidarr:2.13.3 # {"$imagepolicy": "flux-system:lidarr"}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8686
