@@ -317,3 +317,15 @@ spec:
   policy:
     semver:
       range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: rsyncd-backups
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: rsyncd-backups
+  policy:
+    semver:
+      range: '>= 0.1.0'

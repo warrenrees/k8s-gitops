@@ -216,3 +216,12 @@ metadata:
 spec:
   image: ghcr.io/rogerrum/docker-oscar
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: rsyncd-backups
+  namespace: flux-system
+spec:
+  image: warrenrees/rsyncd-backups
+  interval: 30m0s
