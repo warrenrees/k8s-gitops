@@ -23,7 +23,7 @@ spec:
         envFrom:
         - secretRef:
             name: rsyncd-secret
-        image: warrenrees/rsyncd-backups:0.1.4 # {"$imagepolicy": "flux-system:rsyncd-backups"}
+        image: warrenrees/rsyncd-backups:0.1.5 # {"$imagepolicy": "flux-system:rsyncd-backups"}
         imagePullPolicy: IfNotPresent
         name: rsyncd-backups
         ports:
