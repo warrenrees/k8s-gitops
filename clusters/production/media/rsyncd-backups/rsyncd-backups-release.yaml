@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: rsyncd-backups
-        image: warrenrees/rsyncd-backups:0.2.4 # {"$imagepolicy": "flux-system:rsyncd-backups"}
+        image: warrenrees/rsyncd-backups:0.2.5 # {"$imagepolicy": "flux-system:rsyncd-backups"}
         imagePullPolicy: IfNotPresent
         env:
         - name: RSYNC_PORT
