@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: rsyncd-backups
-        image: warrenrees/rsyncd-backups:0.2.0 # {"$imagepolicy": "flux-system:rsyncd-backups"}
+        image: warrenrees/rsyncd-backups:0.2.4 # {"$imagepolicy": "flux-system:rsyncd-backups"}
         imagePullPolicy: IfNotPresent
         env:
         - name: RSYNC_PORT
@@ -33,7 +33,7 @@ spec:
           name: rsync
           protocol: TCP
         securityContext:
-          runAsUser: 1000          # choose a non-root UID that exists in the image
+          runAsUser: 1000 # choose a non-root UID that exists in the image
           runAsGroup: 1000
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
