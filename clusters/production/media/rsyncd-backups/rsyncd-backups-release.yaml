@@ -26,15 +26,6 @@ spec:
         envFrom:
         - secretRef:
             name: rsyncd-secret
-        readinessProbe:
-          tcpSocket: { port: 8730 }
-          initialDelaySeconds: 3
-          periodSeconds: 5
-        livenessProbe:
-          tcpSocket: { port: 8730 }
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          failureThreshold: 3
         ports:
         - containerPort: 8730
           name: rsync
