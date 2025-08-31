@@ -44,8 +44,6 @@ spec:
           runAsGroup: 1000
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
-          capabilities:
-            drop: ["ALL"]                # binary already has needed caps via setcap
         volumeMounts:
         - mountPath: /backups
           name: backups
