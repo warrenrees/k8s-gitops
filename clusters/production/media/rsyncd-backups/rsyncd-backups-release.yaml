@@ -52,13 +52,13 @@ metadata:
   namespace: default
 spec:
   externalTrafficPolicy: Local
-  loadBalancerIP: 10.0.0.30
+  loadBalancerIP: 10.0.0.249
   ports:
   - name: rsync
     port: 873
     protocol: TCP
     targetPort: 8730
   selector:
-    app.kubernetes.io/instance: plex
-    app.kubernetes.io/name: plex
+    app.kubernetes.io/name: rsyncd-backups
+    app.kubernetes.io/instance: rsyncd-backups
   type: LoadBalancer
