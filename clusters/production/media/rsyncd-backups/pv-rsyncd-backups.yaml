@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-rsyncd-backups
+  namespace: default
+spec:
+  capacity:
+    storage: 45Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  nfs:
+    path: /var/nfs/shared/rsyncdbackups
+    server: 10.255.255.79
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-rsyncd-backups
+  namespace: default
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  volumeName: nfs-rsyncd-backups
+  resources:
+    requests:
+      storage: 45Ti
+

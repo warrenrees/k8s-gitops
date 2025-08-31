@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsyncd-backups
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rsyncd-backups
+      app.kubernetes.io/name: rsyncd-backups
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: rsyncd-backups
+        app.kubernetes.io/name: rsyncd-backups
+    spec:
+      containers:
+      - env:
+        - name: RSYNC_PORT
+          value: "8730"
+        envFrom:
+        - secretRef:
+            name: rsyncd-secret
+        image: warrenrees/rsyncd-backups:0.1.4 # {"$imagepolicy": "flux-system:rsyncd-backups"}
+        imagePullPolicy: IfNotPresent
+        name: rsyncd-backups
+        ports:
+        - containerPort: 8730
+          name: rsync
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /backups
+          name: backups
+        - mountPath: /var/lib/rsyncd
+          name: rsyncd-state
+      volumes:
+      - name: backups
+        persistentVolumeClaim:
+          claimName: pvc-rsyncd-backups
+      - name: rsyncd-state
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: plex
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+  name: rsyncd-backups
+  namespace: default
+spec:
+  externalTrafficPolicy: Local
+  loadBalancerIP: 10.0.0.30
+  ports:
+  - name: rsync
+    port: 873
+    protocol: TCP
+    targetPort: 8730
+  selector:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex
+  type: LoadBalancer
