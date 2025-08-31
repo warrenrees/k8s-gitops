@@ -17,19 +17,35 @@ spec:
         app.kubernetes.io/name: rsyncd-backups
     spec:
       containers:
-      - env:
+      - name: rsyncd-backups
+        image: warrenrees/rsyncd-backups:0.1.9 # {"$imagepolicy": "flux-system:rsyncd-backups"}
+        imagePullPolicy: IfNotPresent
+        env:
         - name: RSYNC_PORT
           value: "8730"
         envFrom:
         - secretRef:
             name: rsyncd-secret
-        image: warrenrees/rsyncd-backups:0.1.5 # {"$imagepolicy": "flux-system:rsyncd-backups"}
-        imagePullPolicy: IfNotPresent
-        name: rsyncd-backups
+        readinessProbe:
+          tcpSocket: { port: 8730 }
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket: { port: 8730 }
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
         ports:
         - containerPort: 8730
           name: rsync
           protocol: TCP
+        securityContext:
+          runAsUser: 1000          # choose a non-root UID that exists in the image
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]                # binary already has needed caps via setcap
         volumeMounts:
         - mountPath: /backups
           name: backups
