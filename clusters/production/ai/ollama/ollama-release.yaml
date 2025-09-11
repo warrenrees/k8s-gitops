@@ -15,7 +15,7 @@ spec:
   install:
     createNamespace: true
   interval: 1m0s
-  targetNamespace: ollama
+  targetNamespace: ai
 
   values:
     ollama:
