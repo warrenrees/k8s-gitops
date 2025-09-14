@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: oscar
-        image: ghcr.io/rogerrum/docker-oscar:1.6.0 # {"$imagepolicy": "flux-system:oscar"}
+        image: ghcr.io/rogerrum/docker-oscar:1.6.1 # {"$imagepolicy": "flux-system:oscar"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
