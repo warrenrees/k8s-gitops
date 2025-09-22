@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deepstackui
-  namespace: default
+  namespace: ai
 spec:
   selector:
     matchLabels:
@@ -15,7 +15,7 @@ spec:
       containers:
       - env:
         - name: DEEPSTACK_IP
-          value: "deepstack.default.svc.cluster.local"
+          value: "deepstack.ai.svc.cluster.local"
         - name: DEEPSTACK_PORT
           value: "80"
         - name: DEEPSTACK_API_KEY_M
