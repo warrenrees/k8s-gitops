@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deepstack
-  namespace: default
+  namespace: ai
 spec:
   selector:
     matchLabels:
@@ -38,7 +38,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: deepstack
-  namespace: default
+  namespace: ai
 spec:
   ports:
   - name: deepstack-80
