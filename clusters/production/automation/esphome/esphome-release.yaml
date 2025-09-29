@@ -21,7 +21,7 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: esphome
-        image: ghcr.io/esphome/esphome:2025.9.1 # {"$imagepolicy": "flux-system:esphome"}
+        image: ghcr.io/esphome/esphome:2025.9.2 # {"$imagepolicy": "flux-system:esphome"}
         ports:
         - containerPort: 6052
           hostPort: 6052
