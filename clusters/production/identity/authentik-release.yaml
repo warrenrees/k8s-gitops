@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+  install:
+    crds: Create
+  interval: 10m0s
+  releaseName: authentik
+  targetNamespace: identity
+  upgrade:
+    crds: CreateReplace
+  values:
+    server:
+      ingress:
+        ingressClassName: nginx
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          # optional, but handy on some setups:
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        hosts:
+          - id.rees.ca
+        tls:
+        - hosts:
+            - id.rees.ca
+          secretName: id-rees-tls
+
+      env:
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: db-password
+        - name: AUTHENTIK_REDIS__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: redis-password
+
+    worker:
+      env:
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: db-password
+        - name: AUTHENTIK_REDIS__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: redis-password
+
+    postgresql:
+      enabled: true
+      auth:
+        existingSecret: authentik-secrets
+        secretKeys:
+          adminPasswordKey: db-password
+          userPasswordKey: db-password
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+        existingSecret: authentik-secrets
+        existingSecretPasswordKey: redis-password
+
+    global:
+      postgresql:
+        auth:
+          existingSecret: authentik-secrets
+
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: secret-key
+      targetPath: authentik.secret_key
