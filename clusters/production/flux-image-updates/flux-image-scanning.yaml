@@ -1,5 +1,5 @@
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: ombi
@@ -8,7 +8,7 @@ spec:
   image: linuxserver/ombi
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: lidarr
@@ -17,7 +17,7 @@ spec:
   image: linuxserver/lidarr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: sabnzbd
@@ -26,7 +26,7 @@ spec:
   image: linuxserver/sabnzbd
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: sonarr
@@ -35,7 +35,7 @@ spec:
   image: linuxserver/sonarr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: radarr
@@ -44,7 +44,7 @@ spec:
   image: linuxserver/radarr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: pihole
@@ -53,7 +53,7 @@ spec:
   image: pihole/pihole
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: homeassistant
@@ -62,7 +62,7 @@ spec:
   image: homeassistant/home-assistant
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: plex
@@ -71,7 +71,7 @@ spec:
   image: plexinc/pms-docker
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: minecraft
@@ -80,7 +80,7 @@ spec:
   image: itzg/minecraft-server
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: double-take
@@ -89,7 +89,7 @@ spec:
   image: jakowenko/double-take
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: zwavejs2mqtt
@@ -98,7 +98,7 @@ spec:
   image: zwavejs/zwave-js-ui
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: zigbee2mqtt
@@ -107,7 +107,7 @@ spec:
   image: koenkk/zigbee2mqtt
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: wyzebridge
@@ -116,7 +116,7 @@ spec:
   image: mrlt8/wyze-bridge
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: weatherflow2mqtt
@@ -125,7 +125,7 @@ spec:
   image: briis/weatherflow2mqtt
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: frigate
@@ -134,7 +134,7 @@ spec:
   image: ghcr.io/blakeblackshear/frigate
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: mealie
@@ -143,7 +143,7 @@ spec:
   image: ghcr.io/mealie-recipes/mealie
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: vaultwarden
@@ -152,7 +152,7 @@ spec:
   image: vaultwarden/server
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: mosquitto
@@ -161,7 +161,7 @@ spec:
   image: eclipse-mosquitto
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: esphome
@@ -170,7 +170,7 @@ spec:
   image: ghcr.io/esphome/esphome
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: immich-server
@@ -179,7 +179,7 @@ spec:
   image: ghcr.io/immich-app/immich-server
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: immich-machine-learning
@@ -188,7 +188,7 @@ spec:
   image: ghcr.io/immich-app/immich-machine-learning
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: redis
@@ -198,7 +198,7 @@ spec:
   interval: 30m0s
 
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: pgvecto
@@ -208,7 +208,7 @@ spec:
   interval: 30m0s
 
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: oscar
@@ -217,7 +217,7 @@ spec:
   image: ghcr.io/rogerrum/docker-oscar
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: rsyncd-backups
