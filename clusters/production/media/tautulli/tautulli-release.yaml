@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tautulli
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tautulli
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tautulli
+    spec:
+      containers:
+      - name: tautulli
+        image: ghcr.io/tautulli/tautulli:v2.16.0 # {"$imagepolicy": "flux-system:tautulli"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8181
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: tautulli-config
+          mountPath: /config
+      volumes:
+      - name: tautulli-config
+        persistentVolumeClaim:
+          claimName: pvc-tautulli-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tautulli
+  namespace: default
+  labels:
+    app: tautulli
+spec:
+  selector:
+    app: tautulli
+  ports:
+  - name: tautulli
+    port: 8181
+    targetPort: 8181
+  type: ClusterIP
