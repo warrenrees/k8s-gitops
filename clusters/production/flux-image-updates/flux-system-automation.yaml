@@ -13,7 +13,16 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
+      messageTemplate: |
+        Perform automatic image update
+
+        Automation name: {{ .AutomationObject }}
+
+        {{- $ChangeId := .AutomationObject -}}
+        {{- $ChangeId = printf "%s%s" $ChangeId ( .Changed.FileChanges | toString ) -}}
+        {{- $ChangeId = printf "%s%s" $ChangeId ( .Changed.Objects | toString ) -}}
+        {{- $ChangeId = printf "%s%s" $ChangeId ( .Changed.Changes | toString ) }}
+        Change-Id: {{ printf "I%s" ( sha256sum $ChangeId | trunc 40 ) }}
     push:
       branch: main
   interval: 1m0s
