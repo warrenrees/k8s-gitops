@@ -28,7 +28,7 @@ spec:
             name: govee2mqtt
         imagePullPolicy: IfNotPresent
         name: govee2mqtt
-        image: ghcr.io/wez/govee2mqtt:latest # {"$imagepolicy": "flux-system:govee2mqtt"}
+        image: ghcr.io/wez/govee2mqtt:2025.11.25-60a39bcc # {"$imagepolicy": "flux-system:govee2mqtt"}
       hostname: govee2mqtt
 ---
 apiVersion: v1
