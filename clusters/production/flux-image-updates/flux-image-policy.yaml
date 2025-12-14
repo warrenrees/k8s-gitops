@@ -325,3 +325,18 @@ spec:
   policy:
     semver:
       range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: govee2mqtt
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: govee2mqtt
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)-[a-f0-9]+$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 2025.01.01'

@@ -225,3 +225,12 @@ metadata:
 spec:
   image: ghcr.io/tautulli/tautulli
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: govee2mqtt
+  namespace: flux-system
+spec:
+  image: ghcr.io/wez/govee2mqtt
+  interval: 30m0s
