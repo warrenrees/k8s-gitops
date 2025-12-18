@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ps
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ps
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ps
+    spec:
+      containers:
+      - name: ps
+        image: warrenrees/property-search:latest
+        imagePullPolicy: IfNotPresent
+        #ports:
+        #- containerPort: 8000
+        env:
+        - name: TZ
+          value: America\Toronto
+      imagePullSecrets:
+      - name: dockerhub-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ps
+  namespace: default
+  labels:
+    app: ps
+spec:
+  selector:
+    app: ps
+  ports:
+  - name: ps
+    port: 8000
+    targetPort: 8000
+  type: ClusterIP
