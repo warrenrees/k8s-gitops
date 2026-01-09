@@ -23,7 +23,7 @@ spec:
             name: vaultwarden-secret
         imagePullPolicy: IfNotPresent
         name: vaultwarden
-        image: vaultwarden/server:1.35.1 # {"$imagepolicy": "flux-system:vaultwarden"}
+        image: vaultwarden/server:1.35.2 # {"$imagepolicy": "flux-system:vaultwarden"}
         resources: {}
         volumeMounts:
         - mountPath: /data
