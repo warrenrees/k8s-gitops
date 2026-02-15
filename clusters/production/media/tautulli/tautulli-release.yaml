@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tautulli
-        image: ghcr.io/tautulli/tautulli:v2.16.0 # {"$imagepolicy": "flux-system:tautulli"}
+        image: ghcr.io/tautulli/tautulli:v2.16.1 # {"$imagepolicy": "flux-system:tautulli"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8181
