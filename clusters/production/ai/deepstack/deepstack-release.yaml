@@ -25,7 +25,13 @@ spec:
         imagePullPolicy: IfNotPresent
         name: deepstack
         image: deepquestai/deepstack # {"$imagepolicy": "flux-system:deepstack"}
-        resources: {}
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         volumeMounts:
         - mountPath: /datastore
           name: deepstack-data

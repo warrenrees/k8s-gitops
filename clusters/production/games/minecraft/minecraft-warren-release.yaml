@@ -26,6 +26,13 @@ spec:
       serviceType: LoadBalancer
       loadBalancerIP: 10.0.0.250
       externalTrafficPolicy: Local
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "2000m"
+        memory: "4Gi"
     rcon:
     persistence:
       dataDir:

@@ -26,6 +26,13 @@ spec:
           value: "1028"
         - name: TZ
           value: America\Toronto
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
         volumeMounts:
         - name: maintainerr
           mountPath: /data

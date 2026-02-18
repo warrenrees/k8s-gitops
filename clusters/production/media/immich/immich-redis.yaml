@@ -20,6 +20,13 @@ spec:
           image: docker.io/redis:8.0.0-alpine # {"$imagepolicy": "flux-system:redis2"}
           ports:
             - containerPort: 6379
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
           readinessProbe:
             exec:
               command: ["redis-cli", "ping"]

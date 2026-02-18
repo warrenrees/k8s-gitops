@@ -28,6 +28,13 @@ spec:
           value: "977"
         - name: TZ
           value: America\Toronto
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         volumeMounts:
         - name: sonarr-config
           mountPath: /config

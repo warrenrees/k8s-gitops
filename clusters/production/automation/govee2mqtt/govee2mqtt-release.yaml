@@ -29,6 +29,13 @@ spec:
         imagePullPolicy: IfNotPresent
         name: govee2mqtt
         image: ghcr.io/wez/govee2mqtt:2025.11.25-60a39bcc # {"$imagepolicy": "flux-system:govee2mqtt"}
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
       hostname: govee2mqtt
 ---
 apiVersion: v1

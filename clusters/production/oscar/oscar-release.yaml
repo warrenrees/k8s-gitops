@@ -24,6 +24,13 @@ spec:
         env:
         - name: TZ
           value: America\Toronto
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         volumeMounts:
         - name: oscar-data
           mountPath: /config/Documents/OSCAR_Data

@@ -37,6 +37,13 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         securityContext:
           privileged: true
         volumeMounts:

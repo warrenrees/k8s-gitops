@@ -33,5 +33,12 @@ spec:
 
       hostname: influxdb.rees.ca
 
+    resources:
+      requests:
+        cpu: "200m"
+        memory: "512Mi"
+      limits:
+        cpu: "1000m"
+        memory: "2Gi"
     pdb:
       create: false

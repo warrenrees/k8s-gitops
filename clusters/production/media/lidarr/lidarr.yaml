@@ -28,6 +28,13 @@ spec:
               value: "988"
             - name: PUID
               value: "977"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
           volumeMounts:
             - name: lidarr-config
               mountPath: /config

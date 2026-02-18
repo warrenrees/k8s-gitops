@@ -25,6 +25,21 @@ spec:
       featureGates:
         ACMEHTTP01IngressPathTypeExact: false
 
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "128Mi"
+      limits:
+        cpu: "250m"
+        memory: "256Mi"
+    webhook:
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "128Mi"
+        limits:
+          cpu: "250m"
+          memory: "256Mi"
     prometheus:
       servicemonitor:
         enabled: true

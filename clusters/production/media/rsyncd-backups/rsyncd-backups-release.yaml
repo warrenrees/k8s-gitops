@@ -32,6 +32,13 @@ spec:
         - containerPort: 8730
           name: rsync
           protocol: TCP
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
         securityContext:
           runAsUser: 1000 # choose a non-root UID that exists in the image
           runAsGroup: 1000

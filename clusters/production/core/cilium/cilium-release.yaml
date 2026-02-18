@@ -33,8 +33,22 @@ spec:
     k8sServiceHost: k8s-cluster.rees.ca
     k8sServicePort: 6443
     kubeProxyReplacement: true
+    resources:
+      requests:
+        cpu: "200m"
+        memory: "256Mi"
+      limits:
+        cpu: "1000m"
+        memory: "1Gi"
     operator:
       replicas: 1
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "256Mi"
+        limits:
+          cpu: "1000m"
+          memory: "1Gi"
       prometheus:
         enabled: true
       unmanagedPodWatcher:

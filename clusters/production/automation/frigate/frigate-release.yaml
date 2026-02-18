@@ -40,10 +40,13 @@ spec:
         image: ghcr.io/blakeblackshear/frigate:0.16.4-tensorrt # {"$imagepolicy": "flux-system:frigate"}
         imagePullPolicy: IfNotPresent
         resources:
+          requests:
+            cpu: "4000m"
+            memory: "16Gi"
           limits:
+            cpu: "12000m"
+            memory: "32Gi"
             nvidia.com/gpu: 1
-        #  requests:
-        #    nvidia.com/gpu: "1"
         livenessProbe:
           failureThreshold: 5
           httpGet:

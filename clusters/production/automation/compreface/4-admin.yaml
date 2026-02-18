@@ -38,6 +38,13 @@ spec:
           ports:
           - containerPort: 8080
           name: cf-admin
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
       restartPolicy: Always
 ---
 apiVersion: v1

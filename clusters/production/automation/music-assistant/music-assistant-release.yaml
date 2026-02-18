@@ -32,6 +32,13 @@ spec:
         - containerPort: 8099
           hostPort: 8099
           protocol: TCP
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         securityContext:
           capabilities:
             add:

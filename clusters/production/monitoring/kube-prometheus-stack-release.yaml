@@ -43,6 +43,13 @@ spec:
         hosts:
         - grafana.rees.ca
         LoadBalancerIP: 10.0.0.50
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
 
     prometheus:
       ingress:
@@ -53,6 +60,13 @@ spec:
         LoadBalancerIP: 10.0.0.50
       prometheusSpec:
         secrets: ["etcd-client-cert"]
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "1Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
 
     thanosRuler:
       ingress:

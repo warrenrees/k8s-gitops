@@ -20,6 +20,13 @@ spec:
     crds: CreateReplace
   values:
     server:
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "512Mi"
+        limits:
+          cpu: "1000m"
+          memory: "2Gi"
       ingress:
         ingressClassName: nginx
         enabled: true
@@ -47,6 +54,13 @@ spec:
               key: redis-password
 
     worker:
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "512Mi"
+        limits:
+          cpu: "1000m"
+          memory: "2Gi"
       env:
         - name: AUTHENTIK_POSTGRESQL__PASSWORD
           valueFrom:

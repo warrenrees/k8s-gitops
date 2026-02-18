@@ -27,7 +27,13 @@ spec:
         ports:
         - containerPort: 1935
           protocol: TCP
-        resources: {}
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service

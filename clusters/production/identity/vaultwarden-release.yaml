@@ -24,7 +24,13 @@ spec:
         imagePullPolicy: IfNotPresent
         name: vaultwarden
         image: vaultwarden/server:1.35.3 # {"$imagepolicy": "flux-system:vaultwarden"}
-        resources: {}
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         volumeMounts:
         - mountPath: /data
           name: vaultwarden-data

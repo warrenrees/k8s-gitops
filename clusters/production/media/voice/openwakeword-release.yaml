@@ -26,7 +26,13 @@ spec:
         ports:
         - containerPort: 10400
           protocol: TCP
-
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
       hostname: openwakeword
 ---
 apiVersion: v1

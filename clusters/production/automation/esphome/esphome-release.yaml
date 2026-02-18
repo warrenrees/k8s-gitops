@@ -26,7 +26,13 @@ spec:
         - containerPort: 6052
           hostPort: 6052
           protocol: TCP
-        resources: {}
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
         securityContext:
           privileged: true
         volumeMounts:

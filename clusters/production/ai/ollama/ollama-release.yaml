@@ -31,6 +31,13 @@ spec:
         run:
           - mistral
 
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+      limits:
+        cpu: "1000m"
+        memory: "2Gi"
     persistentVolume:
       enabled: true
       existingClaim: "pvc-ollama-data"

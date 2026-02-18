@@ -27,7 +27,13 @@ spec:
         ports:
         - containerPort: 10300
           protocol: TCP
-
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
         volumeMounts:
         - mountPath: /data
           name: whisper-data
