@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: intel-gpu-plugin
+  namespace: flux-system
+spec:
+  targetNamespace: intel-gpu-plugin
+  chart:
+    spec:
+      chart: intel-device-plugins-gpu
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: intel
+  interval: 1m0s
+  values:
+    sharedDevNum: 3  # <--- This sets the equivalent of -shared-dev-num=3
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dp-operator
+  namespace: flux-system
+spec:
+  targetNamespace: intel-gpu-plugin
+  chart:
+    spec:
+      chart: intel-device-plugins-operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: intel
+  interval: 1m0s
