@@ -14,10 +14,14 @@ spec:
         name: ingress-nginx
   install:
     crds: Create
+    remediation:
+      retries: 3
   interval: 10m0s
   releaseName: internal-nginx
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
   values:
     controller:
       electionID: internal-ingress-controller-leader

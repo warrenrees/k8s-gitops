@@ -10,6 +10,12 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mojo2600
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   interval: 60m0s
   releaseName: pihole
   targetNamespace: default

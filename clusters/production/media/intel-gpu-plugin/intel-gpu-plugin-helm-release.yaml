@@ -13,6 +13,12 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: intel
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   interval: 1m0s
   values:
     sharedDevNum: 3  # <--- This sets the equivalent of -shared-dev-num=3
@@ -31,4 +37,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: intel
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   interval: 1m0s

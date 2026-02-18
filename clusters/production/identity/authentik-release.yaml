@@ -13,11 +13,15 @@ spec:
         name: authentik
   install:
     crds: Create
+    remediation:
+      retries: 3
   interval: 10m0s
   releaseName: authentik
   targetNamespace: identity
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
   values:
     server:
       resources:

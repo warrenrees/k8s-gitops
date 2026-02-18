@@ -13,11 +13,15 @@ spec:
         name: jetstack
   install:
     crds: Create
+    remediation:
+      retries: 3
   interval: 10m0s
   releaseName: cert-manager
   targetNamespace: cert-manager
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
 
   values:
     installCRDs: true
