@@ -26,6 +26,7 @@ spec:
     controller:
       electionID: internal-ingress-controller-leader
       replicaCount: 3
+      minAvailable: 2
       ingressClass: internal-nginx
       ingressClassResource:
         name: internal-nginx  # default: nginx

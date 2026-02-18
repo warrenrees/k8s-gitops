@@ -27,6 +27,7 @@ spec:
       allowSnippetAnnotations: true
       electionID: ingress-controller-leader
       replicaCount: 3
+      minAvailable: 2
       service:
         loadBalancerIP: "10.0.0.240"
         externalTrafficPolicy: Local

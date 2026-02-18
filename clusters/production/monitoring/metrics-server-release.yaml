@@ -23,6 +23,9 @@ spec:
 
   values:
     replicas: 2
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 1
 
     resources:
       requests:
