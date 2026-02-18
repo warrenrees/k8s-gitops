@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/auth-url: |-
        http://ak-outpost-authentik-embedded-outpost.identity.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
@@ -24,6 +23,7 @@ metadata:
   name: frigate
   namespace: default
 spec:
+  ingressClassName: nginx
   rules:
   - host: frigate.rees.ca
     http:
@@ -39,8 +39,4 @@ spec:
   - hosts:
     - frigate.rees.ca
     secretName: frigate-tls
-status:
-  loadBalancer:
-    ingress:
-    - ip: 10.0.0.240
 

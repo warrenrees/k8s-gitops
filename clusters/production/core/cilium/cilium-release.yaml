@@ -69,8 +69,7 @@ spec:
         enabled: true
         ingress:
           enabled: true
-          annotations:
-            kubernetes.io/ingress.class: internal-nginx
+          className: internal-nginx
           hosts:
             - hubble.rees.ca
 
