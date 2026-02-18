@@ -3,6 +3,11 @@ kind: Deployment
 metadata:
   name: ombi
   namespace: default
+  labels:
+    app: ombi
+    app.kubernetes.io/name: ombi
+    app.kubernetes.io/instance: ombi
+    app.kubernetes.io/managed-by: flux
 spec:
   replicas: 1
   selector:
@@ -14,6 +19,9 @@ spec:
     metadata:
       labels:
         app: ombi
+        app.kubernetes.io/name: ombi
+        app.kubernetes.io/instance: ombi
+        app.kubernetes.io/managed-by: flux
     spec:
       containers:
       - name: ombi
@@ -46,6 +54,9 @@ metadata:
   namespace: default
   labels:
     app: ombi
+    app.kubernetes.io/name: ombi
+    app.kubernetes.io/instance: ombi
+    app.kubernetes.io/managed-by: flux
 spec:
   selector:
     app: ombi

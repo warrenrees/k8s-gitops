@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     app: fe
+    app.kubernetes.io/name: compreface-fe
+    app.kubernetes.io/instance: cf-fe
+    app.kubernetes.io/managed-by: flux
   name: cf-fe
   namespace: compreface
 spec:
@@ -14,6 +17,9 @@ spec:
     metadata:
       labels:
         app: fe
+        app.kubernetes.io/name: compreface-fe
+        app.kubernetes.io/instance: cf-fe
+        app.kubernetes.io/managed-by: flux
     spec:
       containers:
         - image: 'exadel/compreface-fe:1.0.1'
@@ -34,6 +40,9 @@ kind: Service
 metadata:
   labels:
     app: fe
+    app.kubernetes.io/name: compreface-fe
+    app.kubernetes.io/instance: cf-fe
+    app.kubernetes.io/managed-by: flux
   name: compreface-ui
   namespace: compreface
 spec:

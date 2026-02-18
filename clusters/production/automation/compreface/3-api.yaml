@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     app: api
+    app.kubernetes.io/name: compreface-api
+    app.kubernetes.io/instance: cf-api
+    app.kubernetes.io/managed-by: flux
   name: cf-api
   namespace: compreface
 spec:
@@ -14,6 +17,9 @@ spec:
     metadata:
       labels:
         app: api
+        app.kubernetes.io/name: compreface-api
+        app.kubernetes.io/instance: cf-api
+        app.kubernetes.io/managed-by: flux
     spec:
       containers:
         - env:
@@ -49,6 +55,10 @@ kind: Service
 metadata:
   name: compreface-api
   namespace: compreface
+  labels:
+    app.kubernetes.io/name: compreface-api
+    app.kubernetes.io/instance: cf-api
+    app.kubernetes.io/managed-by: flux
 spec:
   type: ClusterIP
   selector:

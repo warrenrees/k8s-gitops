@@ -4,6 +4,9 @@ kind: Deployment
 metadata:
   labels:
     app: db
+    app.kubernetes.io/name: compreface-db
+    app.kubernetes.io/instance: cf-db
+    app.kubernetes.io/managed-by: flux
   name: cf-db
   namespace: compreface
 spec:
@@ -17,6 +20,9 @@ spec:
     metadata:
       labels:
         app: db
+        app.kubernetes.io/name: compreface-db
+        app.kubernetes.io/instance: cf-db
+        app.kubernetes.io/managed-by: flux
     spec:
       containers:
         - env:
@@ -56,6 +62,10 @@ kind: Service
 metadata:
   name: compreface-postgres-db
   namespace: compreface
+  labels:
+    app.kubernetes.io/name: compreface-db
+    app.kubernetes.io/instance: cf-db
+    app.kubernetes.io/managed-by: flux
 spec:
   type: ClusterIP
   selector:

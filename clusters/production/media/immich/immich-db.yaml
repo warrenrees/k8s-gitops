@@ -5,6 +5,9 @@ metadata:
   namespace: default
   labels:
     app: immich-database
+    app.kubernetes.io/name: immich-database
+    app.kubernetes.io/instance: immich-database
+    app.kubernetes.io/managed-by: flux
 spec:
   replicas: 1
   strategy:
@@ -17,6 +20,9 @@ spec:
     metadata:
       labels:
         app: immich-database
+        app.kubernetes.io/name: immich-database
+        app.kubernetes.io/instance: immich-database
+        app.kubernetes.io/managed-by: flux
     spec:
       containers:
         - name: immich-database
@@ -68,6 +74,10 @@ kind: Service
 metadata:
   name: immich-database
   namespace: default
+  labels:
+    app.kubernetes.io/name: immich-database
+    app.kubernetes.io/instance: immich-database
+    app.kubernetes.io/managed-by: flux
 spec:
   selector:
     app: immich-database

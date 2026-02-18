@@ -3,6 +3,11 @@ kind: Deployment
 metadata:
   name: lidarr
   namespace: default
+  labels:
+    app: lidarr
+    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/instance: lidarr
+    app.kubernetes.io/managed-by: flux
 spec:
   replicas: 1
   selector:
@@ -14,6 +19,9 @@ spec:
     metadata:
       labels:
         app: lidarr
+        app.kubernetes.io/name: lidarr
+        app.kubernetes.io/instance: lidarr
+        app.kubernetes.io/managed-by: flux
     spec:
       containers:
         - name: lidarr
@@ -60,6 +68,9 @@ metadata:
   namespace: default
   labels:
     app: lidarr
+    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/instance: lidarr
+    app.kubernetes.io/managed-by: flux
 spec:
   selector:
     app: lidarr
