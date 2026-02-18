@@ -31,9 +31,15 @@ spec:
             - name: POSTGRES_DB
               value: frs
             - name: POSTGRES_PASSWORD
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: compreface-db-credentials
+                  key: POSTGRES_PASSWORD
             - name: POSTGRES_USER
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: compreface-db-credentials
+                  key: POSTGRES_USER
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
           image: postgres:11.5

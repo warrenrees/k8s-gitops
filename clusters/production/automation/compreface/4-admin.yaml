@@ -33,11 +33,17 @@ spec:
             - name: EMAIL_USERNAME
             - name: ENABLE_EMAIL_SERVER
             - name: POSTGRES_PASSWORD
-              value: 'postgres'
+              valueFrom:
+                secretKeyRef:
+                  name: compreface-db-credentials
+                  key: POSTGRES_PASSWORD
             - name: POSTGRES_URL
               value: 'jdbc:postgresql://compreface-postgres-db:5432/frs'
             - name: POSTGRES_USER
-              value: 'postgres'
+              valueFrom:
+                secretKeyRef:
+                  name: compreface-db-credentials
+                  key: POSTGRES_USER
             - name: SPRING_PROFILES_ACTIVE
               value: 'dev'
           image: 'exadel/compreface-admin:1.0.1'
