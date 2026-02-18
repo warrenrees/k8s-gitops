@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: minecraft-bettermc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bettermc-data
+  namespace: minecraft-bettermc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  # storageClassName: your-storage-class
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bettermc
+  namespace: minecraft-bettermc
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bettermc
+  template:
+    metadata:
+      labels:
+        app: bettermc
+    spec:
+      containers:
+        - name: minecraft
+          image: itzg/minecraft-server:java17
+          env:
+            - name: EULA
+              value: "TRUE"
+            - name: TYPE
+              value: "AUTO_CURSEFORGE"
+            - name: CF_PAGE_URL
+              value: "https://www.curseforge.com/minecraft/modpacks/better-mc-forge-bmc4"
+            - name: CF_API_KEY_FILE
+              value: "/run/secrets/curseforge/api-key"
+            - name: MEMORY
+              value: "6G"
+            - name: INIT_MEMORY
+              value: "4G"
+            - name: MAX_MEMORY
+              value: "6G"
+            - name: MOTD
+              value: "Better MC BMC4 Server"
+            - name: DIFFICULTY
+              value: "normal"
+            - name: MAX_PLAYERS
+              value: "10"
+          ports:
+            - containerPort: 25565
+              name: minecraft
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: cf-api-key
+              mountPath: /run/secrets/curseforge
+              readOnly: true
+          resources:
+            requests:
+              memory: "6Gi"
+              cpu: "2"
+            limits:
+              memory: "8Gi"
+              cpu: "4"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: bettermc-data
+        - name: cf-api-key
+          secret:
+            secretName: curseforge-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bettermc
+  namespace: minecraft-bettermc
+spec:
+  type: LoadBalancer  # or NodePort if you prefer
+  ports:
+    - port: 25565
+      targetPort: 25565
+      protocol: TCP
+      name: minecraft
+  selector:
+    app: bettermc

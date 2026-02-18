@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: curseforge-api
+  namespace: minecraft-bettermc
+spec:
+  encryptedData:
+    CF_API_KEY: AgBiRPrdDaIBWE+iVZui4guvL7vn89CZA2hbK64/cWCsM085RyQjVPfRwfQ6EZXUNV0oGFku1Fmm73YkpWmW+lKLllVaqYj41RkD8tHDNiFj2QdE/YFYlbii9NLcc0kvWXmaQB631xnFPfphQY7g/e5mmBRbwO2PPC7XXInWq/5D1h1WMyPafK9R/ESFQ35opDRMTkdE/uGJR49cX/LsztlWj6h74O/xC72FzJnUnn7fvp2Zo4d1KiN+dX0Y2qEqqlmdaDhizM7VbSd2KsQCDqhr3am8ybpDlBvrrMaxGmT0qk/c9Bp3EP0xpnWlPnJGL0Qq67x+eud2Q3T/IUEk5ST0rFdQmodLQqv1XD/RXtLfnggvweYIVuLMIeBZ39hpUKOXeh3xKQV4VyMGDivhPOE6qBpYtfm2NCBqFTKJcyByUHgn8jr6CpkVYwGxYNW/WBMqAnZePPS5Ba7B7kv1ycyesovFQyVTHnkxLaYzEiXX4RTcHFZXdrhL8NYy58Iv2FGIN20TEfJyWAW0GeQjdmKDt/5eQ4y/bx6Yl9q2MUqrx6lBdffQpIqmU5xL6itvqolGjH5DgtVO7E80f4v40mZ0ho3Wu4rYd83SERYaHjrWY48MoVBMU6n/0f+LjRHJMQtYM4lFo/t/l70uGtY0I948mmwVqCWR0ryC4LONhoDZMYZL/j12SZoIMoWVaLJunROQbecku3pcJI8W4fTUfZ5eUcH5bK/at2c4GguV9Sjim91LTNiac4JYimA8RkK6CK/+0foCxImUAxT8Cm0=
+  template:
+    metadata:
+      name: curseforge-api
+      namespace: minecraft-bettermc
+    type: Opaque
