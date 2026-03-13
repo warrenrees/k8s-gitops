@@ -21,6 +21,8 @@ spec:
   interval: 1h0m0s
   targetNamespace: kube-system
   values:
+    securityContext:
+      privileged: true
     bpf:
       hostLegacyRouting: false
     cluster:
