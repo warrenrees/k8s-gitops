@@ -25,9 +25,9 @@ spec:
       privileged: true
     bpf:
       hostLegacyRouting: false
-      mapDynamicSizeRatio: 0
-      ctGlobalTCPMax: 524288
-      ctGlobalAnyMax: 262144
+      mapDynamicSizeRatio: 0.00005
+      ctTcpMax: 524288
+      ctAnyMax: 262144
     cluster:
       id: 0
       name: kubernetes
