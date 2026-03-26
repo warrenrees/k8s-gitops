@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v2.6.2 # {"$imagepolicy": "flux-system:immich-server"}
+          image: ghcr.io/immich-app/immich-server:v2.6.3 # {"$imagepolicy": "flux-system:immich-server"}
           resources:
             requests:
               cpu: "250m"
