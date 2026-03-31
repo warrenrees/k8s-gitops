@@ -31,6 +31,12 @@ spec:
       memory: 2048M
       loadBalancerIP: 10.0.0.34
       externalTrafficPolicy: Local
+    startupProbe:
+      enabled: true
+      command: mc-health
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      failureThreshold: 90
     resources:
       requests:
         cpu: "500m"
