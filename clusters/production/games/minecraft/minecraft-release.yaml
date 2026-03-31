@@ -14,6 +14,7 @@ spec:
     remediation:
       retries: 3
   upgrade:
+    timeout: 15m0s
     remediation:
       retries: 3
   interval: 1h0m0s
