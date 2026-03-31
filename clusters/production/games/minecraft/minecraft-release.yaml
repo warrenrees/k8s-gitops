@@ -33,8 +33,8 @@ spec:
       externalTrafficPolicy: Local
     startupProbe:
       enabled: true
-      command: mc-health
-      initialDelaySeconds: 30
+      command:
+        - mc-health
       periodSeconds: 10
       failureThreshold: 90
     resources:
