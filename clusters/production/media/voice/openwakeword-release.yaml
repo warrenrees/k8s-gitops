@@ -43,8 +43,7 @@ metadata:
   labels:
     app: openwakeword
   annotations:
-    metallb.universe.tf/allow-shared-ip: wyoming-svc
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    lbipam.cilium.io/sharing-key: wyoming-svc
 spec:
   ports:
   - name: openwakeword-10400

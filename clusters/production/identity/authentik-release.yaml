@@ -32,18 +32,7 @@ spec:
           cpu: "1000m"
           memory: "2Gi"
       ingress:
-        ingressClassName: nginx
-        enabled: true
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          # optional, but handy on some setups:
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        hosts:
-          - id.rees.ca
-        tls:
-        - hosts:
-            - id.rees.ca
-          secretName: id-rees-tls
+        enabled: false
 
       env:
         - name: AUTHENTIK_POSTGRESQL__PASSWORD

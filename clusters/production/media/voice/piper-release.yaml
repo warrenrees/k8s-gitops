@@ -50,8 +50,7 @@ metadata:
   labels:
     app: piper
   annotations:
-    metallb.universe.tf/allow-shared-ip: wyoming-svc
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    lbipam.cilium.io/sharing-key: wyoming-svc
 spec:
   ports:
   - name: piper-10200

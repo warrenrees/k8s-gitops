@@ -30,14 +30,10 @@ spec:
       accessModes:
       - ReadWriteOnce
     serviceWeb:
-      loadBalancerIP: 10.0.0.35
-      annotations:
-        metallb.universe.tf/allow-shared-ip: mc-pihole-svc
-      type: LoadBalancer
+      type: ClusterIP
     serviceDns:
+      mixedService: true
       loadBalancerIP: 10.0.0.35
-      annotations:
-        metallb.universe.tf/allow-shared-ip: mc-pihole-svc
       type: LoadBalancer
     serviceDhcp:
       enabled: false

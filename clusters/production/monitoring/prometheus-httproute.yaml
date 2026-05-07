@@ -1,0 +1,34 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  parentRefs:
+  - name: internal
+    namespace: gateway
+    sectionName: https
+  hostnames:
+  - prometheus.rees.ca
+  rules:
+  - backendRefs:
+    - name: monitoring-kube-prometheus-prometheus
+      port: 9090
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: alertmanager
+  namespace: monitoring
+spec:
+  parentRefs:
+  - name: internal
+    namespace: gateway
+    sectionName: https
+  hostnames:
+  - alertmanager.rees.ca
+  rules:
+  - backendRefs:
+    - name: monitoring-kube-prometheus-alertmanager
+      port: 9093

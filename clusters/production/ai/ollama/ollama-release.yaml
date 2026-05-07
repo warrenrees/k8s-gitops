@@ -48,10 +48,4 @@ spec:
       existingClaim: "pvc-ollama-data"
 
     ingress:
-      enabled: true
-      className: "internal-nginx"
-      hosts:
-        - host: ollama.rees.ca
-          paths:
-            - path: /
-              pathType: Prefix
+      enabled: false

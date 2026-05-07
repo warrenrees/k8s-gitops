@@ -1,0 +1,13 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: cluster-services
+spec:
+  blocks:
+  - start: 10.0.0.241
+    stop: 10.0.0.250
+  - start: 10.0.0.30
+    stop: 10.0.0.39
+  - start: 10.0.0.230
+    stop: 10.0.0.239
