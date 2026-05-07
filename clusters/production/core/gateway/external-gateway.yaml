@@ -21,3 +21,51 @@ spec:
     allowedRoutes:
       namespaces:
         from: All
+  - name: exuone-dev-api-aa
+    protocol: HTTPS
+    port: 443
+    hostname: devapi.automatedassessment.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-dev-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: exuone-dev-api-exuone
+    protocol: HTTPS
+    port: 443
+    hostname: devapi.exuone.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-dev-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: exuone-dev-portal-aa
+    protocol: HTTPS
+    port: 443
+    hostname: devportal.automatedassessment.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-dev-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: exuone-dev-portal-exuone
+    protocol: HTTPS
+    port: 443
+    hostname: devportal.exuone.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-dev-tls
+    allowedRoutes:
+      namespaces:
+        from: All

@@ -18,3 +18,12 @@ spec:
       selector:
         dnsZones:
         - rees.ca
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-exuone
+            key: api-token
+      selector:
+        dnsZones:
+        - exuone.com
+        - automatedassessment.com
