@@ -1,0 +1,33 @@
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: outpost-from-longhorn-system
+  namespace: identity
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: longhorn-system
+  to:
+  - group: ""
+    kind: Service
+    name: ak-outpost-authentik-embedded-outpost
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  parentRefs:
+  - name: internal
+    namespace: gateway
+    sectionName: https
+  hostnames:
+  - longhorn.rees.ca
+  rules:
+  - backendRefs:
+    - name: ak-outpost-authentik-embedded-outpost
+      namespace: identity
+      port: 9000

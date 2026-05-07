@@ -12,6 +12,28 @@ spec:
   hostnames:
   - id.rees.ca
   rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /outpost.goauthentik.io
+    backendRefs:
+    - name: ak-outpost-authentik-embedded-outpost
+      port: 9000
   - backendRefs:
     - name: authentik-server
       port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: outpost-from-default
+  namespace: identity
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: default
+  to:
+  - group: ""
+    kind: Service
+    name: ak-outpost-authentik-embedded-outpost
