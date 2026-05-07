@@ -26,9 +26,9 @@ spec:
   values:
     installCRDs: true
     config:
+      enableGatewayAPI: true
       featureGates:
         ACMEHTTP01IngressPathTypeExact: false
-    featureGates: "ExperimentalGatewayAPISupport=true"
 
     resources:
       requests:
