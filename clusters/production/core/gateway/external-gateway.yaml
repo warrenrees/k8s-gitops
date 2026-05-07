@@ -1,0 +1,23 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: external
+  namespace: gateway
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-dns
+spec:
+  gatewayClassName: cilium
+  listeners:
+  - name: https
+    protocol: HTTPS
+    port: 443
+    hostname: "*.rees.ca"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: external-gateway-tls
+    allowedRoutes:
+      namespaces:
+        from: All

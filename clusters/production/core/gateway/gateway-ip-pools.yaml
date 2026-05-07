@@ -1,0 +1,22 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: gateway-external
+spec:
+  blocks:
+  - cidr: 10.0.0.241/32
+  serviceSelector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: external
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: gateway-internal
+spec:
+  blocks:
+  - cidr: 10.0.0.242/32
+  serviceSelector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: internal
