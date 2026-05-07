@@ -44,3 +44,11 @@ spec:
     remediation:
       retries: 3
   interval: 1m0s
+  values:
+    manager:
+      devices:
+        dsa: false
+        gpu: true
+        iaa: false
+        qat: false
+        sgx: false
