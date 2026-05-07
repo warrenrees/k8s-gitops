@@ -28,6 +28,7 @@ spec:
     config:
       featureGates:
         ACMEHTTP01IngressPathTypeExact: false
+    featureGates: "ExperimentalGatewayAPISupport=true"
 
     resources:
       requests:

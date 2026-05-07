@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      reconcileStrategy: ChartVersion
+      version: 1.17.6
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -28,6 +28,23 @@ spec:
       mapDynamicSizeRatio: 0.00005
       ctTcpMax: 524288
       ctAnyMax: 262144
+      lbExternalClusterIP: true
+    gatewayAPI:
+      enabled: true
+      enableAlpn: true
+      enableAppProtocol: true
+    l2announcements:
+      enabled: true
+      leaseDuration: 15s
+      leaseRenewDeadline: 5s
+      leaseRetryPeriod: 2s
+    externalIPs:
+      enabled: true
+    k8sClientRateLimit:
+      qps: 50
+      burst: 100
+    envoyConfig:
+      enabled: true
     cluster:
       id: 0
       name: kubernetes
