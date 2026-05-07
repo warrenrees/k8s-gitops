@@ -26,11 +26,6 @@ spec:
   - 10.0.0.35/32
   autoAssign: true
   avoidBuggyIPs: false
-  serviceAllocation:
-    serviceSelectors:
-    - matchExpressions:
-      - key: io.cilium.gateway/owning-gateway
-        operator: DoesNotExist
 
 ---
 apiVersion: metallb.io/v1beta1
