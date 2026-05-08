@@ -35,6 +35,7 @@ spec:
       mixedService: true
       loadBalancerIP: 10.0.0.35
       type: LoadBalancer
+      externalTrafficPolicy: Cluster
     serviceDhcp:
       enabled: false
     resources:

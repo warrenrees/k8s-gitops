@@ -65,7 +65,7 @@ metadata:
   name: rsyncd-backups
   namespace: default
 spec:
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   loadBalancerIP: 10.0.0.249
   ports:
   - name: rsync

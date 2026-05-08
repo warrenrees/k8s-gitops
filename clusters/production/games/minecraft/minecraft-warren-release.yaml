@@ -31,7 +31,7 @@ spec:
       difficult: normal
       serviceType: LoadBalancer
       loadBalancerIP: 10.0.0.250
-      externalTrafficPolicy: Local
+      externalTrafficPolicy: Cluster
     resources:
       requests:
         cpu: "500m"
