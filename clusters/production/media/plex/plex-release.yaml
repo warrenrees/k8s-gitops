@@ -106,13 +106,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    metallb.universe.tf/allow-shared-ip: plex
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
   name: plex
   namespace: default
 spec:
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   loadBalancerIP: 10.0.0.30
   ports:
   - name: http

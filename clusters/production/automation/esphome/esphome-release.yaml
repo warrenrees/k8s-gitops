@@ -15,6 +15,7 @@ spec:
         app: esphome
     spec:
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
       - env:
         - name: TZ
@@ -31,8 +32,8 @@ spec:
             cpu: "100m"
             memory: "512Mi"
           limits:
-            cpu: "2"
-            memory: "4Gi"
+            cpu: "16"
+            memory: "32Gi"
         securityContext:
           privileged: true
         volumeMounts:
