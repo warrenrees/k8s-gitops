@@ -29,6 +29,10 @@ spec:
       ctTcpMax: 524288
       ctAnyMax: 262144
       lbExternalClusterIP: true
+      masquerade: true
+    loadBalancer:
+      mode: dsr
+      dsrDispatch: geneve
     gatewayAPI:
       enabled: true
       enableAlpn: true
@@ -98,5 +102,4 @@ spec:
       operator:
         name: cilium-operator
     routingMode: tunnel
-    tunnelProtocol: vxlan
-    tunnelPort: 8472
+    tunnelProtocol: geneve
