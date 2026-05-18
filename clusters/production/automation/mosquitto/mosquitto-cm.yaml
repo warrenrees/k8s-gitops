@@ -14,4 +14,4 @@ metadata:
     app.kubernetes.io/instance: mosquitto
     app.kubernetes.io/name: mosquitto
   name: mosquitto-config
-  namespace: default
+  namespace: automation

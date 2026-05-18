@@ -1,0 +1,31 @@
+# Imported into GitOps during the namespace migration — volumes were
+# originally created directly in Longhorn. Statically bound to the existing
+# PVs (and their data) via volumeName.
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mosquitto-data
+  namespace: automation
+spec:
+  storageClassName: longhorn-static
+  volumeName: mosquitto-data
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mosquitto-configinc
+  namespace: automation
+spec:
+  storageClassName: longhorn-static
+  volumeName: mosquitto-configinc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

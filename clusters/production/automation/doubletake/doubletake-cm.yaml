@@ -46,12 +46,12 @@ data:
       labels:
       - person
       update_sub_labels: true
-      url: http://frigate.default.svc.cluster.local:5000
+      url: http://frigate.automation.svc.cluster.local:5000
       zones: null
     logs:
       level: info
     mqtt:
-      host: mosquitto.default.svc.cluster.local:1883
+      host: mosquitto.automation.svc.cluster.local:1883
       password: null
       topics:
         cameras: double-take/cameras
@@ -85,4 +85,4 @@ metadata:
     app.kubernetes.io/instance: double-take
     app.kubernetes.io/name: double-take
   name: double-take-settings
-  namespace: default
+  namespace: automation

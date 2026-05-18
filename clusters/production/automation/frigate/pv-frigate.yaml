@@ -21,7 +21,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-frigate-media
-  namespace: default
+  namespace: automation
 spec:
   storageClassName: nfs
   accessModes:

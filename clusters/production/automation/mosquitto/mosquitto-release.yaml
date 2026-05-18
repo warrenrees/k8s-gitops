@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: mosquitto
     app.kubernetes.io/name: mosquitto
   name: mosquitto
-  namespace: default
+  namespace: automation
 spec:
   selector:
     matchLabels:

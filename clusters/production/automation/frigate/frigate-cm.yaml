@@ -32,4 +32,4 @@ data:
 kind: ConfigMap
 metadata:
   name: proxy-trusted-headers
-  namespace: default
+  namespace: automation

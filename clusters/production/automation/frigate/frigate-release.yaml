@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frigate
-  namespace: default
+  namespace: automation
 spec:
   selector:
     matchLabels:
@@ -138,7 +138,7 @@ metadata:
   annotations:
     lbipam.cilium.io/sharing-key: frigate-svc
   name: frigate-tcp
-  namespace: default
+  namespace: automation
 spec:
   loadBalancerIP: 10.0.0.244
   ports:
@@ -173,7 +173,7 @@ metadata:
   annotations:
     lbipam.cilium.io/sharing-key: frigate-svc
   name: frigate-udp
-  namespace: default
+  namespace: automation
 spec:
   loadBalancerIP: 10.0.0.244
   ports:
