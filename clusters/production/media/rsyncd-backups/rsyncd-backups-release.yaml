@@ -16,6 +16,9 @@ spec:
         app.kubernetes.io/instance: rsyncd-backups
         app.kubernetes.io/name: rsyncd-backups
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: rsyncd-backups
         image: warrenrees/rsyncd-backups:0.2.5 # {"$imagepolicy": "flux-system:rsyncd-backups"}

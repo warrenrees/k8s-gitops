@@ -15,6 +15,9 @@ spec:
       labels:
         app: oscar
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: oscar
         image: ghcr.io/rogerrum/docker-oscar:1.7.1 # {"$imagepolicy": "flux-system:oscar"}

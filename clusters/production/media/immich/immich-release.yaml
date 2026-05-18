@@ -16,6 +16,9 @@ spec:
       labels:
         app: immich-server
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: immich-server
           image: ghcr.io/immich-app/immich-server:v2.7.5 # {"$imagepolicy": "flux-system:immich-server"}

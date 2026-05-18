@@ -24,6 +24,9 @@ spec:
         app.kubernetes.io/instance: cf-db
         app.kubernetes.io/managed-by: flux
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - env:
             - name: TZ

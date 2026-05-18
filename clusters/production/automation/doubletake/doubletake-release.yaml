@@ -20,6 +20,9 @@ spec:
         app.kubernetes.io/name: double-take
     spec:
       automountServiceAccountToken: true
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - env:
         - name: TZ

@@ -15,6 +15,9 @@ spec:
         app: wyzebridge
     spec:
       hostNetwork: true
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - env:
         - name: TZ

@@ -15,6 +15,9 @@ spec:
         app: govee2mqtt
     spec:
       hostNetwork: true
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - env:
         - name: TZ

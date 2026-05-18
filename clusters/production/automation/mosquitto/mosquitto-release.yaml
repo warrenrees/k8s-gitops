@@ -19,6 +19,9 @@ spec:
         app.kubernetes.io/instance: mosquitto
         app.kubernetes.io/name: mosquitto
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - image: eclipse-mosquitto:2.0.22 # {"$imagepolicy": "flux-system:mosquitto"}
         imagePullPolicy: Always

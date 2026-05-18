@@ -24,6 +24,9 @@ spec:
         app.kubernetes.io/instance: immich-database
         app.kubernetes.io/managed-by: flux
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: immich-database
           image: docker.io/tensorchord/pgvecto-rs:pg16-v0.2.0 # {"$imagepolicy": "flux-system:pgvecto"}

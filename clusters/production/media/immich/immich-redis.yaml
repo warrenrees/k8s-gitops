@@ -23,6 +23,9 @@ spec:
         app.kubernetes.io/instance: immich-redis
         app.kubernetes.io/managed-by: flux
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: immich-redis
           image: docker.io/redis:8.0.0-alpine # {"$imagepolicy": "flux-system:redis2"}

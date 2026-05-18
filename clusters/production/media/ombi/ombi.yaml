@@ -23,6 +23,9 @@ spec:
         app.kubernetes.io/instance: ombi
         app.kubernetes.io/managed-by: flux
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: ombi
         image: linuxserver/ombi:4.53.5 # {"$imagepolicy": "flux-system:ombi"}

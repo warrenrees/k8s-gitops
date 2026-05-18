@@ -19,6 +19,9 @@ spec:
     spec:
       hostNetwork: true
       hostname: metermon
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: metermon
         image: seanauff/metermon

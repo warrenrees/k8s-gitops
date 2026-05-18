@@ -15,6 +15,9 @@ spec:
       labels:
         app: ps
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: ps
         image: warrenrees/property-search:latest

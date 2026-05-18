@@ -36,6 +36,9 @@ spec:
       labels:
         app: bettermc
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: minecraft
           image: itzg/minecraft-server:java17

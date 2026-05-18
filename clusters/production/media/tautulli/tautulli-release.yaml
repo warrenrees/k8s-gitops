@@ -15,6 +15,9 @@ spec:
       labels:
         app: tautulli
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: tautulli
         image: ghcr.io/tautulli/tautulli:v2.17.1 # {"$imagepolicy": "flux-system:tautulli"}

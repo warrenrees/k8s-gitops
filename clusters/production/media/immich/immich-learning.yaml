@@ -24,6 +24,9 @@ spec:
         app.kubernetes.io/instance: immich-machine-learning
         app.kubernetes.io/managed-by: flux
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: immich-machine-learning
           image: ghcr.io/immich-app/immich-machine-learning:v2.7.5-cuda # {"$imagepolicy": "flux-system:immich-machine-learning"}

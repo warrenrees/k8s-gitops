@@ -84,6 +84,8 @@ spec:
         - mountPath: /transcode
           name: transcode
       securityContext:
+        seccompProfile:
+          type: RuntimeDefault
         supplementalGroups:
         - 44
         - 109
