@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: govee2mqtt
-  namespace: default
+  namespace: automation
 spec:
   selector:
     matchLabels:
@@ -42,7 +42,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: govee2mqtt
-  namespace: default
+  namespace: automation
 spec:
   ports:
   - name: govee2mqtt-8056
