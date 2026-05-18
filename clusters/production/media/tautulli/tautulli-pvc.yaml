@@ -1,0 +1,16 @@
+# Imported into GitOps during the namespace migration — the volume was
+# originally created directly in Longhorn. Statically bound to the existing
+# PV (and its data) via volumeName.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-tautulli-config
+  namespace: media
+spec:
+  storageClassName: longhorn
+  volumeName: tautulli-config
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
