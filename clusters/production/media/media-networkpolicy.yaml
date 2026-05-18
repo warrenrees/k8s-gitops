@@ -26,6 +26,11 @@ spec:
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: monitoring
+    # Authentik's embedded outpost (identity) proxies to Ombi
+    # (requests.rees.ca is fronted by the outpost, not routed to ombi directly).
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: identity
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy

@@ -25,3 +25,8 @@ spec:
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: monitoring
+    # Authentik's embedded outpost (identity) proxies to the ps app
+    # (ps.rees.ca is fronted by the outpost, not routed to ps directly).
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: identity
