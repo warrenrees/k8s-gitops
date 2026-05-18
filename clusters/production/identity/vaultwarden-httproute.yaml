@@ -2,16 +2,16 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: deepstackui
-  namespace: ai
+  name: vaultwarden
+  namespace: identity
 spec:
   parentRefs:
-  - name: internal
+  - name: external
     namespace: gateway
     sectionName: https
   hostnames:
-  - deepstackui.rees.ca
+  - vaultwarden.rees.ca
   rules:
   - backendRefs:
-    - name: deepstackui
-      port: 8501
+    - name: external-vaultwarden
+      port: 7277

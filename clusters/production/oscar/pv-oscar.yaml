@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: oscar-sdcard
-  namespace: default
+  namespace: oscar
 spec:
   capacity:
     storage: 45Ti
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-oscar-sdcard
-  namespace: default
+  namespace: oscar
 spec:
   storageClassName: nfs
   accessModes:

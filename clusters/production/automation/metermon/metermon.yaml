@@ -1,0 +1,34 @@
+# Imported into GitOps during the namespace migration — metermon was
+# previously a manually-applied (non-GitOps) workload in the default namespace.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metermon
+  namespace: automation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metermon
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: metermon
+    spec:
+      hostNetwork: true
+      hostname: metermon
+      containers:
+      - name: metermon
+        image: seanauff/metermon
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MQTT_BROKER_HOST
+          value: "10.0.0.245"
+        - name: RTL_TCP_SERVER
+          value: "10.0.0.15:1234"
+        - name: RTLAMR_UNIQUE
+          value: "false"
+        - name: METERMON_SEND_BY_ID
+          value: "true"
