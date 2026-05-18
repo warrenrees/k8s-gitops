@@ -20,7 +20,7 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: piper-k8s
-        image: rhasspy/wyoming-piper:latest
+        image: rhasspy/wyoming-piper:2.2.2 # {"$imagepolicy": "flux-system:piper"}
         args:
         - --voice=en-us-ryan-medium
         ports:

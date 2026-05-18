@@ -225,3 +225,30 @@ metadata:
 spec:
   image: ghcr.io/wez/govee2mqtt
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: openwakeword
+  namespace: flux-system
+spec:
+  image: rhasspy/wyoming-openwakeword
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: piper
+  namespace: flux-system
+spec:
+  image: rhasspy/wyoming-piper
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: whisper
+  namespace: flux-system
+spec:
+  image: rhasspy/wyoming-whisper
+  interval: 30m0s

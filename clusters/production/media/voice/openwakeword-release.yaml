@@ -20,7 +20,7 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: openwakeword-k8s
-        image: rhasspy/wyoming-openwakeword:latest
+        image: rhasspy/wyoming-openwakeword:2.1.0 # {"$imagepolicy": "flux-system:openwakeword"}
         #args:
         #- --preload-model 'ok_nabu'
         ports:
