@@ -166,15 +166,24 @@ Procedure (suspend once for the batch, then per app):
 6. In the repo: set the HelmRelease `targetNamespace` to the new namespace, and
    **add a PVC manifest** in that namespace with `spec.volumeName: <pv>` (this
    imports the drift PVC into GitOps). Commit + push.
-7. `flux reconcile source git flux-system` **first** (fetch the new commit),
-   *then* `flux resume kustomization flux-system`. Resuming triggers an immediate
-   reconcile — if the source still holds the pre-change revision, Flux reconciles
-   that **stale** revision and briefly recreates the HelmRelease in the *old*
-   namespace (pods land back in `default`, Pending — their PVCs are gone). With
-   the source current first, the resume reconciles the correct revision. Flux
-   recreates the HelmRelease targeting the new namespace + the PVC; helm-controller
-   installs the chart and the PVC binds the existing PV. **Downtime ends when Ready.**
-8. Verify data intact and the app reachable on its LB IP.
+7. Bring it back — **in this exact order; do not skip the verify (step b):**
+   a. `flux reconcile source git flux-system`
+   b. `flux get sources git flux-system` — confirm the reported revision matches
+      the commit you just pushed. **Do not continue until it does.**
+   c. `flux resume kustomization flux-system`
+   d. `flux reconcile kustomization flux-system --with-source`
+
+   Why the verify matters: `flux resume` fires an immediate reconcile. If the
+   GitRepository source still holds the pre-change revision, Flux reconciles that
+   **stale** revision — it recreates the HelmRelease in the *old* namespace and
+   helm-controller starts an install there that **wedges** (the PVC is already
+   gone). This race has bitten the migration repeatedly.
+
+   Recovery if it wedges: `kubectl delete helmrelease <app> -n flux-system` (un-
+   installs the stuck release), then `flux reconcile kustomization flux-system
+   --with-source` with the source confirmed at the new revision — Flux recreates
+   the HelmRelease in the new namespace and the PVC binds the existing PV.
+8. Verify data intact and the app reachable (pod Ready, LB IP, app UI).
 
 ## Suggested sequencing
 
