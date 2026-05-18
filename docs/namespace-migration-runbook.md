@@ -212,6 +212,16 @@ PVC, clear the PV `claimRef`, recreate the PVC in `default` with
 - `kubectl get pvc -A` — every migrated PVC `Bound` to its original PV.
 - HTTPRoutes resolve (apps reachable on their hostnames); LB IPs unchanged.
 - `flux get kustomizations -A` — clean, no prune errors.
+- **Check the moved HTTPRoute got `status`** —
+  `kubectl get httproute <name> -n <ns> -o jsonpath='{.status.parents[0].conditions[?(@.type=="Accepted")].status}'`
+  must print `True`. An HTTPRoute with **empty status** means Cilium's Gateway
+  API controller (in `cilium-operator`) is not reconciling — symptom: the app's
+  hostname returns Envoy `upstream connect error … connection timeout` while the
+  backend is healthy in-cluster. The controller can die *silently* if its CRD
+  check times out at operator startup ("Required GatewayAPI resources are not
+  found" in the operator log). Fix: `kubectl rollout restart deployment
+  cilium-operator -n kube-system` — it re-reconciles every route and regenerates
+  the Envoy config.
 
 ## Phase 4 (security) — follows this
 
