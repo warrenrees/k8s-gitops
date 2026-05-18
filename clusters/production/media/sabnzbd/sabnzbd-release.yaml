@@ -27,7 +27,7 @@ spec:
         - name: PUID
           value: "977"
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         resources:
           requests:
             cpu: "100m"
