@@ -59,10 +59,10 @@ spec:
           timeoutSeconds: 1
         resources:
           requests:
-            cpu: "500m"
+            cpu: "2"
             memory: "8Gi"
           limits:
-            cpu: "2000m"
+            cpu: "12"
             memory: "16Gi"
             nvidia.com/gpu: 1
         startupProbe:
