@@ -1,0 +1,87 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: automation
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway,
+    same-namespace traffic, cluster nodes (kubelet probes plus the
+    host-network Home Assistant / govee2mqtt / metermon / music-assistant
+    pods), Prometheus scraping, and the identity namespace (Authentik's
+    outpost reaching Frigate on :8971). Egress is intentionally
+    unrestricted. The frigate-lan and mosquitto-lan policies add the
+    LAN-facing LoadBalancer ports.
+
+    Note: esphome, govee2mqtt, metermon and music-assistant use
+    hostNetwork, so they are not governed by this policy.
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace.
+    - fromEndpoints:
+        - {}
+    # Prometheus metric scraping.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+    # Authentik's outpost (identity) reaching Frigate's authenticated port.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: identity
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: frigate-lan
+  namespace: automation
+spec:
+  description: >-
+    Additional allow: the frigate-tcp/frigate-udp LoadBalancers
+    (10.0.0.244) expose the Frigate UI, RTSP/RTMP restreams and go2rtc
+    WebRTC to the LAN.
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: frigate
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "5000"
+              protocol: TCP
+            - port: "1935"
+              protocol: TCP
+            - port: "8554"
+              protocol: TCP
+            - port: "8555"
+              protocol: TCP
+            - port: "8555"
+              protocol: UDP
+            - port: "8971"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: mosquitto-lan
+  namespace: automation
+spec:
+  description: >-
+    Additional allow: the mosquitto LoadBalancer (10.0.0.245) exposes the
+    MQTT broker to LAN devices on :1883.
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: mosquitto
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "1883"
+              protocol: TCP

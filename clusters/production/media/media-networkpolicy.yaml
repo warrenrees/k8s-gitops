@@ -1,0 +1,68 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: media
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway
+    (the *arr apps, Immich, Tautulli, Ombi web UIs), same-namespace
+    traffic, cluster nodes (kubelet probes plus the host-network Home
+    Assistant pod reaching Plex / the voice services) and Prometheus
+    scraping. Egress is intentionally unrestricted. The plex-lan and
+    rsyncd-backups-lan policies add the LAN-facing LoadBalancer ports.
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace.
+    - fromEndpoints:
+        - {}
+    # Prometheus metric scraping.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: plex-lan
+  namespace: media
+spec:
+  description: >-
+    Additional allow: the Plex LoadBalancer (10.0.0.30) exposes the media
+    server to LAN/internet clients on :32400.
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: plex
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "32400"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: rsyncd-backups-lan
+  namespace: media
+spec:
+  description: >-
+    Additional allow: the rsyncd-backups LoadBalancer (10.0.0.249) exposes
+    the rsync backup target to the LAN; the container listens on :8730.
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: rsyncd-backups
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "8730"
+              protocol: TCP
