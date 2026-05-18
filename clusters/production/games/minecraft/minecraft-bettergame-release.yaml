@@ -50,7 +50,7 @@ spec:
             - name: CF_PAGE_URL
               value: "https://www.curseforge.com/minecraft/modpacks/better-mc-forge-bmc4"
             - name: CF_API_KEY_FILE
-              value: "/run/secrets/curseforge/api-key"
+              value: "/run/secrets/curseforge/CF_API_KEY"
             - name: MEMORY
               value: "6G"
             - name: INIT_MEMORY
