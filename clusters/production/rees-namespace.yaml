@@ -4,6 +4,8 @@ metadata:
   name: ai
   labels:
     managed-by: flux
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
 ---
 apiVersion: v1
 kind: Namespace
@@ -11,6 +13,8 @@ metadata:
   name: cert-manager
   labels:
     managed-by: flux
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
 ---
 apiVersion: v1
 kind: Namespace
@@ -18,6 +22,8 @@ metadata:
   name: istio-system
   labels:
     managed-by: flux
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
 
 ---
 apiVersion: v1
@@ -26,6 +32,9 @@ metadata:
   name: longhorn-system
   labels:
     managed-by: flux
+    # Longhorn instance-managers run privileged with hostPath mounts.
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
 ---
 apiVersion: v1
 kind: Namespace
@@ -33,6 +42,8 @@ metadata:
   name: node-feature-discovery
   labels:
     managed-by: flux
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
 ---
 apiVersion: v1
 kind: Namespace
@@ -40,6 +51,9 @@ metadata:
   name: monitoring
   labels:
     managed-by: flux
+    # node-exporter uses hostNetwork/hostPID/hostPath, forbidden by baseline.
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
 ---
 apiVersion: v1
 kind: Namespace
@@ -47,3 +61,5 @@ metadata:
   name: identity
   labels:
     managed-by: flux
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
