@@ -18,7 +18,7 @@ spec:
       retries: 3
   interval: 1h0m0s
   releaseName: minecraft-warren
-  targetNamespace: default
+  targetNamespace: games
   values:
     image:
       repository: itzg/minecraft-server
