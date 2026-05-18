@@ -34,6 +34,12 @@ spec:
         useExistingSecret: true
 
     grafana:
+      persistence:
+        enabled: true
+        type: pvc
+        storageClassName: longhorn
+        accessModes: ["ReadWriteOnce"]
+        size: 2Gi
       resources:
         requests:
           cpu: "100m"
@@ -45,6 +51,17 @@ spec:
     prometheus:
       prometheusSpec:
         secrets: ["etcd-client-cert"]
+        # Retention sized for the 10Gi volume below (~0.85 GB/day measured ingest).
+        retention: 7d
+        retentionSize: "8GiB"
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
         resources:
           requests:
             cpu: "200m"

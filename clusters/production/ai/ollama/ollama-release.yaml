@@ -8,6 +8,9 @@ spec:
   chart:
     spec:
       chart: ollama
+      # Pinned temporarily — chart 1.56.0 is broken (HelmRelease stalled).
+      # Remove to resume auto-updates once upstream ships a working version.
+      version: "1.55.0"
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -25,8 +28,9 @@ spec:
   values:
     ollama:
       gpu:
-        enabled: false
+        enabled: true
         type: 'nvidia'
+        number: 1
 
       models:
         pull:
