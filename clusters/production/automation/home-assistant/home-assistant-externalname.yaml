@@ -1,0 +1,11 @@
+# Home Assistant runs off-cluster; this ExternalName service is the in-cluster
+# alias other workloads use to reach it. Imported into GitOps during the
+# namespace migration (it was previously created directly in the cluster).
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-assistant-externalname
+  namespace: automation
+spec:
+  type: ExternalName
+  externalName: 10.0.0.25

@@ -19,7 +19,7 @@ spec:
       retries: 3
   interval: 1h0m0s
   releaseName: influxdb2
-  targetNamespace: default
+  targetNamespace: automation
 
   values:
     ingressClassName: internal-nginx
