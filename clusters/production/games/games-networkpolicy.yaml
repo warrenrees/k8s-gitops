@@ -1,0 +1,35 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: games
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway,
+    same-namespace traffic, cluster nodes, Prometheus scraping, and
+    Minecraft players reaching the LoadBalancer on :25565. Egress is
+    intentionally unrestricted.
+  endpointSelector: {}
+  ingress:
+    # The Cilium Gateway API ingress proxy, plus cluster nodes for kubelet
+    # health probes and `kubectl exec/port-forward`.
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace.
+    - fromEndpoints:
+        - {}
+    # Prometheus metric scraping.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+    # Minecraft players on the LAN / internet via the LoadBalancer service.
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "25565"
+              protocol: TCP

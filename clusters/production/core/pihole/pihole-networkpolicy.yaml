@@ -1,0 +1,37 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: networking
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway
+    (Pi-hole web UI), same-namespace traffic, cluster nodes, Prometheus
+    scraping, and LAN DNS clients reaching the LoadBalancer on :53.
+    Egress is intentionally unrestricted.
+  endpointSelector: {}
+  ingress:
+    # The Cilium Gateway API ingress proxy (Pi-hole admin UI), plus cluster
+    # nodes for kubelet health probes and `kubectl exec/port-forward`.
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace.
+    - fromEndpoints:
+        - {}
+    # Prometheus metric scraping.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+    # LAN DNS clients reaching the Pi-hole LoadBalancer (10.0.0.35).
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: TCP
+            - port: "53"
+              protocol: UDP
