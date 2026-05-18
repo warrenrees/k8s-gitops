@@ -1,0 +1,48 @@
+# Allows HTTPRoutes in the migrated app namespaces to reference the
+# authentik forward-auth outpost Service in the identity namespace.
+# frigate -> automation, ombi -> media, ps -> utilities.
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: outpost-from-media
+  namespace: identity
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: media
+  to:
+  - group: ""
+    kind: Service
+    name: ak-outpost-authentik-embedded-outpost
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: outpost-from-automation
+  namespace: identity
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: automation
+  to:
+  - group: ""
+    kind: Service
+    name: ak-outpost-authentik-embedded-outpost
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: outpost-from-utilities
+  namespace: identity
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: utilities
+  to:
+  - group: ""
+    kind: Service
+    name: ak-outpost-authentik-embedded-outpost
