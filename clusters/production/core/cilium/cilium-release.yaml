@@ -101,5 +101,9 @@ spec:
         name: cilium
       operator:
         name: cilium-operator
+    # Geneve adds ~50 bytes of encapsulation overhead. The underlay (eno1) is
+    # 1500, so pods must run at 1450 or full-size packets black-hole on the
+    # tunnel (confirmed: 1550-byte frames are 100% dropped between nodes).
+    MTU: 1450
     routingMode: tunnel
     tunnelProtocol: geneve
