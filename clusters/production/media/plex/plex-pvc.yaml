@@ -1,0 +1,16 @@
+# Imported into GitOps during the namespace migration — the volume was
+# originally created directly in Longhorn. Statically bound to the existing
+# PV (and its data) via volumeName.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-plex-config
+  namespace: media
+spec:
+  storageClassName: longhorn-static
+  volumeName: plex-config
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 55Gi

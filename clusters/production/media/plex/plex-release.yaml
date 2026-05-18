@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: plex
-  namespace: default
+  namespace: media
 spec:
   progressDeadlineSeconds: 600
   selector:
@@ -107,7 +107,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: plex
-  namespace: default
+  namespace: media
 spec:
   externalTrafficPolicy: Cluster
   loadBalancerIP: 10.0.0.30
