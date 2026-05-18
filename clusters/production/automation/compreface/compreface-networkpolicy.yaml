@@ -1,0 +1,50 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: compreface
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway,
+    same-namespace traffic (cf-fe/api/admin/core/db), cluster nodes,
+    Prometheus scraping, and the automation namespace (double-take calls
+    the CompreFace API). Egress is intentionally unrestricted.
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace.
+    - fromEndpoints:
+        - {}
+    # Prometheus metric scraping.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+    # double-take (automation) -> CompreFace API.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: automation
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: compreface-ui-lan
+  namespace: compreface
+spec:
+  description: >-
+    Additional allow: the compreface-ui LoadBalancer (10.0.0.241) exposes
+    the cf-fe web UI to the LAN on container port 80.
+  endpointSelector:
+    matchLabels:
+      app: fe
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP

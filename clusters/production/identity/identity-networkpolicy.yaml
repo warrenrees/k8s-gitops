@@ -1,0 +1,34 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: identity
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway,
+    same-namespace traffic, cluster nodes, Prometheus scraping, and the
+    automation namespace (Frigate's OIDC calls to Authentik). Egress is
+    intentionally unrestricted. Authentik/Vaultwarden are ClusterIP +
+    HTTPRoute only, so this blocks direct LAN access while keeping the
+    gateway and in-cluster integrations working.
+  endpointSelector: {}
+  ingress:
+    # The Cilium Gateway API ingress proxy (Authentik & Vaultwarden UIs and
+    # the forward-auth subrequests), plus cluster nodes for kubelet probes.
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace (authentik-server/worker -> postgresql).
+    - fromEndpoints:
+        - {}
+    # Prometheus metric scraping.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
+    # Frigate (automation) reaching Authentik for OIDC.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: automation
