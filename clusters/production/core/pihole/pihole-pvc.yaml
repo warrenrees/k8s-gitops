@@ -10,7 +10,7 @@ spec:
   storageClassName: longhorn-static
   volumeName: pihole-data
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
