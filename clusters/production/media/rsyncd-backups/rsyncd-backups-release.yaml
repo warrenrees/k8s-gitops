@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rsyncd-backups
-  namespace: default
+  namespace: media
 spec:
   selector:
     matchLabels:
@@ -63,7 +63,7 @@ metadata:
     metallb.universe.tf/allow-shared-ip: plex
     metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
   name: rsyncd-backups
-  namespace: default
+  namespace: media
 spec:
   externalTrafficPolicy: Cluster
   loadBalancerIP: 10.0.0.249

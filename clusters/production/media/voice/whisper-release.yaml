@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: whisper
-  namespace: default
+  namespace: media
 spec:
   selector:
     matchLabels:
@@ -47,7 +47,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: whisper
-  namespace: default
+  namespace: media
   labels:
     app: whisper
   annotations:
