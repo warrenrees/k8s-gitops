@@ -41,6 +41,8 @@ spec:
           type: RuntimeDefault
       containers:
         - name: minecraft
+          securityContext:
+            allowPrivilegeEscalation: false
           image: itzg/minecraft-server:java17
           env:
             - name: EULA

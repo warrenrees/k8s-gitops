@@ -18,6 +18,8 @@ spec:
           type: RuntimeDefault
       containers:
       - name: maintainerr
+        securityContext:
+          allowPrivilegeEscalation: false
         image: ghcr.io/jorenn92/maintainerr:2.0.4 # {"$imagepolicy": "flux-system:maintainerr"}
         imagePullPolicy: IfNotPresent
         ports:

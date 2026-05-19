@@ -20,6 +20,8 @@ spec:
           type: RuntimeDefault
       containers:
       - name: ps
+        securityContext:
+          allowPrivilegeEscalation: false
         image: warrenrees/property-search:latest
         imagePullPolicy: IfNotPresent
         #ports:

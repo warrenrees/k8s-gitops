@@ -26,6 +26,8 @@ spec:
             name: vaultwarden-secret
         imagePullPolicy: IfNotPresent
         name: vaultwarden
+        securityContext:
+          allowPrivilegeEscalation: false
         image: vaultwarden/server:1.36.0 # {"$imagepolicy": "flux-system:vaultwarden"}
         resources:
           requests:

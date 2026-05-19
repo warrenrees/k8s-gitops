@@ -27,6 +27,8 @@ spec:
       containers:
         - image: 'exadel/compreface-fe:1.0.1'
           name: cf-fe
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 80
           resources:

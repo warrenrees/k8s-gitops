@@ -30,6 +30,8 @@ spec:
         image: jakowenko/double-take:1.13.2 # {"$imagepolicy": "flux-system:double-take"}
         imagePullPolicy: Always
         name: double-take
+        securityContext:
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: 3000
           name: http

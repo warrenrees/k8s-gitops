@@ -20,6 +20,8 @@ spec:
           type: RuntimeDefault
       containers:
       - name: sonarr
+        securityContext:
+          allowPrivilegeEscalation: false
         image: linuxserver/sonarr:4.0.17 # {"$imagepolicy": "flux-system:sonarr"}
         imagePullPolicy: IfNotPresent
         ports:

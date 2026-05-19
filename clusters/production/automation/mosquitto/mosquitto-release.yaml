@@ -26,6 +26,8 @@ spec:
       - image: eclipse-mosquitto:2.0.22 # {"$imagepolicy": "flux-system:mosquitto"}
         imagePullPolicy: Always
         name: mosquitto
+        securityContext:
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: 1883
           name: mqtt

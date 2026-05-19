@@ -20,6 +20,8 @@ spec:
           type: RuntimeDefault
       containers:
       - name: oscar
+        securityContext:
+          allowPrivilegeEscalation: false
         image: ghcr.io/rogerrum/docker-oscar:1.7.1 # {"$imagepolicy": "flux-system:oscar"}
         imagePullPolicy: IfNotPresent
         ports:

@@ -47,6 +47,8 @@ spec:
               value: /var/lib/postgresql/data/pgdata
           image: postgres:11.5
           name: cf-db
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
           - containerPort: 5432
           resources:

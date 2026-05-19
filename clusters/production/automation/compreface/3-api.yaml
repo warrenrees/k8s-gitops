@@ -50,6 +50,8 @@ spec:
           ports:
           - containerPort: 8080
           name: cf-api
+          securityContext:
+            allowPrivilegeEscalation: false
           resources:
             requests:
               cpu: "100m"

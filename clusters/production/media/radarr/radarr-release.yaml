@@ -20,6 +20,8 @@ spec:
           type: RuntimeDefault
       containers:
       - name: radarr
+        securityContext:
+          allowPrivilegeEscalation: false
         image: linuxserver/radarr:6.1.1 # {"$imagepolicy": "flux-system:radarr"}
         imagePullPolicy: IfNotPresent
         ports:
