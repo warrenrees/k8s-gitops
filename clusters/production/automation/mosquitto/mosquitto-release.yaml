@@ -32,6 +32,19 @@ spec:
         - containerPort: 1883
           name: mqtt
           protocol: TCP
+        startupProbe:
+          tcpSocket:
+            port: 1883
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 1883
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 1883
+          periodSeconds: 10
         resources:
           requests:
             cpu: "50m"

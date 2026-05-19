@@ -36,6 +36,19 @@ spec:
         - containerPort: 3000
           name: http
           protocol: TCP
+        startupProbe:
+          tcpSocket:
+            port: 3000
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 3000
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 3000
+          periodSeconds: 10
         resources:
           requests:
             cpu: "50m"

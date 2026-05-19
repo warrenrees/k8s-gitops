@@ -31,6 +31,19 @@ spec:
         ports:
         - containerPort: 10400
           protocol: TCP
+        startupProbe:
+          tcpSocket:
+            port: 10400
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 10400
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 10400
+          periodSeconds: 10
         resources:
           requests:
             cpu: "200m"

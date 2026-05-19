@@ -31,6 +31,19 @@ spec:
             allowPrivilegeEscalation: false
           ports:
             - containerPort: 80
+          startupProbe:
+            tcpSocket:
+              port: 80
+            failureThreshold: 60
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
           resources:
             requests:
               cpu: "50m"

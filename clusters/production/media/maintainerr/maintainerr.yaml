@@ -24,6 +24,19 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 6246
+        startupProbe:
+          tcpSocket:
+            port: 6246
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 6246
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 6246
+          periodSeconds: 10
         env:
         - name: PGID
           value: "65536"

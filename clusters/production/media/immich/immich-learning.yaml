@@ -32,6 +32,19 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
           image: ghcr.io/immich-app/immich-machine-learning:v2.7.5-cuda # {"$imagepolicy": "flux-system:immich-machine-learning"}
+          startupProbe:
+            tcpSocket:
+              port: 3003
+            failureThreshold: 60
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 3003
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 3003
+            periodSeconds: 10
           # volumeMounts:
           #   - mountPath: /cache
           #     name: model-cache
