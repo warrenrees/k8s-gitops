@@ -50,6 +50,21 @@ spec:
           ports:
           - containerPort: 8080
           name: cf-api
+          securityContext:
+            allowPrivilegeEscalation: false
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            failureThreshold: 60
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 10
           resources:
             requests:
               cpu: "100m"

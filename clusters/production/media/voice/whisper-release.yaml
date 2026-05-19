@@ -23,6 +23,8 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: whisper-k8s
+        securityContext:
+          allowPrivilegeEscalation: false
         image: rhasspy/wyoming-whisper:3.1.0 # {"$imagepolicy": "flux-system:whisper"}
         args:
         - --model=base
@@ -30,6 +32,19 @@ spec:
         ports:
         - containerPort: 10300
           protocol: TCP
+        startupProbe:
+          tcpSocket:
+            port: 10300
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 10300
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 10300
+          periodSeconds: 10
         resources:
           requests:
             cpu: "200m"

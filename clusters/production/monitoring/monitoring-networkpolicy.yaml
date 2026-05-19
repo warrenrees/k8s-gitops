@@ -1,0 +1,26 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-baseline
+  namespace: monitoring
+spec:
+  description: >-
+    Default-deny ingress for the namespace. Allows the Cilium gateway,
+    same-namespace traffic, cluster nodes (kubelet probes / host-network
+    clients) and Prometheus scraping. Egress is intentionally unrestricted.
+  endpointSelector: {}
+  ingress:
+    # The Cilium Gateway API ingress proxy (Grafana / Prometheus / Headlamp
+    # UIs), plus cluster nodes for kubelet health probes,
+    # `kubectl exec/port-forward`, and host-network clients. `kube-apiserver`
+    # is required for the metrics-server APIService aggregation.
+    - fromEntities:
+        - ingress
+        - host
+        - remote-node
+        - kube-apiserver
+        - health
+    # Any pod in this same namespace — covers Prometheus scraping its own
+    # workloads (kube-state-metrics, exporters) and Alertmanager.
+    - fromEndpoints:
+        - {}

@@ -30,10 +30,25 @@ spec:
         image: jakowenko/double-take:1.13.2 # {"$imagepolicy": "flux-system:double-take"}
         imagePullPolicy: Always
         name: double-take
+        securityContext:
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: 3000
           name: http
           protocol: TCP
+        startupProbe:
+          tcpSocket:
+            port: 3000
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 3000
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 3000
+          periodSeconds: 10
         resources:
           requests:
             cpu: "50m"

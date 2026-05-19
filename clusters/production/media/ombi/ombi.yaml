@@ -28,10 +28,25 @@ spec:
           type: RuntimeDefault
       containers:
       - name: ombi
+        securityContext:
+          allowPrivilegeEscalation: false
         image: linuxserver/ombi:4.53.5 # {"$imagepolicy": "flux-system:ombi"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579
+        startupProbe:
+          tcpSocket:
+            port: 3579
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 3579
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 3579
+          periodSeconds: 10
         env:
         - name: TZ
           value: America\Toronto

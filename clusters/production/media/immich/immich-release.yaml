@@ -21,6 +21,8 @@ spec:
           type: RuntimeDefault
       containers:
         - name: immich-server
+          securityContext:
+            allowPrivilegeEscalation: false
           image: ghcr.io/immich-app/immich-server:v2.7.5 # {"$imagepolicy": "flux-system:immich-server"}
           resources:
             requests:

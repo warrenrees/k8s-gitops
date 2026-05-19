@@ -47,8 +47,15 @@ spec:
               value: /var/lib/postgresql/data/pgdata
           image: postgres:11.5
           name: cf-db
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
           - containerPort: 5432
+          readinessProbe:
+            exec:
+              command: ["pg_isready"]
+            initialDelaySeconds: 30
+            periodSeconds: 30
           resources:
             requests:
               cpu: "50m"

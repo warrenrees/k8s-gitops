@@ -28,6 +28,8 @@ spec:
           type: RuntimeDefault
       containers:
         - name: immich-redis
+          securityContext:
+            allowPrivilegeEscalation: false
           image: docker.io/redis:8.0.0-alpine # {"$imagepolicy": "flux-system:redis2"}
           ports:
             - containerPort: 6379
