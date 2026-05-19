@@ -24,7 +24,9 @@ spec:
           type: RuntimeDefault
       containers:
       - name: metermon
-        image: seanauff/metermon
+        # Upstream publishes only the `latest` tag (no semver), so pin by
+        # digest for reproducibility. Bump manually when an update is wanted.
+        image: seanauff/metermon:latest@sha256:01264bae174f5f030ec1add9b6bdb86eb7879d03ccc38a940cbb6d7a337c55ca
         imagePullPolicy: IfNotPresent
         env:
         - name: MQTT_BROKER_HOST
