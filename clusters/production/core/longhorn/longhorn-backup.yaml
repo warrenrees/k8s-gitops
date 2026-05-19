@@ -1,0 +1,38 @@
+# Longhorn backup configuration.
+#
+# These resources already exist in the cluster (created via the Longhorn UI)
+# and have been running for years. They are codified here so the backup setup
+# is version-controlled and reproducible on a cluster rebuild. The metadata
+# names match the live resources exactly, so Flux adopts them in place — no
+# duplicate jobs or targets are created.
+#
+# After this is applied, the backup config is GitOps-managed: change it here,
+# not in the Longhorn UI (the UI would be reverted on the next reconcile).
+---
+apiVersion: longhorn.io/v1beta2
+kind: BackupTarget
+metadata:
+  name: default
+  namespace: longhorn-system
+spec:
+  # CIFS/SMB share on the NAS. Credentials come from the sealed `cifs-secret`
+  # Secret (see longhorn-cifs-secret-sealed.yaml).
+  backupTargetURL: cifs://10.255.255.79/longhorn
+  credentialSecret: cifs-secret
+  pollInterval: 5m0s
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  # Longhorn-UI-generated name of the existing daily-backup job — kept as-is
+  # so Flux adopts the running job instead of creating a second one.
+  name: c-1uij3f
+  namespace: longhorn-system
+spec:
+  name: c-1uij3f
+  task: backup
+  cron: "0 0 * * *"   # daily at 00:00
+  groups:
+    - default         # applies to every volume in the `default` group
+  retain: 15          # keep the last 15 backups per volume
+  concurrency: 1
