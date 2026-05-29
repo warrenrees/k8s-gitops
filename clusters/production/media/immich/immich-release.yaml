@@ -26,11 +26,11 @@ spec:
           image: ghcr.io/immich-app/immich-server:v2.7.5 # {"$imagepolicy": "flux-system:immich-server"}
           resources:
             requests:
-              cpu: "250m"
-              memory: "512Mi"
-            limits:
-              cpu: "1000m"
+              cpu: "1"
               memory: "2Gi"
+            limits:
+              cpu: "8"
+              memory: "16Gi"
               nvidia.com/gpu: 1
           ports:
             - containerPort: 2283
