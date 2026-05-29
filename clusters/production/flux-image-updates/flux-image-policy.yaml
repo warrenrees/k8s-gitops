@@ -240,7 +240,7 @@ spec:
   imageRepositoryRef:
     name: immich-machine-learning
   filterTags:
-    pattern: '^v(\d+\.\d+\.\d+)-cuda$'
+    pattern: '^v(\d+\.\d+\.\d+)$'
     extract: '$1'
   policy:
     semver:
