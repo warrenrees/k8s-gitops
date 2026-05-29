@@ -66,7 +66,9 @@ spec:
           limits:
             cpu: "12"
             memory: "16Gi"
-            nvidia.com/gpu: 1
+            # No GPU: the GT 1030s in the cluster have no NVENC silicon, and HW
+            # transcoding is disabled in Plex (Settings -> Transcoder). Plex's
+            # software transcoder runs on CPU; the GPU slot was unused.
         startupProbe:
           failureThreshold: 30
           periodSeconds: 5
