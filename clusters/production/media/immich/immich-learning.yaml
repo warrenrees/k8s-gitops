@@ -27,19 +27,21 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      # Keep this pod off any node where ai-ollama is running. The GT 1030s have
-      # only 2 GB VRAM and time-slicing does not partition memory, so co-tenancy
-      # with ollama's resident LLM causes ONNX OOMs (cuBLAS/BFCArena allocation
-      # failures) on Immich ML tasks (OCR/CLIP/face recognition).
+      # Keep this pod off frigate's node. The GT 1030s have only 2 GB VRAM
+      # and time-slicing does not partition memory, so co-tenancy with
+      # frigate's resident GPU state (Jina CLIP embeddings model + NVDEC
+      # decoders + the CUDA runtime from the -tensorrt image) leaves no
+      # headroom for ONNX allocations and causes BFCArena / cuBLAS failures
+      # on Immich ML tasks (OCR/CLIP/face recognition).
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchLabels:
-                  app.kubernetes.io/instance: ai-ollama
-                  app.kubernetes.io/name: ollama
+                  app.kubernetes.io/instance: frigate
+                  app.kubernetes.io/name: frigate
               namespaces:
-                - ai
+                - automation
               topologyKey: kubernetes.io/hostname
       containers:
         - name: immich-machine-learning
