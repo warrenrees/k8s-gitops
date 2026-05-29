@@ -31,7 +31,9 @@ spec:
             limits:
               cpu: "8"
               memory: "16Gi"
-              nvidia.com/gpu: 1
+              # No GPU: the GT 1030s in the cluster have no NVENC silicon, and HW
+              # video acceleration is disabled in Immich (Admin -> Video Transcoding).
+              # Transcoding runs on CPU; the GPU slot was unused.
           ports:
             - containerPort: 2283
           volumeMounts:
