@@ -29,7 +29,7 @@ spec:
               cpu: "1"
               memory: "2Gi"
             limits:
-              cpu: "8"
+              cpu: "16"
               memory: "16Gi"
               # No GPU: the GT 1030s in the cluster have no NVENC silicon, and HW
               # video acceleration is disabled in Immich (Admin -> Video Transcoding).
