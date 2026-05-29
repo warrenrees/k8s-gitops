@@ -42,5 +42,7 @@ spec:
             cpu: "50m"
             memory: "64Mi"
           limits:
-            cpu: "250m"
+            # Was pegged at 250m (100% CFS throttle). 500m gives burst headroom
+            # without meaningfully reserving more (request stays at 50m).
+            cpu: "500m"
             memory: "128Mi"

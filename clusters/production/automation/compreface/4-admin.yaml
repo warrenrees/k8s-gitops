@@ -71,10 +71,13 @@ spec:
           resources:
             requests:
               cpu: "200m"
-              memory: "256Mi"
+              memory: "1Gi"
             limits:
-              cpu: "1000m"
-              memory: "2Gi"
+              # JVM is configured with -Xmx8g; container needs heap + non-heap
+              # (metaspace, code cache, direct buffers, native). 2Gi was about
+              # to OOMKill it (working set was at 87% of limit).
+              cpu: "2"
+              memory: "10Gi"
       restartPolicy: Always
 ---
 apiVersion: v1
