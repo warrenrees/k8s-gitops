@@ -6,10 +6,16 @@ metadata:
   namespace: kube-system
 spec:
   limits:
+    # kube-system holds control-plane and infra components (kube-apiserver,
+    # cilium-envoy, hubble, coredns) whose real memory footprint sits in the
+    # hundreds of MB to ~2 GB range. The old 512Mi default was too tight: it
+    # caused the LimitRanger to stamp a fictional 512Mi limit on kube-apiserver
+    # static-pod mirrors (real usage 1-2 GB), and would OOM any infra pod that
+    # didn't pin its own limit.
     - default:
-        cpu: "500m"
-        memory: "512Mi"
+        cpu: "2"
+        memory: "2Gi"
       defaultRequest:
-        cpu: "50m"
-        memory: "128Mi"
+        cpu: "100m"
+        memory: "256Mi"
       type: Container
