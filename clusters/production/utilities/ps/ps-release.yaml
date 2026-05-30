@@ -42,6 +42,11 @@ spec:
         env:
         - name: TZ
           value: America\Toronto
+        # Trust X-Forwarded-For/X-Real-IP from the in-cluster proxy chain so the
+        # real client IP is logged instead of the cluster/proxy IP. uvicorn has
+        # proxy headers enabled by default; this widens the trusted-peer list.
+        - name: FORWARDED_ALLOW_IPS
+          value: "*"
         resources:
           requests:
             cpu: "100m"
@@ -49,6 +54,15 @@ spec:
           limits:
             cpu: "500m"
             memory: "1Gi"
+        volumeMounts:
+        # The database lives on the PVC (not in the image); the app reads it
+        # from /data/properties.db (DB_PATH default in the image).
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc-ps
       imagePullSecrets:
       - name: dockerhub-secret
 ---
