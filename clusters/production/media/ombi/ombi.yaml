@@ -30,7 +30,7 @@ spec:
       - name: ombi
         securityContext:
           allowPrivilegeEscalation: false
-        image: linuxserver/ombi:4.53.5 # {"$imagepolicy": "flux-system:ombi"}
+        image: linuxserver/ombi:4.53.10 # {"$imagepolicy": "flux-system:ombi"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579
