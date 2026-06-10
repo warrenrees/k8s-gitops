@@ -22,7 +22,7 @@ spec:
       - name: radarr
         securityContext:
           allowPrivilegeEscalation: false
-        image: linuxserver/radarr:6.1.1 # {"$imagepolicy": "flux-system:radarr"}
+        image: linuxserver/radarr:6.2.1 # {"$imagepolicy": "flux-system:radarr"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878
