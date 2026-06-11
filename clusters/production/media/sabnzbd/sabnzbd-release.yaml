@@ -22,7 +22,7 @@ spec:
       - name: sabnzbd
         securityContext:
           allowPrivilegeEscalation: false
-        image: linuxserver/sabnzbd:5.0.3 # {"$imagepolicy": "flux-system:sabnzbd"}
+        image: linuxserver/sabnzbd:5.0.4 # {"$imagepolicy": "flux-system:sabnzbd"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
