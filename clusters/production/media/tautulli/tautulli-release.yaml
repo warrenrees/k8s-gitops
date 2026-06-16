@@ -22,7 +22,7 @@ spec:
       - name: tautulli
         securityContext:
           allowPrivilegeEscalation: false
-        image: ghcr.io/tautulli/tautulli:v2.17.1 # {"$imagepolicy": "flux-system:tautulli"}
+        image: ghcr.io/tautulli/tautulli:v2.17.2 # {"$imagepolicy": "flux-system:tautulli"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8181
