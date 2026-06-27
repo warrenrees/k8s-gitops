@@ -69,3 +69,51 @@ spec:
     allowedRoutes:
       namespaces:
         from: All
+  - name: exuone-prod-api-aa
+    protocol: HTTPS
+    port: 443
+    hostname: api.automatedassessment.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-prod-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: exuone-prod-api-exuone
+    protocol: HTTPS
+    port: 443
+    hostname: api.exuone.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-prod-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: exuone-prod-portal-aa
+    protocol: HTTPS
+    port: 443
+    hostname: portal.automatedassessment.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-prod-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: exuone-prod-portal-exuone
+    protocol: HTTPS
+    port: 443
+    hostname: portal.exuone.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: exuone-prod-tls
+    allowedRoutes:
+      namespaces:
+        from: All

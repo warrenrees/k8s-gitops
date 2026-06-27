@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: exuone-prod-tls
+  namespace: gateway
+spec:
+  secretName: exuone-prod-tls
+  issuerRef:
+    name: letsencrypt-prod-dns
+    kind: ClusterIssuer
+  dnsNames:
+  - api.automatedassessment.com
+  - api.exuone.com
+  - portal.automatedassessment.com
+  - portal.exuone.com
