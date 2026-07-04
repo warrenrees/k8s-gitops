@@ -23,7 +23,7 @@ spec:
   values:
     image:
       repository: itzg/minecraft-server
-      tag: 2026.6.1 # {"$imagepolicy": "flux-system:minecraft:tag"}
+      tag: 2026.7.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
     minecraftServer:
       eula: true
       version: "LATEST"
