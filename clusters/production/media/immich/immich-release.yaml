@@ -23,7 +23,7 @@ spec:
         - name: immich-server
           securityContext:
             allowPrivilegeEscalation: false
-          image: ghcr.io/immich-app/immich-server:v3.0.2 # {"$imagepolicy": "flux-system:immich-server"}
+          image: ghcr.io/immich-app/immich-server:v3.0.3 # {"$imagepolicy": "flux-system:immich-server"}
           resources:
             requests:
               cpu: "1"
