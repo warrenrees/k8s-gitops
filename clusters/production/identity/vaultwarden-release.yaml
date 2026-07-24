@@ -28,7 +28,7 @@ spec:
         name: vaultwarden
         securityContext:
           allowPrivilegeEscalation: false
-        image: vaultwarden/server:1.36.0 # {"$imagepolicy": "flux-system:vaultwarden"}
+        image: vaultwarden/server:1.37.0 # {"$imagepolicy": "flux-system:vaultwarden"}
         startupProbe:
           tcpSocket:
             port: 80
