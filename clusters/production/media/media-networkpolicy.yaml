@@ -7,10 +7,9 @@ spec:
   description: >-
     Default-deny ingress for the namespace. Allows the Cilium gateway
     (the *arr apps, Immich, Tautulli, Ombi web UIs), same-namespace
-    traffic, cluster nodes (kubelet probes plus the host-network Home
-    Assistant pod reaching Plex / the voice services) and Prometheus
-    scraping. Egress is intentionally unrestricted. The plex-lan and
-    rsyncd-backups-lan policies add the LAN-facing LoadBalancer ports.
+    traffic, cluster nodes (kubelet probes) and Prometheus scraping.
+    Egress is intentionally unrestricted. The plex-lan, rsyncd-backups-lan
+    and voice-lan policies add the LAN-facing LoadBalancer ports.
   endpointSelector: {}
   ingress:
     - fromEntities:
@@ -70,4 +69,31 @@ spec:
       toPorts:
         - ports:
             - port: "8730"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: voice-lan
+  namespace: media
+spec:
+  description: >-
+    Additional allow: the Wyoming voice services share LoadBalancer
+    10.0.0.247; Home Assistant (off-cluster, 10.0.0.25) and other LAN
+    clients reach piper :10200, whisper :10300, openwakeword :10400.
+  endpointSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: [piper, whisper, openwakeword]
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "10200"
+              protocol: TCP
+            - port: "10300"
+              protocol: TCP
+            - port: "10400"
               protocol: TCP
