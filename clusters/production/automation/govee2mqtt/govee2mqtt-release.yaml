@@ -24,8 +24,6 @@ spec:
           value: America\Toronto
         - name: GOVEE_TEMPERATURE_SCALE
           value: "C"
-        - name: GOVEE_MQTT_HOST
-          value: 10.0.0.245
         envFrom:
         - secretRef:
             name: govee2mqtt
