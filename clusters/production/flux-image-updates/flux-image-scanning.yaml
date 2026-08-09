@@ -183,10 +183,10 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
-  name: pgvecto
+  name: immich-postgres
   namespace: flux-system
 spec:
-  image: docker.io/tensorchord/pgvecto-rs
+  image: ghcr.io/immich-app/postgres
   interval: 30m0s
 
 ---

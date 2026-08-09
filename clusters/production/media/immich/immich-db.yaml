@@ -31,7 +31,7 @@ spec:
         - name: immich-database
           securityContext:
             allowPrivilegeEscalation: false
-          image: docker.io/tensorchord/pgvecto-rs:pg16-v0.2.0 # {"$imagepolicy": "flux-system:pgvecto"}
+          image: ghcr.io/immich-app/postgres:16-vectorchord1.1.1-pgvector0.8.5 # {"$imagepolicy": "flux-system:immich-postgres"}
           ports:
             - containerPort: 5432
           env:
