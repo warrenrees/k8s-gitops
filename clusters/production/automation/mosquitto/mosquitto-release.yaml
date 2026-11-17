@@ -23,7 +23,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       containers:
-      - image: eclipse-mosquitto:2.0.22 # {"$imagepolicy": "flux-system:mosquitto"}
+      - image: eclipse-mosquitto:2.0.23 # {"$imagepolicy": "flux-system:mosquitto"}
         imagePullPolicy: Always
         name: mosquitto
         securityContext:
