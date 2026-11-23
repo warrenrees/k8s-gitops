@@ -26,11 +26,11 @@ spec:
       - name: metermon
         # Upstream publishes only the `latest` tag (no semver), so pin by
         # digest for reproducibility. Bump manually when an update is wanted.
-        image: seanauff/metermon:latest@sha256:01264bae174f5f030ec1add9b6bdb86eb7879d03ccc38a940cbb6d7a337c55ca
+        image: seanauff/metermon:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: MQTT_BROKER_HOST
-          value: "10.0.0.245"
+          value: "10.0.0.25"
         - name: RTL_TCP_SERVER
           value: "10.0.0.15:1234"
         - name: RTLAMR_UNIQUE
