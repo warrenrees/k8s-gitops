@@ -12,8 +12,10 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
+  mountOptions:
+    - nfsvers=4.1
   nfs:
-    path: /var/nfs/shared/rsyncdbackups
+    path: /rsyncdbackups
     server: 10.255.255.79
 
 ---

@@ -12,8 +12,10 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
+  mountOptions:
+    - nfsvers=4.1
   nfs:
-    path: /var/nfs/shared/airsense11warren
+    path: /airsense11warren
     server: 10.255.255.79
 
 ---

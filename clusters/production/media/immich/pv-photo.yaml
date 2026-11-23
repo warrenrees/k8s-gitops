@@ -12,11 +12,10 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
-  #mountOptions:
-  #  - hard
-  #  - nfsvers=4
+  mountOptions:
+    - nfsvers=4.1
   nfs:
-    path: /var/nfs/shared/photos
+    path: /photos
     server: 10.255.255.79
 
 ---
